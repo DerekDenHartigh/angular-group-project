@@ -12,5 +12,5 @@ angular
     template: `
 
         `,
-    controller: MovieListController
+    controller: SearchController
 });
