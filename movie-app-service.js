@@ -1,6 +1,6 @@
 "use strict";
 
-function MovieAppService($http) {
+function MovieAppService($http, $locaion, $scope, $rootScope) {
 
     // Below is code from the reddit lab that we can modify for our own API usage
     const service = this;
@@ -15,7 +15,8 @@ function MovieAppService($http) {
 
 angular
     .module("MovieApp")
-    .service("MovieAppService", ["$http", MovieAppService]);
+    .service("MovieAppService", ["$http", "$location", "$scope", "$rootScope", MovieAppService]);
+    // felt cute, might need to strip some of these dependencies later
 
 
 
@@ -33,13 +34,23 @@ angular
      * &language=en-US&sort_by=popularity.desc
      * &include_adult=false - prevents NSFW content
      * &include_video=false - prevents videos from getting kicked out of API
-     * &page=1Min1000Max - set page of results to query - we could do a next/previous page that increments/decriments this to allow user to keep browsing
-     * &release_date.gte=ReleaseDateGreaterThanOrEqualTo - if we wanted to set time-ranges on movie release dates
-     * &release_date.lte=ReleaseDateLessThanOrEqualTo - if we wanted to set time-ranges on movie release dates
-     * &with_genres=genreSelection - user could check genres they are interested in
+     * &page=${pageNumber} - set page of results to query - we could do a next/previous page that increments/decriments this to allow user to keep browsing
+     * &release_date.gte=${earliestReleaseDate} - if we wanted to set time-ranges on movie release dates
+     * &release_date.lte=${latestReleaseDate} - if we wanted to set time-ranges on movie release dates
+     * &with_genres=${genreSelection} - user could check genres they are interested in
+     *      Comma separated value of genre ids that you want to include in the results.
+     *      we'll need to use the Array.join() method for multiple genres
+     *      e.g. https://www.w3schools.com/jsref/tryit.asp?filename=tryjsref_join
      * &without_genres=genresNotWanted - user could exclude genres they aren't interested in
-     * &with_runtime.gte=runTimeGreaterThanOrEqual - user can specify min runtime
-     * &with_runtime.lte=runTimeLessThanOrEqual - user can specicy max runtime
+     * &with_runtime.gte=runTimeGreaterThanOrEqual - user can specify min runtime (integer)
+     * &with_runtime.lte=runTimeLessThanOrEqual - user can specicy max runtime (integer)
+     */
+
+    /**  RESOURCES
+     * https://docs.angularjs.org/api/ng/service/$location - resource on using location service
+     * https://docs.angularjs.org/api/ng/service/$http - resource on using http service
+     * https://docs.angularjs.org/api/ng/type/$rootScope.Scope#$watch - resource on setting us a $watch service
+     * 
      */
 
      /**
