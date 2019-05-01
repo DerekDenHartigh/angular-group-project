@@ -26,6 +26,22 @@ angular
      * API Read Access Token (v4 auth): eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJhdWQiOiIxNTI0NDY0Y2M3MmVlOTNmOTAwMjJkMTMyZDFkMmU0NCIsInN1YiI6IjVjYzdhNmZlMGUwYTI2MzQ0N2YwMGE2OSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.jF5Dpyw_d8cGwX_H-Nzm3-0Tb4GJcDxOhgsJhOEJLJg
      */
 
+    /**
+     * essential for specifying the get: https://developers.themoviedb.org/3/discover/movie-discover
+     * 
+     * https://api.themoviedb.org/3/discover/movie?api_key=1524464cc72ee93f90022d132d1d2e44
+     * &language=en-US&sort_by=popularity.desc
+     * &include_adult=false - prevents NSFW content
+     * &include_video=false - prevents videos from getting kicked out of API
+     * &page=1Min1000Max - set page of results to query - we could do a next/previous page that increments/decriments this to allow user to keep browsing
+     * &release_date.gte=ReleaseDateGreaterThanOrEqualTo - if we wanted to set time-ranges on movie release dates
+     * &release_date.lte=ReleaseDateLessThanOrEqualTo - if we wanted to set time-ranges on movie release dates
+     * &with_genres=genreSelection - user could check genres they are interested in
+     * &without_genres=genresNotWanted - user could exclude genres they aren't interested in
+     * &with_runtime.gte=runTimeGreaterThanOrEqual - user can specify min runtime
+     * &with_runtime.lte=runTimeLessThanOrEqual - user can specicy max runtime
+     */
+
      /**
       * For Genres:
       * get: https://api.themoviedb.org/3/genre/movie/list?api_key=1524464cc72ee93f90022d132d1d2e44&language=en-US
