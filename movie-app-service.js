@@ -28,6 +28,7 @@ function MovieAppService($http, $location, $rootScope) {
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
         
         service.generateGenreArray = function (){
+            console.error("clicked!")
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`, function(data, status){
                 data.forEach( genre => {
                     service.genreOptionArray.push(genre.name);
@@ -75,8 +76,6 @@ function MovieAppService($http, $location, $rootScope) {
         // $hhtp(.get(ULR, {search object, movie: movie, genre: action, etc.}))
     };
 
-    service.generateGenreArray();
-    console.warn(genreOptionArray);
 }
 
 angular
