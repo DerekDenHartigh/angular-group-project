@@ -1,6 +1,6 @@
 "use strict";
 
-function MovieAppService($http, $locaion, $scope, $rootScope) {
+function MovieAppService($http, $location, $rootScope) {
 
     const service = this;
 
@@ -28,13 +28,13 @@ function MovieAppService($http, $locaion, $scope, $rootScope) {
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
         
         service.generateGenreArray = function (){
-            let genreJSON = $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
-            genreJSON.genres.forEach( genre => {
-                genreOptionArray.push(genre.name);
-            });
-            console.log(genreOptionArray);
-            return genreOptionArray;
-        }
+            $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`, function(data, status){
+                data.forEach( genre => {
+                    service.genreOptionArray.push(genre.name);
+                })
+            .then(console.log(service.genreOptionArray));
+            return service.genreOptionArray;
+        })};
 
         service.genreSelectionArray = [];
             // will need code that builds this when user checks a genre
@@ -75,13 +75,13 @@ function MovieAppService($http, $locaion, $scope, $rootScope) {
         // $hhtp(.get(ULR, {search object, movie: movie, genre: action, etc.}))
     };
 
-    generateGenreArray();
+    service.generateGenreArray();
     console.warn(genreOptionArray);
 }
 
 angular
     .module("MovieApp")
-    .service("MovieAppService", ["$http", "$location", "$scope", "$rootScope", MovieAppService]);
+    .service("MovieAppService", ["$http", "$location", "$rootScope", MovieAppService]);
     // felt cute, might need to strip some of these dependencies later
 
 
