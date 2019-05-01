@@ -28,18 +28,26 @@ function MovieAppService($http, $location, $rootScope) {
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
         
         service.generateGenreArray = function (){
-            console.error("clicked!")
-            $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`, function(data, status){
-                data.forEach( genre => {
+            $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
+            .then( (response)=>{ // response includes headers
+                response.data.genres.forEach( genre => {
                     service.genreOptionArray.push(genre.name);
-                })
-            .then(console.log(service.genreOptionArray));
-            return service.genreOptionArray;
-        })};
+                });
+                console.log(`genreOptionArray: ${service.genreOptionArray}`)
+            });
+        };
 
         service.genreSelectionArray = [];
-            // will need code that builds this when user checks a genre
-            // will need code that splices out genres when user unchecks them
+            // builds genreSelectionArray when user checks a desiredgenre
+            service.addToGenreSelectionArray = function(genreSelection){
+                service.genreSelectionArray.push(genreSelection);
+            }
+            // searches out removedGenre and splices it from the genreSelectionArray
+            service.removeFromGenreSelectionArray = function(removeGenre){
+                console.log(removeGenre);
+                let target = service.genreSelectionArray.indexOf(removeGenre);
+                service.genreSelectionArray.splice(target, 1);
+              };
             // will need code so that genres can't be x'd and checked simultaneously
 
             service.genreSelectionArrayToString = function(){
