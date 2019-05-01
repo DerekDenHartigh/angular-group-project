@@ -1,7 +1,9 @@
 "use strict";
 
-function WatchListController() { 
+function WatchListController(MovieAppService) { 
     const ctrl = this;
+    const service = MovieAppService;
+
     
 }
 

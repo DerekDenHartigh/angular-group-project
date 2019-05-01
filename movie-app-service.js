@@ -2,15 +2,81 @@
 
 function MovieAppService($http, $locaion, $scope, $rootScope) {
 
-    // Below is code from the reddit lab that we can modify for our own API usage
     const service = this;
-    service.api_key = "1524464cc72ee93f90022d132d1d2e44";
+
+    service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
+
+    // variable initialization:
+    // service.pageNumber = 1;
+    // service.earliestReleaseDate;
+    // service.latestReleaseDate;
+    // service.genreSelection = [];
+    // service.genresNotWanted = [];
+    // service.runTimeGreaterThanOrEqual;
+    // service.runTimeLessThanOrEqual;
+
+    // Hardcoded variables for testing - should only return 1 page of action titles (no horror titles) from 2000-2019, of duration 0-120 min.
+    
+    service.pageNumber = 1;
+    service.earliestReleaseDate = 2000;
+    service.latestReleaseDate = 2019;
+    service.genreSelection = "action";
+    service.genresNotWanted = "horror";
+    service.runTimeGreaterThanOrEqual = 0;
+    service.runTimeLessThanOrEqual = 120;
+
+    service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
+        
+        service.generateGenreArray = function (){
+            let genreJSON = $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
+            genreJSON.genres.forEach( genre => {
+                genreOptionArray.push(genre.name);
+            });
+            console.log(genreOptionArray);
+            return genreOptionArray;
+        }
+
+        service.genreSelectionArray = [];
+            // will need code that builds this when user checks a genre
+            // will need code that splices out genres when user unchecks them
+            // will need code so that genres can't be x'd and checked simultaneously
+
+            service.genreSelectionArrayToString = function(){
+                service.genreSelection = genreSelectionArray.join();
+                // I don't need to return genreSelection right?
+            }
+
+        service.genreExlusionArray = [];
+            // will need code that builds this array when user x's a genre
+            // will need code that splices out genres when user unchecks them
+            // will need code so that genres can't be x'd and checked simultaneously
+
+            service.genreExclusionArrayToString = function(){
+                service.genreExclusion = genreExclusionArray.join();
+                // I don't need to return genreExclusion right?
+            }
 
     service.callTheMovieDbApi = () => {
-        return $http.get(`api.themoviedb.org/3/movie/76341?api_key=1524464cc72ee93f90022d132d1d2e44`)
+        return $http.get(`
+        https://api.themoviedb.org/3/discover/movie?api_key=${service.api_key}
+        &language=en-US
+        &sort_by=popularity.desc
+        &include_adult=false
+        &include_video=false
+        &page=${service.pageNumber}
+        &release_date.gte=${service.earliestReleaseDate}
+        &release_date.lte=${service.latestReleaseDate}
+        &with_genres=${service.genreSelection}
+        &without_genres=${service.genresNotWanted}
+        &with_runtime.gte=${service.runTimeGreaterThanOrEqual}
+        &with_runtime.lte=${service.runTimeLessThanOrEqual}
+        `)
 
         // $hhtp(.get(ULR, {search object, movie: movie, genre: action, etc.}))
     };
+
+    generateGenreArray();
+    console.warn(genreOptionArray);
 }
 
 angular
@@ -31,7 +97,8 @@ angular
      * essential for specifying the get: https://developers.themoviedb.org/3/discover/movie-discover
      * 
      * https://api.themoviedb.org/3/discover/movie?api_key=1524464cc72ee93f90022d132d1d2e44
-     * &language=en-US&sort_by=popularity.desc
+     * &language=en-US - makes language english
+     * &sort_by=popularity.desc - sorts movies by popularity (descending, so most popular 1st?)
      * &include_adult=false - prevents NSFW content
      * &include_video=false - prevents videos from getting kicked out of API
      * &page=${pageNumber} - set page of results to query - we could do a next/previous page that increments/decriments this to allow user to keep browsing
@@ -137,6 +204,6 @@ angular
     }
   ]
 }
-    we can use this to build a genreArray to populate our dropdown box.  
-    e.g. while (n<genres.length) {service.genreArray.push(genres[n].name)}
+    we can use this to build a genreOptionArray to populate our dropdown box.  
+    e.g. while (n<genres.length) {service.genreOptionArray.push(genres[n].name)}
       */

@@ -1,6 +1,6 @@
 "use strict";
 
-angular.module("catDogApp")
+angular.module("MovieApp")
 .config(["$routeProvider", ($routeProvider) => {
     $routeProvider
     .when("/home", {
