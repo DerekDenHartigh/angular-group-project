@@ -3,7 +3,7 @@
 function SearchController(MovieAppService) { 
     const ctrl = this;
     const service = MovieAppService;
-    ctrl.genreOptionArray = service.genreOptionArray
+    ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
     ctrl.callGenerateGenreArray = function(){
         return service.generateGenreArray();
     };
@@ -20,10 +20,10 @@ angular
             <label class="genre-option">{{genre.name}}</label>
             <div class="checkbox-box">
                 <label class="checkbox-container genre-inclusion-checkbox-container">
-                    Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" />
+                    Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genre.include" ng-click="console.log({{genre}})" />
                 </label>
                 <label class="checkbox-container genre-exclusion-checkbox-container">
-                    Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/>
+                    Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genre.exclude"/>
                 </label>
             </div>
         </div>
@@ -31,6 +31,13 @@ angular
         `,
     controller: SearchController
 });
+
+/**
+ * Questions:
+ * will changes to ctrl.genreOptionArray affect service.genreOptionArray?
+ * will checkign the checkbox change the genre object?
+ *      ng-click="console.log({{genre}})" isn't working to test this.  perhaps I will need to make a function it calls to do this?
+ */
 
 
 /**
