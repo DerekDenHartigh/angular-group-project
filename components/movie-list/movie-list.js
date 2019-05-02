@@ -5,6 +5,8 @@ function MovieListController(MovieAppService) {
     const service = MovieAppService;
 
     
+    //Working on populating page
+
 }
 
 
@@ -12,6 +14,7 @@ angular
 .module('MovieApp')  
 .component('movieList', {
     template: `
+
 
         `,
     controller: MovieListController
