@@ -6,7 +6,184 @@
 
 /* Home Page Styling */
 
-/* Search Styling */
+/* Search Styling 
+        sauces: https://codepen.io/AurelienZMN/pen/RadXBZ, 
+                https://webdesign.tutsplus.com/articles/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953
+                http://jsbin.com/itejak/1/edit?html,css,output
+                https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
+                https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
+*/
+
+search{
+    display: flex;
+    background-color: red;
+}
+
+    #genre-selection-form{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+        .genre-option-box{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            justify-items: space-around;
+            align-content: center;
+            align-items: center;
+            margin: 10px;
+            background-color: yellow;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .genre-option{
+            display: flex;
+            background-color: grey;
+            padding: 15px;
+            border-radius: 15px;
+        }
+        .container{
+
+        }
+        
+        /* .checkbox{
+            display: flex;
+            align-self: center;
+            height: 20px;
+            width: 20px;
+        } */
+            .genre-inclusion-checkbox{
+                /* font-family: 'Material Icons';
+                content: 'check'; */
+            }
+
+            .genre-exclusion-checkbox{
+                /* font-family: 'Material Icons';
+                content: 'close'; */
+            }
+
+                            
+                /* Hide the browser's default checkbox */
+                .container input {
+                    position: absolute;
+                    opacity: 0;
+                    cursor: pointer;
+                    height: 0;
+                    width: 0;
+                }
+                
+                /* Create a custom checkbox */
+                .checkmark {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    height: 25px;
+                    width: 25px;
+                    background-color: #eee;
+                }
+                
+                /* On mouse-over, add a grey background color */
+                .container:hover input ~ .checkmark {
+                    background-color: #ccc;
+                }
+                
+                /* When the checkbox is checked, add a blue background */
+                .container input:checked ~ .checkmark {
+                    background-color: #2196F3;
+                }
+                
+                /* Create the checkmark/indicator (hidden when not checked) */
+                .checkmark:after {
+                    content: "";
+                    position: absolute;
+                    display: none;
+                }
+                
+                /* Show the checkmark when checked */
+                .container input:checked ~ .checkmark:after {
+                    display: block;
+                }
+                
+                /* Style the checkmark/indicator */
+                .container .checkmark:after {
+                    left: 9px;
+                    top: 5px;
+                    width: 5px;
+                    height: 10px;
+                    border: solid white;
+                    border-width: 0 3px 3px 0;
+                    -webkit-transform: rotate(45deg);
+                    -ms-transform: rotate(45deg);
+                    transform: rotate(45deg);
+                }
+
+            /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                position: absolute;
+                left: -9999px;
+           }
+            [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                position: relative;
+                padding-left: 30px;
+                cursor: pointer;
+           }
+            [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                content: '';
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 20px;
+                height: 20px;
+                border: 1px solid #aaa;
+                background: #f8f8f8;
+           }
+            [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                font-family: 'Material Icons';
+                content: 'check';
+                text-rendering: optimizeLegibility;
+                font-feature-settings: "liga" 1;
+                font-style: normal;
+                text-transform: none;
+                line-height: 22px;
+                font-size: 21px;
+                width: 22px;
+                height: 22px;
+                text-align: center;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                display: inline-block;
+                overflow: hidden;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                color: #09ad7e;
+                transition: all 0.2s;
+           }
+            [type="checkbox"]:not(:checked) {
+                opacity: 0;
+                transform: scale(0);
+           }
+            [type="checkbox"]:checked {
+                opacity: 1;
+                transform: scale(1);
+           }
+            [type="checkbox"]:disabled:not(:checked), [type="checkbox"]:disabled:checked, [type="checkbox"]:disabled:not(:checked):hover, [type="checkbox"]:disabled:checked:hover {
+                border-color: #bbb !important;
+                background-color: #ddd;
+           }
+            [type="checkbox"]:disabled:checked {
+                color: #999;
+           }
+            [type="checkbox"]:disabled{
+                color: #aaa;
+           }
+            [type="checkbox"]:checked:focus, [type="checkbox"]:not(:checked):focus {
+                border: 1px dotted #09ad7e;
+           }
+            label:hover:before {
+                border: 1px solid #09ad7e !important;
+           } */
+
 
 /* Movies Styling */
 

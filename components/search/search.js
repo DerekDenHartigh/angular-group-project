@@ -15,12 +15,17 @@ angular
 .component('search', {
     template: `
     <h1>Search Criteria<h1>
-    <div name="genreSelectionForm">
-        <div ng-repeat="genre in $ctrl.genreOptionArray">
-            <label class="genreOption">{{genre.name}}
-                <input class="genreInclusionCheckBox" type="checkbox" ng-model="genreIncluded" ng-click="if (checked)">
-                <input class="genreExclusionCheckBox" type="checkbox" ng-model="genreExcluded">
-            </label>
+    <div name="genre-selection-form" id="genre-selection-form">
+        <div class="genre-option-box" ng-repeat="genre in $ctrl.genreOptionArray">
+            <label class="genre-option">{{genre.name}}</label>
+            <div class="container" 
+                <input class="genre-inclusion-checkbox checkbox" type="checkbox" ng-model="genreIncluded" checked="checked" ng-click="">
+                <span class="checkmark"></span>
+            </div>
+            <div class="container">
+                <input class="genre-exclusion-checkbox checkbox" type="checkbox" ng-model="genreExcluded">
+                <span class="checkmark"></span>
+            </div>
         </div>
     </div>
         `,
@@ -30,6 +35,7 @@ angular
 
 /**
  * example for what was inside the form:
+ * 
  *      <label>Value1:
         <input type="checkbox" ng-model="checkboxModel.value1">
         </label><br/>
@@ -39,4 +45,16 @@ angular
         </label><br/>
         <tt>value1 = {{checkboxModel.value1}}</tt><br/>
         <tt>value2 = {{checkboxModel.value2}}</tt><br/>
+
+
+        <details ng-open="showDetails">
+            <summary>Copyright 1999-2016.</summary>
+            <p> - by Refsnes Data. All Rights Reserved.</p>
+        </details>
+
+
+        <label class="container">One
+            <input type="checkbox" checked="checked">
+            <span class="checkmark"></span>
+        </label>
  */
