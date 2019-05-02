@@ -1,23 +1,6 @@
 "use strict";
 
-    /* slider logic */
-    /* runtime */
-    $( "#slider-range" ).slider({
-        range: true,
-        step: .5,
-        min: 0,
-        max: 10,
-        values: [ 0, 10 ],
-        slide: function( event, ui ) {
-          $( "#runtime" ).val(ui.values[ 0 ] + " - " + ui.values[ 1 ] );
-        }
-      });
-      $( "#runtime" ).val($( "#slider-range" ).slider( "values", 0 ) +
-        " - " + $( "#slider-range" ).slider( "values", 1 ) );
-    /* rating */
-
-
-function SearchController(MovieAppService) { 
+function SearchController(MovieAppService, $scope) { 
     const ctrl = this;
     const service = MovieAppService;
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
@@ -31,6 +14,29 @@ function SearchController(MovieAppService) {
         console.warn(ctrl.genreOptionArray);
         console.error(service.genreOptionArray);
     };
+
+    $scope.runtimeSlider = {
+        minValue: 0,
+        maxValue: 120,
+        options: {
+          floor: 0,
+          ceil: 999,
+          step: 10,
+          showTicks: false,
+          minLimit: 10
+        }
+      };
+
+      $scope.ratingSlider = {
+        minValue: 0,
+        maxValue: 10,
+        options: {
+          floor: 0,
+          ceil: 10,
+          step: 1,
+          showTicks: true,
+        }
+      };
 
 }
 
@@ -57,14 +63,13 @@ angular
         </div>
 
     <!--Runtime-->
-        <p>
-            <label for="runtime">Runtime:</label>
-            <input type="text" id="runtime" readonly style="border:0; color:#f6931f; font-weight:bold;">
-        </p>
-        <div id="slider-range"></div>
+
+    <rzslider class="runtime-slider" rz-slider-model="runtimeSlider.minValue" rz-slider-high="runtimeSlider.maxValue" rz-slider-options="runtimeSlider.options"></rzslider>
 
     <!--Rating-->
-        
+
+    <rzslider class="rating-slider" rz-slider-model="ratingSlider.minValue" rz-slider-high="ratingSlider.maxValue" rz-slider-options="ratingSlider.options"></rzslider>
+
     </div>
         `,
     controller: SearchController
@@ -75,6 +80,8 @@ angular
  * will changes to ctrl.genreOptionArray affect service.genreOptionArray?
  * will checkign the checkbox change the genre object?
  *      test function is working, need to model checkbox to change include to true
+ * I might want to use ngChange instead of ngClick function, also,  maybe ngFalseValue?  thought false is already hardcoded
+ * look into this for rezSliders: https://github.com/angular-slider/angularjs-slider/blob/master/README.md
  */
 
 
@@ -135,6 +142,7 @@ angular
    * http://jqueryui.com/slider/#rangemax
    * http://jqueryui.com/slider/#range
    * http://api.jqueryui.com/slider/#option-range
+   * http://angular-slider.github.io/angularjs-slider/ - i think this is the winner - no dependencies
    * 
    * I'll use this to model runtime data and rating data
    * 
@@ -159,4 +167,33 @@ angular
  
 <div id="slider-range"></div>
 
+
+    <!--Runtime-->
+        <p>
+            <label for="runtime">Runtime:</label>
+            <input type="text" id="runtime" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <div id="slider-range"></div>
+
+
+
+        multiple rez sliders? example
+
+        <rzslider rz-slider-model="verticalSlider.value"
+          rz-slider-options="verticalSlider.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider2.minValue" rz-slider-high="verticalSlider2.maxValue"
+          rz-slider-options="verticalSlider2.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider3.value"
+          rz-slider-options="verticalSlider3.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider4.minValue" rz-slider-high="verticalSlider4.maxValue"
+          rz-slider-options="verticalSlider4.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider5.value"
+          rz-slider-options="verticalSlider5.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider6.value"
+          rz-slider-options="verticalSlider6.options"></rzslider>
    */

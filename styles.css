@@ -225,6 +225,95 @@ search{
                 border: 1px solid #09ad7e !important;
            } */
 
+    /* slider styling */
+    /* runtime slider */
+    .runtime-slider.rzslider .rz-bar {
+        background: #ffe4d1;
+        height: 2px;
+      }
+      .runtime-slider.rzslider .rz-selection {
+        background: orange;
+      }
+      
+      .runtime-slider.rzslider .rz-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto; /* to remove the default positioning */
+        bottom: 0;
+        background-color: #333;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+      }
+      
+      .runtime-slider.rzslider .rz-pointer:after {
+        display: none;
+      }
+      
+      .runtime-slider.rzslider .rz-bubble {
+        bottom: 14px;
+      }
+      
+      .runtime-slider.rzslider .rz-limit {
+        font-weight: bold;
+        color: orange;
+      }
+      
+      .runtime-slider.rzslider .rz-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+      }
+      
+      .runtime-slider.rzslider .rz-tick.rz-selected {
+        background: orange;
+      }
+    /* rating slider*/
+    .rating-slider.rzslider .rz-bar {
+        background: #ffe4d1;
+        height: 2px;
+      }
+      .rating-slider.rzslider .rz-selection {
+        background: orange;
+      }
+      
+      .rating-slider.rzslider .rz-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto; /* to remove the default positioning */
+        bottom: 0;
+        background-color: #333;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+      }
+      
+      .rating-slider.rzslider .rz-pointer:after {
+        display: none;
+      }
+      
+      .rating-slider.rzslider .rz-bubble {
+        bottom: 14px;
+      }
+      
+      .rating-slider.rzslider .rz-limit {
+        font-weight: bold;
+        color: orange;
+      }
+      
+      .rating-slider.rzslider .rz-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+      }
+      
+      .rating-slider.rzslider .rz-tick.rz-selected {
+        background: orange;
+      }
 
 /* Movies Styling */
 
