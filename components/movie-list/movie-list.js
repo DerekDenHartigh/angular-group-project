@@ -1,7 +1,9 @@
 "use strict";
 
-function MovieListController() { 
+function MovieListController(MovieAppService) { 
     const ctrl = this;
+    const service = MovieAppService;
+
     
 }
 
