@@ -15,8 +15,10 @@ angular
 .component('search', {
     template: `
     <h1>Search Criteria<h1>
-    <form name="genreSelectionForm" ng-repeat="genres in genreOptionArray">
-    
+    <form name="genreSelectionForm" ng-repeat="genre in genreOptionArray">
+        <label>{genre.name}
+        <input class="genreInclusionCheckBox" type="checkbox" ng-model="checkboxModel.value1">
+        </label><br/>
     </form>
         `,
     controller: SearchController
