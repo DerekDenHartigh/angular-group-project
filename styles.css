@@ -16,7 +16,10 @@
 
 search{
     display: flex;
-    background-color: red;
+    flex-direction: column;
+    background-color: grey;
+    padding: 10px;
+    border-radius: 10px;
 }
 
     #genre-selection-form{
@@ -37,86 +40,54 @@ search{
             border-radius: 15px;
         }
 
-        .genre-option{
-            display: flex;
-            background-color: grey;
-            padding: 15px;
-            border-radius: 15px;
+        .genre-option-box label{
+            margin: 5px;
         }
-        .container{
 
-        }
+            .genre-option{
+                display: flex;
+                background-color: grey;
+                padding: 15px;
+                border-radius: 15px;
+            }
         
-        /* .checkbox{
-            display: flex;
-            align-self: center;
-            height: 20px;
-            width: 20px;
-        } */
-            .genre-inclusion-checkbox{
-                /* font-family: 'Material Icons';
-                content: 'check'; */
+            .checkbox-container{
+                
             }
 
-            .genre-exclusion-checkbox{
-                /* font-family: 'Material Icons';
-                content: 'close'; */
+            .checkbox{
+                display: flex;
+                align-self: center;
+                height: 20px;
+                width: 20px;
             }
 
-                            
-                /* Hide the browser's default checkbox */
-                .container input {
-                    position: absolute;
-                    opacity: 0;
-                    cursor: pointer;
-                    height: 0;
-                    width: 0;
+                .genre-inclusion-checkbox-container{
+                    background-color: green;
                 }
-                
-                /* Create a custom checkbox */
-                .checkmark {
-                    position: absolute;
-                    top: 0;
-                    left: 0;
-                    height: 25px;
-                    width: 25px;
-                    background-color: #eee;
+
+                    .genre-inclusion-checkbox{
+                        font-family: 'Material Icons';
+                        content: 'check';
+                    }
+
+                .genre-exclusion-checkbox-container{
+                    background-color: red;
                 }
-                
-                /* On mouse-over, add a grey background color */
-                .container:hover input ~ .checkmark {
-                    background-color: #ccc;
-                }
-                
-                /* When the checkbox is checked, add a blue background */
-                .container input:checked ~ .checkmark {
-                    background-color: #2196F3;
-                }
-                
-                /* Create the checkmark/indicator (hidden when not checked) */
-                .checkmark:after {
-                    content: "";
-                    position: absolute;
-                    display: none;
-                }
-                
-                /* Show the checkmark when checked */
-                .container input:checked ~ .checkmark:after {
-                    display: block;
-                }
-                
-                /* Style the checkmark/indicator */
-                .container .checkmark:after {
-                    left: 9px;
-                    top: 5px;
-                    width: 5px;
-                    height: 10px;
-                    border: solid white;
-                    border-width: 0 3px 3px 0;
-                    -webkit-transform: rotate(45deg);
-                    -ms-transform: rotate(45deg);
-                    transform: rotate(45deg);
-                }
+
+                    .genre-exclusion-checkbox{
+                        font-family: 'Material Icons';
+                        content: 'close';
+                    }
+    
+
+
+
+                <label class="genre-inclusion-checkbox-container"><input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
+                <label class="genre-exclusion-checkbox-container"><input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/></label>
+            </div>
+        </div>
+
 
             /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
                 position: absolute;

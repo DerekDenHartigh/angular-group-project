@@ -14,18 +14,12 @@ angular
 .module('MovieApp')  
 .component('search', {
     template: `
-    <h1>Search Criteria<h1>
+    <h1>Filter Your Results:<h1>
     <div name="genre-selection-form" id="genre-selection-form">
         <div class="genre-option-box" ng-repeat="genre in $ctrl.genreOptionArray">
             <label class="genre-option">{{genre.name}}</label>
-            <div class="container" 
-                <input class="genre-inclusion-checkbox checkbox" type="checkbox" ng-model="genreIncluded" checked="checked" ng-click="">
-                <span class="checkmark"></span>
-            </div>
-            <div class="container">
-                <input class="genre-exclusion-checkbox checkbox" type="checkbox" ng-model="genreExcluded">
-                <span class="checkmark"></span>
-            </div>
+            <label class="checkbox-container genre-inclusion-checkbox-container"><input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
+            <label class="checkbox-container genre-exclusion-checkbox-container"><input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/></label>
         </div>
     </div>
         `,
@@ -57,4 +51,28 @@ angular
             <input type="checkbox" checked="checked">
             <span class="checkmark"></span>
         </label>
+
+        
+            <div class="container" 
+                <input class="genre-inclusion-checkbox checkbox" type="checkbox" ng-model="genreIncluded" checked="checked" ng-click="">
+                <span class="checkmark"></span>
+            </div>
+            <div class="container">
+                <input class="genre-exclusion-checkbox checkbox" type="checkbox" ng-model="genreExcluded">
+                <span class="checkmark"></span>
+            </div>
+
+            lots of playing around
  */
+
+ /**
+  * template before I started messing with ng-open
+  * <h1>Filter Your Results:<h1>
+    <div name="genre-selection-form" id="genre-selection-form">
+        <div class="genre-option-box" ng-repeat="genre in $ctrl.genreOptionArray">
+            <label class="genre-option">{{genre.name}}</label>
+            <label class="checkbox-container genre-inclusion-checkbox-container"><input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
+            <label class="checkbox-container genre-exclusion-checkbox-container"><input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/></label>
+        </div>
+    </div>
+  */
