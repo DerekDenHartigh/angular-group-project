@@ -14,12 +14,14 @@ angular
 .module('MovieApp')  
 .component('search', {
     template: `
-    <h1 ng-click="shown=!shown">Filter Your Results:<h1>
+    <h1 id="result-filter" ng-click="shown=!shown">Filter Your Results:<h1>
     <div name="genre-selection-form" id="genre-selection-form" ng-hide="!shown">
         <div class="genre-option-box" ng-repeat="genre in $ctrl.genreOptionArray">
             <label class="genre-option">{{genre.name}}</label>
-            <label class="checkbox-container genre-inclusion-checkbox-container"><input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
-            <label class="checkbox-container genre-exclusion-checkbox-container"><input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/></label>
+            <div class="checkbox-box">
+                <label class="checkbox-container genre-inclusion-checkbox-container">Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
+                <label class="checkbox-container genre-exclusion-checkbox-container">Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/></label>
+            </div>
         </div>
     </div>
         `,

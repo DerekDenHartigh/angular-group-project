@@ -1,5 +1,29 @@
 /* Omni-Styling */
 
+    /* custom scollbar */
+
+    /* width */
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+  
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: red; 
+        border-radius: 10px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+    }
+
 /* Header Styling*/
 
 header{
@@ -33,8 +57,12 @@ header{
             border-radius: 15px;
         }
         
-        #header-list li a{
+        #header-list li:hover{
+            background-color: turquoise;
+        }
 
+        #header-list li a{
+            
         }
 
 /* Footer Styling*/
@@ -57,11 +85,17 @@ search{
     border-radius: 10px;
 }
 
+    #result-filter:hover{
+        cursor: pointer;
+        background-color: red;
+    }
+
     #genre-selection-form{
         display: flex;
         flex-wrap: wrap;
         width: 100%;
     }
+
         .genre-option-box{
             display: flex;
             flex-direction: row;
@@ -86,42 +120,44 @@ search{
                 border-radius: 15px;
             }
         
-            .checkbox-container{
-                
-            }
-
-            .checkbox{
+            .checkbox-box{
                 display: flex;
-                align-self: center;
-                height: 20px;
-                width: 20px;
+                flex-direction: column;
+                background-color: blueviolet;
             }
 
-                .genre-inclusion-checkbox-container{
-                    background-color: green;
+                .checkbox-container{
+                    display: flex;
+                    justify-content: space-between;
+                    justify-items: space-between;
+                    align-content: center;
+                    align-content: center;
                 }
 
-                    .genre-inclusion-checkbox{
-                        font-family: 'Material Icons';
-                        content: 'check';
-                    }
-
-                .genre-exclusion-checkbox-container{
-                    background-color: red;
+                .checkbox{
+                    display: flex;
+                    align-self: center;
+                    height: 20px;
+                    width: 20px;
                 }
 
-                    .genre-exclusion-checkbox{
-                        font-family: 'Material Icons';
-                        content: 'close';
+                    .genre-inclusion-checkbox-container{
+                        background-color: green;
                     }
-    
 
+                        .genre-inclusion-checkbox{
+                            font-family: 'Material Icons';
+                            content: 'check';
+                        }
 
+                    .genre-exclusion-checkbox-container{
+                        background-color: red;
+                    }
 
-                <label class="genre-inclusion-checkbox-container"><input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
-                <label class="genre-exclusion-checkbox-container"><input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/></label>
-            </div>
-        </div>
+                        .genre-exclusion-checkbox{
+                            font-family: 'Material Icons';
+                            content: 'close';
+                        }
 
 
             /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
