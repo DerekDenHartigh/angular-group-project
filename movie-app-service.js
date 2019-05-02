@@ -14,8 +14,8 @@ function MovieAppService($http, $location, $rootScope) {
     // service.genresNotWanted = [];
     // service.runTimeGreaterThanOrEqual;
     // service.runTimeLessThanOrEqual;
-    // service.vote_average.gte;
-    // service.vote_average.lte;
+    // service.ote_averageGreaterThanOrEqual;
+    // service.vote_averageLessThanOrEqual;
 
     // Hardcoded variables for testing - should only return 1 page of action titles (no horror titles) from 2000-2019, of duration 60-120 min.
     

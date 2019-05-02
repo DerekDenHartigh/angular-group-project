@@ -10,9 +10,10 @@ function SearchController(MovieAppService, $scope) {
 
     ctrl.checkboxIncludeFunction = function(genre){
         genre.include = !genre.include; // toggles true/false on checkbox click - default is false
-        console.log(genre);
-        console.warn(ctrl.genreOptionArray);
-        console.error(service.genreOptionArray);
+    };
+
+    ctrl.checkboxExcludeFunction = function(genre){
+        genre.include = !genre.include; // toggles true/false on checkbox click - default is false
     };
 
     $scope.runtimeSlider = {
@@ -57,7 +58,7 @@ angular
                     Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genre.include" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
                 </label>
                 <label class="checkbox-container genre-exclusion-checkbox-container">
-                    Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genre.exclude"/>
+                    Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genre.exclude" ng-click="$ctrl.checkboxExcludeFunction(genre)"/>
                 </label>
             </div>
         </div>
