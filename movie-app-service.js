@@ -31,12 +31,11 @@ function MovieAppService($http, $location, $rootScope) {
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
             .then( (response)=>{ // response includes headers
                 response.data.genres.forEach( genre => {
-                    service.genreOptionArray.push(genre);
+                    service.genreOptionArray.push(genre);  // genre is an object containing name(string) and id(number)
                 });
-                console.log(`genreOptionArray: ${service.genreOptionArray}`)
+                // console.log(`genreOptionArray: ${service.genreOptionArray}`)  // just kicks out a bunch of [object object]'s anyway
             });
         };
-        service.generateGenreArray();
 
         service.genreSelectionArray = [];
             // builds genreSelectionArray when user checks a desiredgenre
@@ -89,7 +88,7 @@ function MovieAppService($http, $location, $rootScope) {
                 'release_date.gte': service.earliestReleaseDate,
                 'release_date.lte': service.latestReleaseDate,
                 with_genres: service.genreSelection,
-                // without_genres: service.genresNotWanted,
+                without_genres: service.genresNotWanted,
                 'with_runtime.gte': service.runTimeGreaterThanOrEqual,
                 'with_runtime.lte': service.runTimeLessThanOrEqual
             }
@@ -101,7 +100,7 @@ function MovieAppService($http, $location, $rootScope) {
         // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
     };
 
-    service.callTheMovieDbApi();  // returning 401
+    service.callTheMovieDbApi();
 }
 
 angular
