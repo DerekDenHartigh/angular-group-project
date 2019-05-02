@@ -10,6 +10,9 @@ function SearchController(MovieAppService, $scope) {
 
     ctrl.checkboxIncludeFunction = function(genre){
         genre.include = !genre.include; // toggles true/false on checkbox click - default is false
+        if (genre.include === true){
+            
+        }
     };
 
     ctrl.checkboxExcludeFunction = function(genre){
