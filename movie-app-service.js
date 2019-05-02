@@ -14,6 +14,8 @@ function MovieAppService($http, $location, $rootScope) {
     // service.genresNotWanted = [];
     // service.runTimeGreaterThanOrEqual;
     // service.runTimeLessThanOrEqual;
+    // service.vote_average.gte;
+    // service.vote_average.lte;
 
     // Hardcoded variables for testing - should only return 1 page of action titles (no horror titles) from 2000-2019, of duration 60-120 min.
     
@@ -24,6 +26,8 @@ function MovieAppService($http, $location, $rootScope) {
     service.genresNotWanted = 27;
     service.runTimeGreaterThanOrEqual = 60;
     service.runTimeLessThanOrEqual = 120;
+    service.vote_averageGreaterThanOrEqual = 5
+    service.vote_averageLessThanOrEqual = 10
 
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
         
@@ -34,7 +38,6 @@ function MovieAppService($http, $location, $rootScope) {
                     // adding onto the object for checkbox usage
                     genre.include = false;
                     genre.exclude = false;
-                    console.error(genre);
                     service.genreOptionArray.push(genre); // genre is an object containing name(string) and id(number)
                 });
             });
@@ -79,7 +82,7 @@ function MovieAppService($http, $location, $rootScope) {
 
     service.callTheMovieDbApi = () => {
         console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
+            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.vote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual)
             // all the variables are working as they should.
         $http.get('https://api.themoviedb.org/3/discover/movie', {
             params: {
@@ -94,7 +97,9 @@ function MovieAppService($http, $location, $rootScope) {
                 with_genres: service.genreSelection,
                 without_genres: service.genresNotWanted,
                 'with_runtime.gte': service.runTimeGreaterThanOrEqual,
-                'with_runtime.lte': service.runTimeLessThanOrEqual
+                'with_runtime.lte': service.runTimeLessThanOrEqual,
+                'vote_average.gte': service.vote_averageGreaterThanOrEqual,
+                'vote_average.lte': service.vote_averageLessThanOrEqual
             }
         })
         .then( (response)=>{

@@ -89,7 +89,7 @@ search{
         background-color: red;
     }
 
-    #genre-selection-form{
+    #search-spec-form{
         display: flex;
         flex-wrap: wrap;
         width: 100%;
