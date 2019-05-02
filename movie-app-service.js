@@ -36,10 +36,11 @@ function MovieAppService($http, $location, $rootScope) {
                 // console.log(`genreOptionArray: ${service.genreOptionArray}`)  // just kicks out a bunch of [object object]'s anyway
             });
         };
+        service.generateGenreArray();
 
         service.genreSelectionArray = [];
             // builds genreSelectionArray when user checks a desiredgenre
-            service.addToGenreSelectionArray = function(genreSelection){
+            service.addToGenreSelectionArray = function(genreSelection){ // genreSelection should correspond to genre's ID
                 service.genreSelectionArray.push(genreSelection);
             }
             // searches out removedGenre and splices it from the genreSelectionArray
