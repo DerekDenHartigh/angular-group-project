@@ -14,8 +14,8 @@ angular
 .module('MovieApp')  
 .component('search', {
     template: `
-    <h1>Filter Your Results:<h1>
-    <div name="genre-selection-form" id="genre-selection-form">
+    <h1 ng-click="shown=!shown">Filter Your Results:<h1>
+    <div name="genre-selection-form" id="genre-selection-form" ng-hide="!shown">
         <div class="genre-option-box" ng-repeat="genre in $ctrl.genreOptionArray">
             <label class="genre-option">{{genre.name}}</label>
             <label class="checkbox-container genre-inclusion-checkbox-container"><input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
