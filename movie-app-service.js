@@ -31,7 +31,7 @@ function MovieAppService($http, $location, $rootScope) {
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
             .then( (response)=>{ // response includes headers
                 response.data.genres.forEach( genre => {
-                    service.genreOptionArray.push(genre);  // genre is an object containing name(string) and id(number)
+                    service.genreOptionArray.push(genre); // genre is an object containing name(string) and id(number)
                 });
                 // console.log(`genreOptionArray: ${service.genreOptionArray}`)  // just kicks out a bunch of [object object]'s anyway
             });

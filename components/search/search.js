@@ -3,7 +3,7 @@
 function SearchController(MovieAppService) { 
     const ctrl = this;
     const service = MovieAppService;
-
+    ctrl.genreOptionArray = service.genreOptionArray
     ctrl.callGenerateGenreArray = function(){
         return service.generateGenreArray();
     };
@@ -15,11 +15,14 @@ angular
 .component('search', {
     template: `
     <h1>Search Criteria<h1>
-    <form name="genreSelectionForm" ng-repeat="genre in genreOptionArray">
-        <label>{genre.name}
-        <input class="genreInclusionCheckBox" type="checkbox" ng-model="checkboxModel.value1">
-        </label><br/>
-    </form>
+    <div name="genreSelectionForm">
+        <div ng-repeat="genre in $ctrl.genreOptionArray">
+            <label class="genreOption">{{genre.name}}
+                <input class="genreInclusionCheckBox" type="checkbox" ng-model="genreIncluded" ng-click="if (checked)">
+                <input class="genreExclusionCheckBox" type="checkbox" ng-model="genreExcluded">
+            </label>
+        </div>
+    </div>
         `,
     controller: SearchController
 });
