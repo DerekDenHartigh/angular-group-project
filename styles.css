@@ -2,6 +2,41 @@
 
 /* Header Styling*/
 
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: space-around;
+    align-content: center;
+    align-items: center;
+    background-color: burlywood;
+}
+
+    #header{
+        display: flex;
+        width: 100%;
+        padding: 20px;
+        font-size: 3em;
+    }
+    #header-list{
+       display: flex;
+       width: 100%;
+       justify-content: space-around;
+       justify-items: space-around;
+       align-content: center;
+       align-items: center;
+    }
+        #header-list li{
+            background-color: orange;
+            border: solid black 1px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+        
+        #header-list li a{
+
+        }
+
 /* Footer Styling*/
 
 /* Home Page Styling */
