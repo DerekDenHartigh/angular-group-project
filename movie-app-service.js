@@ -75,7 +75,8 @@ function MovieAppService($http, $location, $rootScope) {
 
     service.callTheMovieDbApi = () => {
         console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeGreaterThanOrEqual)
+            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
+            // all the variables are working as they should.
         return $http.get(`
         https://api.themoviedb.org/3/discover/movie?api_key=${service.api_key}
         &language=en-US
@@ -90,14 +91,16 @@ function MovieAppService($http, $location, $rootScope) {
         &with_runtime.gte=${service.runTimeGreaterThanOrEqual}
         &with_runtime.lte=${service.runTimeLessThanOrEqual}
         `)
+        // getting a 401 error
         .then( (response)=>{
-            console.log(response.data)
+            console.log(response.data);
+            return response.data;
         })
         // $hhtp(.get(ULR, {search object, movie: movie, genre: action, etc.}))
         // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
     };
 
-    service.callTheMovieDbApi();
+    service.callTheMovieDbApi();  // returning 401
 }
 
 angular
