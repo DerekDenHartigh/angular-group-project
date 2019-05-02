@@ -43,9 +43,9 @@ function MovieAppService($http, $location, $rootScope) {
                 service.genreSelectionArray.push(genreSelection);
             }
             // searches out removedGenre and splices it from the genreSelectionArray
-            service.removeFromGenreSelectionArray = function(removeGenre){
-                console.log(removeGenre);
-                let target = service.genreSelectionArray.indexOf(removeGenre);
+            service.removeFromGenreSelectionArray = function(removedGenre){
+                console.log(removedGenre);
+                let target = service.genreSelectionArray.indexOf(removedGenre);
                 service.genreSelectionArray.splice(target, 1);
               };
             // will need code so that genres can't be x'd and checked simultaneously
@@ -55,9 +55,17 @@ function MovieAppService($http, $location, $rootScope) {
                 // I don't need to return genreSelection right?
             }
 
-        service.genreExlusionArray = [];
+        service.genreExclusionArray = [];
             // will need code that builds this array when user x's a genre
+            service.addToGenreExclusionArray = function(genreExclusion){
+                service.genreExclusionArray.push(genreExclusion);
+            }
             // will need code that splices out genres when user unchecks them
+            service.removeFromGenreExclusionArray = function(removedGenre){
+                console.log(removedGenre);
+                let target = service.genreExclusionArray.indexOf(removedGenre);
+                service.genreExclusionArray.splice(target, 1);
+              };
             // will need code so that genres can't be x'd and checked simultaneously
 
             service.genreExclusionArrayToString = function(){
@@ -66,6 +74,8 @@ function MovieAppService($http, $location, $rootScope) {
             }
 
     service.callTheMovieDbApi = () => {
+        console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeGreaterThanOrEqual)
         return $http.get(`
         https://api.themoviedb.org/3/discover/movie?api_key=${service.api_key}
         &language=en-US
@@ -80,10 +90,14 @@ function MovieAppService($http, $location, $rootScope) {
         &with_runtime.gte=${service.runTimeGreaterThanOrEqual}
         &with_runtime.lte=${service.runTimeLessThanOrEqual}
         `)
-
+        .then( (response)=>{
+            console.log(response.data)
+        })
         // $hhtp(.get(ULR, {search object, movie: movie, genre: action, etc.}))
+        // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
     };
 
+    service.callTheMovieDbApi();
 }
 
 angular
