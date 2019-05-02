@@ -1,12 +1,44 @@
 "use strict";
 
-function SearchController(MovieAppService) { 
+function SearchController(MovieAppService, $scope) { 
     const ctrl = this;
     const service = MovieAppService;
-
+    ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
     ctrl.callGenerateGenreArray = function(){
         return service.generateGenreArray();
     };
+
+    ctrl.checkboxIncludeFunction = function(genre){
+        genre.include = !genre.include; // toggles true/false on checkbox click - default is false
+    };
+
+    ctrl.checkboxExcludeFunction = function(genre){
+        genre.include = !genre.include; // toggles true/false on checkbox click - default is false
+    };
+
+    $scope.runtimeSlider = {
+        minValue: 0,
+        maxValue: 120,
+        options: {
+          floor: 0,
+          ceil: 999,
+          step: 10,
+          showTicks: false,
+          minLimit: 10
+        }
+      };
+
+      $scope.ratingSlider = {
+        minValue: 0,
+        maxValue: 10,
+        options: {
+          floor: 0,
+          ceil: 10,
+          step: 1,
+          showTicks: true,
+        }
+      };
+
 }
 
 
@@ -14,17 +46,49 @@ angular
 .module('MovieApp')  
 .component('search', {
     template: `
-    <h1>Search Criteria<h1>
-    <form name="genreSelectionForm" ng-repeat="genres in genreOptionArray">
-    
-    </form>
+    <h1 id="result-filter" ng-click="shown=!shown">Filter Your Results:<h1>
+
+    <div name="search-spec-form" id="search-spec-form" ng-hide="!shown">
+
+    <!--Genres-->
+        <div class="genre-option-box" ng-repeat="genre in $ctrl.genreOptionArray">
+            <label class="genre-option">{{genre.name}}</label>
+            <div class="checkbox-box">
+                <label class="checkbox-container genre-inclusion-checkbox-container">
+                    Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genre.include" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
+                </label>
+                <label class="checkbox-container genre-exclusion-checkbox-container">
+                    Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genre.exclude" ng-click="$ctrl.checkboxExcludeFunction(genre)"/>
+                </label>
+            </div>
+        </div>
+
+    <!--Runtime-->
+
+    <rzslider class="runtime-slider" rz-slider-model="runtimeSlider.minValue" rz-slider-high="runtimeSlider.maxValue" rz-slider-options="runtimeSlider.options"></rzslider>
+
+    <!--Rating-->
+
+    <rzslider class="rating-slider" rz-slider-model="ratingSlider.minValue" rz-slider-high="ratingSlider.maxValue" rz-slider-options="ratingSlider.options"></rzslider>
+
+    </div>
         `,
     controller: SearchController
 });
 
+/**
+ * Questions:
+ * will changes to ctrl.genreOptionArray affect service.genreOptionArray?
+ * will checkign the checkbox change the genre object?
+ *      test function is working, need to model checkbox to change include to true
+ * I might want to use ngChange instead of ngClick function, also,  maybe ngFalseValue?  thought false is already hardcoded
+ * look into this for rezSliders: https://github.com/angular-slider/angularjs-slider/blob/master/README.md
+ */
+
 
 /**
  * example for what was inside the form:
+ * 
  *      <label>Value1:
         <input type="checkbox" ng-model="checkboxModel.value1">
         </label><br/>
@@ -34,4 +98,103 @@ angular
         </label><br/>
         <tt>value1 = {{checkboxModel.value1}}</tt><br/>
         <tt>value2 = {{checkboxModel.value2}}</tt><br/>
+
+
+        <details ng-open="showDetails">
+            <summary>Copyright 1999-2016.</summary>
+            <p> - by Refsnes Data. All Rights Reserved.</p>
+        </details>
+
+
+        <label class="container">One
+            <input type="checkbox" checked="checked">
+            <span class="checkmark"></span>
+        </label>
+
+        
+            <div class="container" 
+                <input class="genre-inclusion-checkbox checkbox" type="checkbox" ng-model="genreIncluded" checked="checked" ng-click="">
+                <span class="checkmark"></span>
+            </div>
+            <div class="container">
+                <input class="genre-exclusion-checkbox checkbox" type="checkbox" ng-model="genreExcluded">
+                <span class="checkmark"></span>
+            </div>
+
+            lots of playing around
  */
+
+ /**
+  * template before I started messing with ng-open
+  * <h1>Filter Your Results:<h1>
+    <div name="genre-selection-form" id="genre-selection-form">
+        <div class="genre-option-box" ng-repeat="genre in $ctrl.genreOptionArray">
+            <label class="genre-option">{{genre.name}}</label>
+            <label class="checkbox-container genre-inclusion-checkbox-container"><input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genreIncluded" /></label>
+            <label class="checkbox-container genre-exclusion-checkbox-container"><input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genreExcluded"/></label>
+        </div>
+    </div>
+  */
+
+  /**
+   * dual input range slider:
+   * https://github.com/Wildhoney/ngRangeSlider
+   * https://stackoverflow.com/questions/4753946/html5-slider-with-two-inputs-possible
+   * http://jqueryui.com/slider/#rangemax
+   * http://jqueryui.com/slider/#range
+   * http://api.jqueryui.com/slider/#option-range
+   * http://angular-slider.github.io/angularjs-slider/ - i think this is the winner - no dependencies
+   * 
+   * I'll use this to model runtime data and rating data
+   * 
+   * $( function() {
+    $( "#slider-range" ).slider({
+      range: true,
+      min: 0,
+      max: 500,
+      values: [ 75, 300 ],
+      slide: function( event, ui ) {
+        $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      }
+    });
+    $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+  } );
+
+  <p>
+  <label for="amount">Price range:</label>
+  <input type="text" id="amount" readonly style="border:0; color:#f6931f; font-weight:bold;">
+</p>
+ 
+<div id="slider-range"></div>
+
+
+    <!--Runtime-->
+        <p>
+            <label for="runtime">Runtime:</label>
+            <input type="text" id="runtime" readonly style="border:0; color:#f6931f; font-weight:bold;">
+        </p>
+        <div id="slider-range"></div>
+
+
+
+        multiple rez sliders? example
+
+        <rzslider rz-slider-model="verticalSlider.value"
+          rz-slider-options="verticalSlider.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider2.minValue" rz-slider-high="verticalSlider2.maxValue"
+          rz-slider-options="verticalSlider2.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider3.value"
+          rz-slider-options="verticalSlider3.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider4.minValue" rz-slider-high="verticalSlider4.maxValue"
+          rz-slider-options="verticalSlider4.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider5.value"
+          rz-slider-options="verticalSlider5.options"></rzslider>
+
+<rzslider rz-slider-model="verticalSlider6.value"
+          rz-slider-options="verticalSlider6.options"></rzslider>
+   */

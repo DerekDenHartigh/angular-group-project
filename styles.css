@@ -1,12 +1,319 @@
 /* Omni-Styling */
 
+    /* custom scollbar styling */
+    /* width */
+    ::-webkit-scrollbar {
+        width: 20px;
+    }
+  
+    /* Track */
+    ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+    }
+    
+    /* Handle */
+    ::-webkit-scrollbar-thumb {
+        background: red; 
+        border-radius: 10px;
+    }
+    
+    /* Handle on hover */
+    ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+    }
+
 /* Header Styling*/
+
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: space-around;
+    align-content: center;
+    align-items: center;
+    background-color: burlywood;
+}
+
+    #header{
+        display: flex;
+        width: 100%;
+        padding: 20px;
+        font-size: 3em;
+    }
+    #header-list{
+       display: flex;
+       width: 100%;
+       justify-content: space-around;
+       justify-items: space-around;
+       align-content: center;
+       align-items: center;
+    }
+        #header-list li{
+            background-color: orange;
+            border: solid black 1px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+        
+        #header-list li:hover{
+            background-color: turquoise;
+        }
+
+        #header-list li a{
+            
+        }
 
 /* Footer Styling*/
 
 /* Home Page Styling */
 
-/* Search Styling */
+/* Search Styling 
+        sauces: https://codepen.io/AurelienZMN/pen/RadXBZ, 
+                https://webdesign.tutsplus.com/articles/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953
+                http://jsbin.com/itejak/1/edit?html,css,output
+                https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
+                https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
+*/
+
+search{
+    display: flex;
+    flex-direction: column;
+    background-color: grey;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+    #result-filter:hover{
+        cursor: pointer;
+        background-color: red;
+    }
+
+    #search-spec-form{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    }
+
+        .genre-option-box{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-around;
+            justify-items: space-around;
+            align-content: center;
+            align-items: center;
+            margin: 10px;
+            background-color: yellow;
+            padding: 10px;
+            border-radius: 15px;
+        }
+
+        .genre-option-box label{
+            margin: 5px;
+        }
+
+            .genre-option{
+                display: flex;
+                background-color: grey;
+                padding: 15px;
+                border-radius: 15px;
+            }
+        
+            .checkbox-box{
+                display: flex;
+                flex-direction: column;
+                background-color: blueviolet;
+            }
+
+                .checkbox-container{
+                    display: flex;
+                    justify-content: space-between;
+                    justify-items: space-between;
+                    align-content: center;
+                    align-content: center;
+                }
+
+                .checkbox{
+                    display: flex;
+                    align-self: center;
+                    height: 20px;
+                    width: 20px;
+                }
+
+                    .genre-inclusion-checkbox-container{
+                        background-color: green;
+                    }
+
+                        .genre-inclusion-checkbox{
+                            font-family: 'Material Icons';
+                            content: 'check';
+                        }
+
+                    .genre-exclusion-checkbox-container{
+                        background-color: red;
+                    }
+
+                        .genre-exclusion-checkbox{
+                            font-family: 'Material Icons';
+                            content: 'close';
+                        }
+
+
+            /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                position: absolute;
+                left: -9999px;
+           }
+            [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                position: relative;
+                padding-left: 30px;
+                cursor: pointer;
+           }
+            [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                content: '';
+                position: absolute;
+                left: 0px;
+                top: 0px;
+                width: 20px;
+                height: 20px;
+                border: 1px solid #aaa;
+                background: #f8f8f8;
+           }
+            [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+                font-family: 'Material Icons';
+                content: 'check';
+                text-rendering: optimizeLegibility;
+                font-feature-settings: "liga" 1;
+                font-style: normal;
+                text-transform: none;
+                line-height: 22px;
+                font-size: 21px;
+                width: 22px;
+                height: 22px;
+                text-align: center;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                display: inline-block;
+                overflow: hidden;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                color: #09ad7e;
+                transition: all 0.2s;
+           }
+            [type="checkbox"]:not(:checked) {
+                opacity: 0;
+                transform: scale(0);
+           }
+            [type="checkbox"]:checked {
+                opacity: 1;
+                transform: scale(1);
+           }
+            [type="checkbox"]:disabled:not(:checked), [type="checkbox"]:disabled:checked, [type="checkbox"]:disabled:not(:checked):hover, [type="checkbox"]:disabled:checked:hover {
+                border-color: #bbb !important;
+                background-color: #ddd;
+           }
+            [type="checkbox"]:disabled:checked {
+                color: #999;
+           }
+            [type="checkbox"]:disabled{
+                color: #aaa;
+           }
+            [type="checkbox"]:checked:focus, [type="checkbox"]:not(:checked):focus {
+                border: 1px dotted #09ad7e;
+           }
+            label:hover:before {
+                border: 1px solid #09ad7e !important;
+           } */
+
+    /* slider styling */
+    /* runtime slider */
+    .runtime-slider.rzslider .rz-bar {
+        background: #ffe4d1;
+        height: 2px;
+      }
+      .runtime-slider.rzslider .rz-selection {
+        background: orange;
+      }
+      
+      .runtime-slider.rzslider .rz-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto; /* to remove the default positioning */
+        bottom: 0;
+        background-color: #333;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+      }
+      
+      .runtime-slider.rzslider .rz-pointer:after {
+        display: none;
+      }
+      
+      .runtime-slider.rzslider .rz-bubble {
+        bottom: 14px;
+      }
+      
+      .runtime-slider.rzslider .rz-limit {
+        font-weight: bold;
+        color: orange;
+      }
+      
+      .runtime-slider.rzslider .rz-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+      }
+      
+      .runtime-slider.rzslider .rz-tick.rz-selected {
+        background: orange;
+      }
+    /* rating slider*/
+    .rating-slider.rzslider .rz-bar {
+        background: #ffe4d1;
+        height: 2px;
+      }
+      .rating-slider.rzslider .rz-selection {
+        background: orange;
+      }
+      
+      .rating-slider.rzslider .rz-pointer {
+        width: 8px;
+        height: 16px;
+        top: auto; /* to remove the default positioning */
+        bottom: 0;
+        background-color: #333;
+        border-top-left-radius: 3px;
+        border-top-right-radius: 3px;
+      }
+      
+      .rating-slider.rzslider .rz-pointer:after {
+        display: none;
+      }
+      
+      .rating-slider.rzslider .rz-bubble {
+        bottom: 14px;
+      }
+      
+      .rating-slider.rzslider .rz-limit {
+        font-weight: bold;
+        color: orange;
+      }
+      
+      .rating-slider.rzslider .rz-tick {
+        width: 1px;
+        height: 10px;
+        margin-left: 4px;
+        border-radius: 0;
+        background: #ffe4d1;
+        top: -1px;
+      }
+      
+      .rating-slider.rzslider .rz-tick.rz-selected {
+        background: orange;
+      }
 
 /* Movies Styling */
 
