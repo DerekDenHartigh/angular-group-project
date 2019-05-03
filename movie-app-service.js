@@ -6,79 +6,92 @@ function MovieAppService($http, $location, $rootScope) {
 
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
-    // variable initialization:
-    // service.pageNumber = 1;
-    // service.earliestReleaseDate;
-    // service.latestReleaseDate;
-    // service.genreSelection = [];
-    // service.genresNotWanted = [];
-    // service.runTimeGreaterThanOrEqual;
-    // service.runTimeLessThanOrEqual;
-    // service.ote_averageGreaterThanOrEqual;
-    // service.vote_averageLessThanOrEqual;
 
-    // Hardcoded variables for testing - should only return 1 page of action titles (no horror titles) from 2000-2019, of duration 60-120 min.
-    
     service.pageNumber = 1;
-    service.earliestReleaseDate = 2000;
-    service.latestReleaseDate = 2019;
-    service.genreSelection = 28;
-    service.genresNotWanted = 27;
-    service.runTimeGreaterThanOrEqual = 60;
-    service.runTimeLessThanOrEqual = 120;
-    service.vote_averageGreaterThanOrEqual = 5
-    service.vote_averageLessThanOrEqual = 10
+    service.earliestReleaseDate;
+    service.latestReleaseDate;
+    service.genreSelection = [];
+    service.genresNotWanted = [];
+    service.runTimeGreaterThanOrEqual;
+    service.runTimeLessThanOrEqual;
+    service.ote_averageGreaterThanOrEqual;
+    service.vote_averageLessThanOrEqual;
 
+    // Hardcoded variables for testing - should only return 1 page of titles from 2000-2019, of duration 60-120 min.
+    
+    // service.pageNumber = 1;
+    // service.earliestReleaseDate = 2000;
+    // service.latestReleaseDate = 2019;
+    // service.genreSelection;
+    // service.genresNotWanted;
+    // service.runTimeGreaterThanOrEqual = 60;
+    // service.runTimeLessThanOrEqual = 120;
+    // service.vote_averageGreaterThanOrEqual = 5;
+    // service.vote_averageLessThanOrEqual = 10;
+
+/* Genre Land */
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
-        
+    service.genreSelectionArray = []; // houses preferred genres (initially same as genreOptionArray)
+    service.genreExclusionArray = []; // houses excluded genres, initially empty
+    
         service.generateGenreArray = function (){
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
             .then( (response)=>{ // response includes headers
                 response.data.genres.forEach( genre => {
-                    // adding onto the object for checkbox usage
-                    genre.include = false;
+                    genre.include = true;
                     genre.exclude = false;
                     service.genreOptionArray.push(genre); // genre is an object containing name(string) and id(number)
+                    service.genreSelectionArray.push(genre.id);
                 });
+                service.genreSelectionArrayToString(); // stringifys Arrays
+                service.genreExclusionArrayToString();
             });
         };
         service.generateGenreArray();
 
-        service.genreSelectionArray = [];
             // builds genreSelectionArray when user checks a desiredgenre
-            service.addToGenreSelectionArray = function(genreSelection){ // genreSelection should correspond to genre's ID
-                service.genreSelectionArray.push(genreSelection);
+            service.addToGenreSelectionArray = function(genre){ // genreSelection should correspond to genre's ID
+                service.genreSelectionArray.push(genre);
             }
             // searches out removedGenre and splices it from the genreSelectionArray
-            service.removeFromGenreSelectionArray = function(removedGenre){
-                console.log(removedGenre);
-                let target = service.genreSelectionArray.indexOf(removedGenre);
+            service.removeFromGenreSelectionArray = function(genre){
+                console.log(`genre being removed from genreSelectionArray: ${genre}`)
+                let target = service.genreSelectionArray.indexOf(genre);
                 service.genreSelectionArray.splice(target, 1);
               };
-            // will need code so that genres can't be x'd and checked simultaneously
 
             service.genreSelectionArrayToString = function(){
-                service.genreSelection = genreSelectionArray.join();
-                // I don't need to return genreSelection right?
+                service.genreSelection = service.genreSelectionArray.join();
             }
 
-        service.genreExclusionArray = [];
-            // will need code that builds this array when user x's a genre
-            service.addToGenreExclusionArray = function(genreExclusion){
-                service.genreExclusionArray.push(genreExclusion);
+            service.addToGenreExclusionArray = function(genre){
+                service.genreExclusionArray.push(genre);
             }
-            // will need code that splices out genres when user unchecks them
-            service.removeFromGenreExclusionArray = function(removedGenre){
-                console.log(removedGenre);
-                let target = service.genreExclusionArray.indexOf(removedGenre);
+
+            service.removeFromGenreExclusionArray = function(genre){
+                console.log(`genre being removed from genreExclusionArray: ${genre}`)
+                let target = service.genreExclusionArray.indexOf(genre);
                 service.genreExclusionArray.splice(target, 1);
               };
-            // will need code so that genres can't be x'd and checked simultaneously
 
             service.genreExclusionArrayToString = function(){
-                service.genreExclusion = genreExclusionArray.join();
-                // I don't need to return genreExclusion right?
+                service.genresNotWanted = service.genreExclusionArray.join();
             }
+
+    service.watchlistArray = [];
+
+        service.addToWatchlistArray = function(movie){
+            service.watchlistArray.push(movie);
+            console.log(`watchlistArray: ${watchlistArray}`);
+        }
+
+        service.removeFromWatchlistArray = function(movie){ // will this work with objects?
+            console.log(`pre-splice watchlistArray: ${watchlistArray}`)
+            let target = service.genreSelectionArray.indexOf(movie);
+            service.genreSelectionArray.splice(target, 1);
+            console.error(`post-splice watchlistArray: ${watchlistArray}`);
+        };
+
 
     service.callTheMovieDbApi = () => {
         console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
