@@ -353,10 +353,14 @@ search{
     }
         #page-selection-input{
             margin: 10px 20px;
+            color: purple;
+            text-align: center;
+            font-size: 1.5em;
+            font-style: bolder;
         }
 
         .arrows{
-            
+            color: purple;
         }
 
         .arrows:hover{

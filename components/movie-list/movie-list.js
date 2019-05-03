@@ -61,7 +61,7 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-        <input id="page-selection-input" type="number" min="1" step="1" ng-model="service.pageNumber">{{$ctrl.service.pageNumber}}</input>
+        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.service.pageNumber" value="$ctrl.service.pageNumber">
         <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
     </div>
         `,
