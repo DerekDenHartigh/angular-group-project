@@ -119,10 +119,9 @@ function MovieAppService($http, $location, $rootScope) {
             console.log(response.data);
             return response.data;
         })
-        // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
     };
-
-    service.callTheMovieDbApi();
+    // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
+    // service.callTheMovieDbApi();
 }
 
 angular

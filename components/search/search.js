@@ -1,6 +1,6 @@
 "use strict";
 
-function SearchController(MovieAppService, $scope) { 
+function SearchController(MovieAppService, $scope, $timeout) { 
     const ctrl = this;
     const service = MovieAppService;
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
@@ -35,9 +35,31 @@ function SearchController(MovieAppService, $scope) {
         console.warn(`genreSelection: ${service.genreSelection}\ngenresNotWanted: ${service.genresNotWanted}`);
     };
 
-    // ctrl.checkboxExcludeFunction = function(genre){
-    //     genre.include = !genre.include; // toggles true/false on checkbox click - default is false
-    // };
+    ctrl.genreExclusionArray = service.genreExclusionArray;
+    ctrl.genreSelectionArray = service.genreSelectionArray;
+
+    // $scope.$watchCollection('$scope.genreSelectionArray', function(newArray, oldArray) {
+    //     console.warn("scope.watch call");
+    //     $timeout(service.callTheMovieDbApi(), 1000)
+    //   });
+
+    // $timeout($scope.$watchCollection('$scope.genreSelectionArray', function(newArray, oldArray) {
+    //     console.warn("timeout first, then scope.watch call");
+    //     service.callTheMovieDbApi();
+    // }), 1000);
+
+    // $timeout($scope.$watchCollection('$scope.genreSelectionArray', function(newArray, oldArray) {
+    //     console.warn("watch genreSelection Array, wait 1 sec, then callAPI");}), 1000)
+    //     .then(service.callTheMovieDbApi());
+
+    /**     this is supposed to watch the genreSelectionArray for changes
+     *      wait 1 sec (log that it is firing)
+     *      then call the moviedbApi to re-render the page.
+    */
+    $scope.$watchCollection('$scope.genreSelectionArray', ()=>{
+        $timeout(console.warn("watch genreSelection Array, timeout function, then callAPI"), 1000)
+        .then(service.callTheMovieDbApi());
+    });
 
     // $scope.runtimeSlider = {
     //     minValue: 0,
