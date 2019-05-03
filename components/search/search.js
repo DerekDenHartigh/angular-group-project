@@ -120,10 +120,11 @@ angular
     <hr>
     Time as number: <input type="number" ng-model="timevalue"><br><br><br>
     
+    <!--Rating-->
+
     Rating as range: <input type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
     <hr>
     Rating as number: <input type="number" ng-model="ratingvalue"><br> 
-
 
 
 

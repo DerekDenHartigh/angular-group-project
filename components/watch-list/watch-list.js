@@ -14,12 +14,7 @@ angular
     template: `
     <!--Watchlist-->
     <div class="watchlist-box" ng-repeat="movie in $ctrl.watchlistArray">
-        <label class="genre-option">{{genre.name}}</label>
-        <div class="checkbox-box">
-            <label class="checkbox-container genre-inclusion-checkbox-container">
-                Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" checked name="genre-inclusion[]" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
-            </label>
-        </div>
+        <!--this will be a copy/paste job from movie-list but built from an alternate array-->
     </div>
         `,
     controller: WatchListController

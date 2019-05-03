@@ -6,7 +6,7 @@ function MovieAppService($http, $location, $rootScope) {
 
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
-
+    service.responseData;
     service.pageNumber = 1;
     service.earliestReleaseDate;
     service.latestReleaseDate;
@@ -117,6 +117,7 @@ function MovieAppService($http, $location, $rootScope) {
         })
         .then( (response)=>{
             console.log(response.data);
+            service.responseData = response;  // saves data to service
             return response.data;
         })
     };

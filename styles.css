@@ -315,8 +315,32 @@ search{
         background: orange;
       }
 
-/* Movies Styling */
+/* Movie-list Styling */
 
     /* probably a flexbox grid display? */
+
+    /* page selection */
+
+    #page-number-container{
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        justify-content: center;
+        justify-items: center;
+        align-content: center;
+        align-items: center;
+    }
+        #page-selection-input{
+            margin: 10px 20px;
+        }
+
+        .arrows{
+            
+        }
+
+        .arrows:hover{
+            cursor: pointer;
+        }
 
 /* Favorites Styling */
