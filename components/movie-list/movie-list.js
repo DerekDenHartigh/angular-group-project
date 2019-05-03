@@ -4,6 +4,7 @@ function MovieListController(MovieAppService) {
     const ctrl = this;
     const service = MovieAppService;
 
+/* page forward/back functions */
     ctrl.pageBack = function(){
         if (service.pageNumber>1){
         service.pageNumber -= 1;
@@ -23,6 +24,24 @@ function MovieListController(MovieAppService) {
             console.error("There aren't that many pages!")
         }
     }
+
+/* watchlist button */
+
+    ctrl.watchlistEditor = function(movie){
+        if(ctrl.starred === true){ // if star is filled out, add movie to watchlist array
+            movie.starred = false;
+            // console.log(`watchlistArray before movie addition: ${service.watchlistArray}`)
+            service.addToWatchlistArray(movie);
+            // console.log(`watchlistArray after movie addition: ${service.watchlistArray}`)
+        }
+        else if (ctrl.starred === false){ // if star is empty, remove from watchlist array
+            movie.starred = true;
+            // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
+            service.removeFromWatchlistArray(movie);
+            // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
+        }
+    }
+
 }
 
 
@@ -32,6 +51,12 @@ angular
     template: `
     <!--Movie Display (title, poster, rating, description)-->
 
+
+    <!--Watchlist button will position top right, needs to be included in ng-repeat, might need to modify movie objects to contained a "starred: false" property -->
+    <div id="star-container">
+        <i class="material-icons star" ng-hide="movie.starred" ng-click="watchlistEditor(movie)">star_border</i>
+        <i class="material-icons star" ng-show="movie.starred" ng-click="watchlistEditor(movie)">star</i>
+    </div>
 
     <!--Page Number Selector-->
     <div id="page-number-container">

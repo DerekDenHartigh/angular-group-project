@@ -80,16 +80,16 @@ function MovieAppService($http, $location, $rootScope) {
 
     service.watchlistArray = [];
 
-        service.addToWatchlistArray = function(movie){
+        service.addToWatchlistArray = function(movie){ // adds movies to watchlist array from movie-list component
             service.watchlistArray.push(movie);
             console.log(`watchlistArray: ${watchlistArray}`);
         }
 
-        service.removeFromWatchlistArray = function(movie){ // will this work with objects?
+        service.removeFromWatchlistArray = function(movie){ // will this work with objects? removes movies from watchlistArray
             console.log(`pre-splice watchlistArray: ${watchlistArray}`)
             let target = service.genreSelectionArray.indexOf(movie);
             service.genreSelectionArray.splice(target, 1);
-            console.error(`post-splice watchlistArray: ${watchlistArray}`);
+            console.log(`post-splice watchlistArray: ${watchlistArray}`);
         };
 
 
@@ -116,6 +116,9 @@ function MovieAppService($http, $location, $rootScope) {
             }
         })
         .then( (response)=>{
+            response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+                movie.starred = false;
+            });
             console.log(response.data);
             service.responseData = response;  // saves data to service
             return response.data;

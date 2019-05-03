@@ -319,6 +319,26 @@ search{
 
     /* probably a flexbox grid display? */
 
+    /* favorite button */
+
+    #star-container{
+        width: 24px;
+        height: 24px;
+        position: absolute;
+        top: 5px;
+        right: 5px;
+    }
+
+        .star{
+            width: 100%;
+            height: 100%;
+            position: absolute;
+        }
+
+        .star:hover{
+            cursor: pointer;
+        }
+
     /* page selection */
 
     #page-number-container{
