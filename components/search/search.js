@@ -39,30 +39,39 @@ function SearchController(MovieAppService, $scope) {
     //     genre.include = !genre.include; // toggles true/false on checkbox click - default is false
     // };
 
-    $scope.runtimeSlider = {
-        minValue: 0,
-        maxValue: 120,
-        options: {
-          floor: 0,
-          ceil: 999,
-          step: 10,
-          showTicks: false,
-          minLimit: 10
-        }
-      };
+    // $scope.runtimeSlider = {
+    //     minValue: 0,
+    //     // maxValue: 120,
+    //     options: {
+    //       floor: 0,
+    //       ceil: 999,
+    //       step: 10,
+    //     //   showTicks: false,
+    //       minLimit: 10,
+    //       maxLimit:900
+    //     }
+    //   };
 
-      $scope.ratingSlider = {
-        minValue: 0,
-        maxValue: 10,
-        options: {
-          floor: 0,
-          ceil: 10,
-          step: 1,
-          showTicks: true,
-        }
-      };
+    //   $scope.ratingSlider = {
+    //     minValue: 0,
+    //     maxValue: 10,
+    //     options: {
+    //       floor: 0,
+    //       ceil: 10,
+    //       step: 1,
+    //       showTicks: true,
+    //     }
+    //   };
+    $scope.timevalue=0;
+    $scope.timevaluemin =0;
+    $scope.timevaluemax=300;
+    $scope.ratingvalue=0;
+    $scope.min=0;
+    $scope.max=10;
 
 }
+
+
 
 
 angular
@@ -85,11 +94,25 @@ angular
 
     <!--Runtime-->
 
-    <rzslider class="runtime-slider" rz-slider-model="runtimeSlider.minValue" rz-slider-high="runtimeSlider.maxValue" rz-slider-options="runtimeSlider.options"></rzslider>
+    Time as range: <input type="range" name="range" ng-model="timevalue" min="{{timevaluemin}}"  max="{{timevaluemax}}">
+    <hr>
+    Time as number: <input type="number" ng-model="timevalue"><br><br><br>
+    
+    Rating as range: <input type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
+    <hr>
+    Rating as number: <input type="number" ng-model="ratingvalue"><br> 
 
-    <!--Rating-->
 
-    <rzslider class="rating-slider" rz-slider-model="ratingSlider.minValue" rz-slider-high="ratingSlider.maxValue" rz-slider-options="ratingSlider.options"></rzslider>
+
+
+
+
+
+
+
+
+
+   
 
     </div>
         `,
