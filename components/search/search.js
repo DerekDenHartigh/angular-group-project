@@ -9,15 +9,35 @@ function SearchController(MovieAppService, $scope) {
     };
 
     ctrl.checkboxIncludeFunction = function(genre){
-        genre.include = !genre.include; // toggles true/false on checkbox click - default is false
-        if (genre.include === true){
-            
+        console.log(`genreSelection: ${service.genreSelection}\ngenresNotWanted: ${service.genresNotWanted}`)
+        console.log(`Pre-switch: genre.include: ${genre.include}\ngenre.exclude: ${genre.exclude}`)
+        genre.include = !genre.include; // toggles true/false on checkbox click - default is true
+        genre.exclude = !genre.include; // ensures that if a genre is included, it is not excluded.
+        console.log(`post Switch: genre.include: ${genre.include}\ngenre.exclude: ${genre.exclude}`)
+        if (genre.include === true){  // if genre is included, add it to the genreSelectionArray
+            service.addToGenreSelectionArray(genre.id);
+            console.log(`genreSelectionArray: ${service.genreSelectionArray}`)
         }
+        if (genre.include === false){  // if genre is not included, cut it from the genreSelectionArray
+            service.removeFromGenreSelectionArray(genre.id);
+            console.warn(`genreSelectionArray: ${service.genreSelectionArray}`)
+        }
+        if (genre.exclude === true){ // if genre is excluded, add it to the genreExclusionArray
+            service.addToGenreExclusionArray(genre.id);
+            console.log(`genreExclusionArray: ${service.genreExclusionArray}`)
+        }
+        if (genre.exclude === false){  // if genre isn't excluded, cut it from the genreExclusionArray
+            service.removeFromGenreExclusionArray(genre.id);
+            console.warn(`genreExclusionArray: ${service.genreExclusionArray}`)
+        }
+        service.genreSelectionArrayToString(); // convert the arrays to strings that can be passed as params
+        service.genreExclusionArrayToString();
+        console.warn(`genreSelection: ${service.genreSelection}\ngenresNotWanted: ${service.genresNotWanted}`);
     };
 
-    ctrl.checkboxExcludeFunction = function(genre){
-        genre.include = !genre.include; // toggles true/false on checkbox click - default is false
-    };
+    // ctrl.checkboxExcludeFunction = function(genre){
+    //     genre.include = !genre.include; // toggles true/false on checkbox click - default is false
+    // };
 
     $scope.runtimeSlider = {
         minValue: 0,
@@ -58,10 +78,7 @@ angular
             <label class="genre-option">{{genre.name}}</label>
             <div class="checkbox-box">
                 <label class="checkbox-container genre-inclusion-checkbox-container">
-                    Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genre.include" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
-                </label>
-                <label class="checkbox-container genre-exclusion-checkbox-container">
-                    Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genre.exclude" ng-click="$ctrl.checkboxExcludeFunction(genre)"/>
+                    Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" checked name="genre-inclusion[]" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
                 </label>
             </div>
         </div>
