@@ -6,7 +6,7 @@ function MovieAppService($http, $location, $rootScope) {
 
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
-    service.responseData;
+    service.responseData = {};
     service.pageNumber = 1;
     service.earliestReleaseDate;
     service.latestReleaseDate;
@@ -28,6 +28,42 @@ function MovieAppService($http, $location, $rootScope) {
     // service.runTimeLessThanOrEqual = 120;
     // service.vote_averageGreaterThanOrEqual = 5;
     // service.vote_averageLessThanOrEqual = 10;
+
+/* API call */
+
+service.callTheMovieDbApi = () => {
+    console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+        service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.vote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual)
+        // all the variables are working as they should.
+    $http.get('https://api.themoviedb.org/3/discover/movie', {
+        params: {
+            api_key: service.api_key,
+            language: "en-US",
+            sort_by: "popularity.desc",
+            include_adult: false,
+            include_video: false,
+            page: service.pageNumber,
+            'release_date.gte': service.earliestReleaseDate,
+            'release_date.lte': service.latestReleaseDate,
+            with_genres: service.genreSelection,
+            without_genres: service.genresNotWanted,
+            'with_runtime.gte': service.runTimeGreaterThanOrEqual,
+            'with_runtime.lte': service.runTimeLessThanOrEqual,
+            'vote_average.gte': service.vote_averageGreaterThanOrEqual,
+            'vote_average.lte': service.vote_averageLessThanOrEqual
+        }
+    })
+    .then( (response)=>{
+        response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+            movie.starred = false;
+        });
+        console.log(response.data);
+        service.responseData = response.data; // saves data to service
+        console.warn(service.responseData) // check to see that the data saved correctly
+        return response.data;  // don't need this since it is saved to service?
+    })
+};
+service.callTheMovieDbApi();
 
 /* Genre Land */
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
@@ -92,40 +128,9 @@ function MovieAppService($http, $location, $rootScope) {
             console.log(`post-splice watchlistArray: ${watchlistArray}`);
         };
 
-
-    service.callTheMovieDbApi = () => {
-        console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.vote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual)
-            // all the variables are working as they should.
-        $http.get('https://api.themoviedb.org/3/discover/movie', {
-            params: {
-                api_key: service.api_key,
-                language: "en-US",
-                sort_by: "popularity.desc",
-                include_adult: false,
-                include_video: false,
-                page: service.pageNumber,
-                'release_date.gte': service.earliestReleaseDate,
-                'release_date.lte': service.latestReleaseDate,
-                with_genres: service.genreSelection,
-                without_genres: service.genresNotWanted,
-                'with_runtime.gte': service.runTimeGreaterThanOrEqual,
-                'with_runtime.lte': service.runTimeLessThanOrEqual,
-                'vote_average.gte': service.vote_averageGreaterThanOrEqual,
-                'vote_average.lte': service.vote_averageLessThanOrEqual
-            }
-        })
-        .then( (response)=>{
-            response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
-                movie.starred = false;
-            });
-            console.log(response.data);
-            service.responseData = response;  // saves data to service
-            return response.data;
-        })
-    };
     // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
-    // service.callTheMovieDbApi();
+
+
 }
 
 angular

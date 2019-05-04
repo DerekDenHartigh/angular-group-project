@@ -56,10 +56,10 @@ function SearchController(MovieAppService, $scope, $timeout) {
      *      wait 1 sec (log that it is firing)
      *      then call the moviedbApi to re-render the page.
     */
-    $scope.$watchCollection('$scope.genreSelectionArray', ()=>{
-        $timeout(console.warn("watch genreSelection Array, timeout function, then callAPI"), 1000)
-        .then(service.callTheMovieDbApi());
-    });
+    // $scope.$watchCollection('$scope.genreSelectionArray', ()=>{
+    //     $timeout(console.warn("watch genreSelection Array, timeout function, then callAPI"), 1000)
+    //     .then(service.callTheMovieDbApi());
+    // });
 
     // $scope.runtimeSlider = {
     //     minValue: 0,

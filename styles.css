@@ -315,29 +315,76 @@ search{
         background: orange;
       }
 
-/* Movie-list Styling */
+/* movie-list Styling */
 
-    /* probably a flexbox grid display? */
-
-    /* favorite button */
-
-    #star-container{
-        width: 24px;
-        height: 24px;
-        position: absolute;
-        top: 5px;
-        right: 5px;
+    #movie-list-container{
+        background-color: plum;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: space-around;
+        align-items: space-around;
+        justify-content: space-around;
+        justify-items: space-around;
     }
 
-        .star{
-            width: 100%;
-            height: 100%;
-            position: absolute;
+        .movie-post{
+            background-color: blue;
+            padding: 10px;
+            width: 20%;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            justify-items: space-around;
+            align-content: center;
+            align-items: center;
         }
 
-        .star:hover{
-            cursor: pointer;
-        }
+            .title-container{
+
+            }
+
+                .movie-title{
+                    display: flex;
+                    text-align: center;
+                    width: 100%;
+                    font-style: bolder;
+                    font-size: 1.5em;
+                }
+
+                  /* favorite button */
+
+                #star-container{
+                    display: flex;
+                    width: 24px;
+                    height: 24px;
+                    position: absolute;
+                    top: 5px;
+                    right: 5px;
+                }
+
+                    .star{
+                        width: 100%;
+                        height: 100%;
+                        position: absolute;
+                        color: gold;
+                    }
+
+                    .star:hover{
+                        cursor: pointer;
+                    }
+
+            .movie-poster{
+                display: flex;
+            }
+
+            .movie-description{
+                display: flex;
+            }
+
 
     /* page selection */
 

@@ -4,6 +4,9 @@ function MovieListController(MovieAppService) {
     const ctrl = this;
     const service = MovieAppService;
 
+
+
+
 /* page forward/back functions */
     ctrl.pageBack = function(){
         if (service.pageNumber>1){
@@ -50,18 +53,25 @@ angular
 .component('movieList', {
     template: `
     <!--Movie Display (title, poster, rating, description)-->
-
-
-    <!--Watchlist button will position top right, needs to be included in ng-repeat, might need to modify movie objects to contained a "starred: false" property -->
-    <div id="star-container">
-        <i class="material-icons star" ng-hide="movie.starred" ng-click="watchlistEditor(movie)">star_border</i>
-        <i class="material-icons star" ng-show="movie.starred" ng-click="watchlistEditor(movie)">star</i>
+    <div id="movie-list-container">
+        <div class="movie-post" ng-repeat="movie in $ctrl.service.responseData.data.results">
+            <div class="title-container">
+                <div id="star-container">
+                    <i class="material-icons star" ng-hide="movie.starred" ng-click="watchlistEditor(movie)">star_border</i>
+                    <i class="material-icons star" ng-show="movie.starred" ng-click="watchlistEditor(movie)">star</i>
+                </div>
+                <h1 class="movie-title">{{movie.original_title}}</h1>
+            </div>
+            <img class="movie-poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="movie poster">
+            <p class ="movie-description">Synopsis:\n{{movie.overview}}</p>
+        </div>
     </div>
 
     <!--Page Number Selector-->
     <div id="page-number-container">
         <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.service.pageNumber" value="$ctrl.service.pageNumber">
+        <!--<input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.service.pageNumber" value="service.pageNumber"> can't get the value to bind so commenting out-->
+        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.service.pageNumber">
         <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
     </div>
         `,
