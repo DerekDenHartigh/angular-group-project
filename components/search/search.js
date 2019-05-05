@@ -39,12 +39,12 @@ function SearchController(MovieAppService, $scope) {
     //       showTicks: true,
     //     }
     //   };
-    $scope.timevalue=0;
-    $scope.timevaluemin =0;
-    $scope.timevaluemax=300;
-    $scope.ratingvalue=0;
-    $scope.min=0;
-    $scope.max=10;
+    // $scope.timevalue=0;
+    // $scope.timevaluemin =0;
+    // $scope.timevaluemax=300;
+    // $scope.ratingvalue=0;
+    // $scope.min=0;
+    // $scope.max=10;
 
 }
 
@@ -55,7 +55,7 @@ angular
 .module('MovieApp')  
 .component('search', {
     template: `
-    <h1 id="result-filter" ng-click="shown=!shown">Filter Your Results:<h1>
+    <h1 id="result-filter" ng-click="shown=!shown">Find The Perfect Movie<h1>
 
     <div name="search-spec-form" id="search-spec-form" ng-hide="!shown">
 
@@ -64,23 +64,38 @@ angular
             <label class="genre-option">{{genre.name}}</label>
             <div class="checkbox-box">
                 <label class="checkbox-container genre-inclusion-checkbox-container">
-                    Include: <input class="genre-inclusion-checkbox checkbox" type="checkbox" name="genre-inclusion[]" ng-model="genre.include" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
-                </label>
-                <label class="checkbox-container genre-exclusion-checkbox-container">
-                    Exclude: <input class="genre-exclusion-checkbox checkbox" type="checkbox" name="genre-exclusion[]" ng-model="genre.exclude" ng-click="$ctrl.checkboxExcludeFunction(genre)"/>
+                    <input class="genre-inclusion-checkbox checkbox" type="checkbox" checked name="genre-inclusion[]" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
                 </label>
             </div>
         </div>
 
     <!--Runtime-->
 
-    Time as range: <input type="range" name="range" ng-model="timevalue" min="{{timevaluemin}}"  max="{{timevaluemax}}">
-    <hr>
-    Time as number: <input type="number" ng-model="timevalue"><br><br><br>
+    <!-- Time as range: <input type="range" name="range" ng-model="timevalue" min="{{timevaluemin}}"  max="{{timevaluemax}}">
+    // <hr>
+    // Time as number: <input type="number" ng-model="timevalue"><br><br><br>
     
-    Rating as range: <input type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
-    <hr>
-    Rating as number: <input type="number" ng-model="ratingvalue"><br> 
+    // Rating as range: <input type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
+    // <hr>
+    // Rating as number: <input type="number" ng-model="ratingvalue"><br> -->
+
+    <span class="rating">
+    <input type="radio" class="rating-input"
+        id="rating-input-1-5" name="rating-input-1">
+    <label for="rating-input-1-5" class="rating-star"></label>
+    <input type="radio" class="rating-input"
+        id="rating-input-1-4" name="rating-input-1">
+    <label for="rating-input-1-4" class="rating-star"></label>
+    <input type="radio" class="rating-input"
+        id="rating-input-1-3" name="rating-input-1">
+    <label for="rating-input-1-3" class="rating-star"></label>
+    <input type="radio" class="rating-input"
+        id="rating-input-1-2" name="rating-input-1">
+    <label for="rating-input-1-2" class="rating-star"></label>
+    <input type="radio" class="rating-input"
+        id="rating-input-1-1" name="rating-input-1">
+    <label for="rating-input-1-1" class="rating-star"></label>
+</span>
 
 
 
