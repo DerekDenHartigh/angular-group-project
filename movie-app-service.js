@@ -14,6 +14,8 @@ function MovieAppService($http, $location, $rootScope, $q) {
     // service.genresNotWanted = [];
     // service.runTimeGreaterThanOrEqual;
     // service.runTimeLessThanOrEqual;
+    // service.ote_averageGreaterThanOrEqual;
+    // service.vote_averageLessThanOrEqual;
 
     // Hardcoded variables for testing - should only return 1 page of action titles (no horror titles) from 2000-2019, of duration 60-120 min.
     
@@ -24,6 +26,8 @@ function MovieAppService($http, $location, $rootScope, $q) {
     service.genresNotWanted = 27;
     service.runTimeGreaterThanOrEqual = 60;
     service.runTimeLessThanOrEqual = 120;
+    service.vote_averageGreaterThanOrEqual = 5
+    service.vote_averageLessThanOrEqual = 10
 
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
         
@@ -31,9 +35,11 @@ function MovieAppService($http, $location, $rootScope, $q) {
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
             .then( (response)=>{ // response includes headers
                 response.data.genres.forEach( genre => {
-                    service.genreOptionArray.push(genre);  // genre is an object containing name(string) and id(number)
+                    // adding onto the object for checkbox usage
+                    genre.include = false;
+                    genre.exclude = false;
+                    service.genreOptionArray.push(genre); // genre is an object containing name(string) and id(number)
                 });
-                // console.log(`genreOptionArray: ${service.genreOptionArray}`)  // just kicks out a bunch of [object object]'s anyway
             });
         };
         service.generateGenreArray();
@@ -75,6 +81,7 @@ function MovieAppService($http, $location, $rootScope, $q) {
             }
 
     service.callTheMovieDbApi = () => {
+<<<<<<< HEAD
       return $q(function(resolve, reject){
 
         $http.get('https://api.themoviedb.org/3/discover/movie', {
@@ -105,6 +112,33 @@ function MovieAppService($http, $location, $rootScope, $q) {
             // service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
             // all the variables are working as they should.
       
+=======
+        console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.vote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual)
+            // all the variables are working as they should.
+        $http.get('https://api.themoviedb.org/3/discover/movie', {
+            params: {
+                api_key: service.api_key,
+                language: "en-US",
+                sort_by: "popularity.desc",
+                include_adult: false,
+                include_video: false,
+                page: service.pageNumber,
+                'release_date.gte': service.earliestReleaseDate,
+                'release_date.lte': service.latestReleaseDate,
+                with_genres: service.genreSelection,
+                without_genres: service.genresNotWanted,
+                'with_runtime.gte': service.runTimeGreaterThanOrEqual,
+                'with_runtime.lte': service.runTimeLessThanOrEqual,
+                'vote_average.gte': service.vote_averageGreaterThanOrEqual,
+                'vote_average.lte': service.vote_averageLessThanOrEqual
+            }
+        })
+        .then( (response)=>{
+            console.log(response.data);
+            return response.data;
+        })
+>>>>>>> Sliders2
         // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
     };
 

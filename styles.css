@@ -1,7 +1,186 @@
+@import url('https://fonts.googleapis.com/css?family=Limelight');
+@import url('https://fonts.googleapis.com/css?family=Monoton');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("aperture.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    display: flex;
+    text-decoration: none;
+    color: white;
+    box-sizing: border-box;
+
+}
+
+.genre-option-box {
+    color: white;
+    font-size: 25px;
+    width: 50%;
+    margin: 0;
+    height: 65px;
+    
+}
+
+#search-spec-form {
+    width: 60%;
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-weight: 100;
+    
+}
+
+
+
+
+#body {
+    /* background-image: url("bar.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    display: block;
+    position: relative;
+    
+}
+#body::after {
+    content: "";
+    background: url("aperture.jpg");
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    
+}
+.body {
+    margin: 0 auto;
+    padding: 0;
+    /* background: rgba(255, 255, 255, 0.3); */
+    
+}
+
+nav {
+    float: right;
+    color: white;
+}
+
+p {
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 70px;
+    width: 30%;
+    color: white;
+    margin-top: 50px;
+    text-shadow: 4px 4px 9px gray;
+}
+
+#result-filter:hover{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: solid black;
+    box-shadow: none;
+}
+
+#result-filter {
+    color: black;
+    background-color: white;
+    width: 400px;
+    /* margin-top: 200px;
+    margin-left: 40px;
+    margin-bottom: 200px; */
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 55px;
+    border: 2px solid white;
+    font-size: 35px;
+    border-radius: 7px;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 2px 2px 5px lightgray;
+    
+}
+
+a {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100px;
+}
+
+.rating {
+    overflow: hidden;
+    display: inline-block;
+}
+.rating-input {
+    float: right;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0 0 0 -16px;
+    opacity: 0;
+}
+
+.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+
+ .rating-star,
+.rating:hover .rating-star {
+  position: relative;
+    display: block;
+  float: right;
+    width: 16px;
+    height: 16px;
+    background: url('https://www.everythingfrontend.com/samples/star-rating/star.png') 0 -16px;
+}
+
+.rating-star {
+    
+}
+  
+
+
+
+/* header {
+    margin: 0 auto;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.3);
+    height: 100vh;
+} */
+
+/* li {
+    color: red; 
+    height: 100px;
+    z-index: 5;
+    font-weight: bold;
+    
+} */
+
+
+
+
+
+
+
+
+
+
+
+
 /* Omni-Styling */
 
     /* custom scollbar styling */
     /* width */
+<<<<<<< HEAD
     ::-webkit-scrollbar {
         width: 20px;
     }
@@ -22,8 +201,69 @@
     ::-webkit-scrollbar-thumb:hover {
         background: #b30000; 
     }
+=======
+    /* ::-webkit-scrollbar {
+        width: 20px;
+    } */
+  
+    /* Track */
+    /* ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+    } */
+    
+    /* Handle */
+    /* ::-webkit-scrollbar-thumb {
+        background: red; 
+        border-radius: 10px;
+    } */
+    
+    /* Handle on hover */
+    /* ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+    } */
+>>>>>>> Sliders2
 
 /* Header Styling*/
+/* 
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: space-around;
+    align-content: center;
+    align-items: center;
+    background-color: burlywood;
+}
+
+    #header{
+        display: flex;
+        width: 100%;
+        padding: 20px;
+        font-size: 3em;
+    }
+    #header-list{
+       display: flex;
+       width: 100%;
+       justify-content: space-around;
+       justify-items: space-around;
+       align-content: center;
+       align-items: center;
+    }
+        #header-list li{
+            background-color: orange;
+            border: solid black 1px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+        
+        #header-list li:hover{
+            background-color: turquoise;
+        }
+
+        #header-list li a{
+            
+        } */
 
 header{
     display: flex;
@@ -76,12 +316,17 @@ header{
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
 */
 
+<<<<<<< HEAD
 search{
+=======
+/* search{
+>>>>>>> Sliders2
     display: flex;
     flex-direction: column;
     background-color: grey;
     padding: 10px;
     border-radius: 10px;
+<<<<<<< HEAD
 }
 
     #result-filter:hover{
@@ -96,6 +341,18 @@ search{
     }
 
         .genre-option-box{
+=======
+} */
+
+/* 
+     #search-spec-form{
+        display: flex;
+        flex-wrap: wrap;
+        width: 100%;
+    } */
+
+        /* .genre-option-box{
+>>>>>>> Sliders2
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -156,7 +413,11 @@ search{
                         .genre-exclusion-checkbox{
                             font-family: 'Material Icons';
                             content: 'close';
+<<<<<<< HEAD
                         }
+=======
+                        }  */ 
+>>>>>>> Sliders2
 
 
             /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
@@ -227,7 +488,11 @@ search{
 
     /* slider styling */
     /* runtime slider */
+<<<<<<< HEAD
     .runtime-slider.rzslider .rz-bar {
+=======
+    /* .runtime-slider.rzslider .rz-bar {
+>>>>>>> Sliders2
         background: #ffe4d1;
         height: 2px;
       }
@@ -239,7 +504,11 @@ search{
         width: 8px;
         height: 16px;
         top: auto; /* to remove the default positioning */
+<<<<<<< HEAD
         bottom: 0;
+=======
+        /* bottom: 0;
+>>>>>>> Sliders2
         background-color: #333;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
@@ -251,9 +520,15 @@ search{
       
       .runtime-slider.rzslider .rz-bubble {
         bottom: 14px;
+<<<<<<< HEAD
       }
       
       .runtime-slider.rzslider .rz-limit {
+=======
+      } */
+      
+      /* .runtime-slider.rzslider .rz-limit {
+>>>>>>> Sliders2
         font-weight: bold;
         color: orange;
       }
@@ -269,9 +544,15 @@ search{
       
       .runtime-slider.rzslider .rz-tick.rz-selected {
         background: orange;
+<<<<<<< HEAD
       }
     /* rating slider*/
     .rating-slider.rzslider .rz-bar {
+=======
+      } */
+    /* rating slider*/
+    /* .rating-slider.rzslider .rz-bar {
+>>>>>>> Sliders2
         background: #ffe4d1;
         height: 2px;
       }
@@ -283,17 +564,30 @@ search{
         width: 8px;
         height: 16px;
         top: auto; /* to remove the default positioning */
+<<<<<<< HEAD
         bottom: 0;
+=======
+        /* bottom: 0;
+>>>>>>> Sliders2
         background-color: #333;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
       }
+<<<<<<< HEAD
       
       .rating-slider.rzslider .rz-pointer:after {
         display: none;
       }
       
       .rating-slider.rzslider .rz-bubble {
+=======
+       */
+      /* .rating-slider.rzslider .rz-pointer:after {
+        display: none;
+      } */
+       
+      /* .rating-slider.rzslider .rz-bubble {
+>>>>>>> Sliders2
         bottom: 14px;
       }
       
@@ -313,6 +607,7 @@ search{
       
       .rating-slider.rzslider .rz-tick.rz-selected {
         background: orange;
+<<<<<<< HEAD
       }
 
 /* movie-list Styling */
@@ -405,6 +700,9 @@ search{
             font-size: 1.5em;
             font-style: bolder;
         }
+=======
+      }  */
+>>>>>>> Sliders2
 
         .arrows{
             color: purple;

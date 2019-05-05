@@ -1,2 +1,2 @@
 "use strict";
-angular.module("MovieApp", ["ngRoute"]);
+angular.module("MovieApp", ["ngRoute", ]);
