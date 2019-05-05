@@ -22,7 +22,7 @@ function MovieListController(MovieAppService) {
     ctrl.pageForward = function(){
         if(service.pageNumber<service.responseData.total_pages){
             service.pageNumber += 1;
-            ctrl.pageNumber =+ 1;
+            ctrl.pageNumber += 1;
             console.log(service.pageNumber, ctrl.pageNumber);
         }
         else if(service.pageNumber>=service.response.total_pages){
