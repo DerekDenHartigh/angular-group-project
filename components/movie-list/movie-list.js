@@ -4,15 +4,15 @@ function MovieListController(MovieAppService) {
     const ctrl = this;
     const service = MovieAppService;
 
-    ctrl.pageNumber = service.pageNumber;  // binding pageNumber between ctrl and service?
-
+    ctrl.pageNumber = service.pageNumber;
 
 
 /* page forward/back functions */
     ctrl.pageBack = function(){
         if (service.pageNumber>1){
         service.pageNumber -= 1;
-        console.log(service.pageNumber)
+        ctrl.pageNumber -=1;
+        console.log(service.pageNumber, ctrl.pageNumber)  // so this is not a binding, but a setting
         }
         else if (service.pageNumber<=1){
             console.error("1 is the lowest possible page number")
@@ -22,7 +22,8 @@ function MovieListController(MovieAppService) {
     ctrl.pageForward = function(){
         if(service.pageNumber<service.responseData.total_pages){
             service.pageNumber += 1;
-            console.log(service.pageNumber);
+            ctrl.pageNumber =+ 1;
+            console.log(service.pageNumber, ctrl.pageNumber);
         }
         else if(service.pageNumber>=service.response.total_pages){
             console.error("There aren't that many pages!")
@@ -71,7 +72,7 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.pageNumber" value="$ctrl.pageNumber">
+        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.pageNumber" ng-value="$ctrl.pageNumber">
         <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
     </div>
         `,
