@@ -4,6 +4,7 @@ function MovieListController(MovieAppService) {
     const ctrl = this;
     const service = MovieAppService;
 
+    ctrl.pageNumber = service.pageNumber;  // binding pageNumber between ctrl and service?
 
 
 
@@ -19,11 +20,11 @@ function MovieListController(MovieAppService) {
     }
 
     ctrl.pageForward = function(){
-        if(service.pageNumber<service.responseData.data.total_pages){
+        if(service.pageNumber<service.responseData.total_pages){
             service.pageNumber += 1;
             console.log(service.pageNumber);
         }
-        else if(service.pageNumber>=service.response.data.total_pages){
+        else if(service.pageNumber>=service.response.total_pages){
             console.error("There aren't that many pages!")
         }
     }
@@ -70,8 +71,7 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-        <!--<input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.service.pageNumber" value="service.pageNumber"> can't get the value to bind so commenting out-->
-        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.service.pageNumber">
+        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.pageNumber" value="$ctrl.pageNumber">
         <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
     </div>
         `,

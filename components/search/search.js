@@ -3,6 +3,14 @@
 function SearchController(MovieAppService, $scope, $timeout) { 
     const ctrl = this;
     const service = MovieAppService;
+    ctrl.arrayOfParams = service.arrayOfParams; // binding arrayOfParams for watcher.
+
+/* a watcher for all the params to refresh the page - it is supposed to watch for changes in arrayOfParams, then, on change, refresh the content w/ a 200ms throttle */
+
+$scope.$watch("ctrl.arrayOfParams", function( newValue, oldValue ) {
+    $timeout(service.callTheMovieDbApi(), 200);
+    },true);
+
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
     ctrl.callGenerateGenreArray = function(){
         return service.generateGenreArray();

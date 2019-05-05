@@ -7,6 +7,7 @@ function MovieAppService($http, $location, $rootScope) {
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
     service.responseData = {};
+
     service.pageNumber = 1;
     service.earliestReleaseDate;
     service.latestReleaseDate;
@@ -16,6 +17,8 @@ function MovieAppService($http, $location, $rootScope) {
     service.runTimeLessThanOrEqual;
     service.ote_averageGreaterThanOrEqual;
     service.vote_averageLessThanOrEqual;
+
+    service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
 
     // Hardcoded variables for testing - should only return 1 page of titles from 2000-2019, of duration 60-120 min.
     
