@@ -32,23 +32,23 @@ function MovieListController(MovieAppService, $q) {
 /* watchlist button */
 
     ctrl.watchlistEditor = function(movie){
-        if(ctrl.starred === true){ // if star is filled out, add movie to watchlist array
+        if(movie.starred === true){ // if star is filled out, add movie to watchlist array
             movie.starred = false;
             // console.log(`watchlistArray before movie addition: ${service.watchlistArray}`)
-            service.addToWatchlistArray(movie);
+            ctrl.service.addToWatchlistArray(movie);
             // console.log(`watchlistArray after movie addition: ${service.watchlistArray}`)
         }
-        else if (ctrl.starred === false){ // if star is empty, remove from watchlist array
+        else if (movie.starred === false){ // if star is empty, remove from watchlist array
             movie.starred = true;
             // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
-            service.removeFromWatchlistArray(movie);
+            ctrl.service.removeFromWatchlistArray(movie);
             // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
         }
     }
 
 /* movie list generator */
 
-    ctrl.movieList = [];
+    ctrl.movieList = ctrl.service.movieList;
 
     ctrl.getMovies = () => {
         return $q(function(resolve, reject) {
@@ -68,11 +68,10 @@ function MovieListController(MovieAppService, $q) {
                     starred: false
                   }
                  
-                  
-                  ctrl.movieList.push(movieObj);
+                  ctrl.service.movieList.push(movieObj);
       
                   if ( index === (children.length - 1) ){
-                    console.log(ctrl.movieList); 
+                    console.error(service.movieList); // just added the error for coloring, movieList is now build in service and referenced in the controller.
                     resolve();
                   }
       
@@ -96,8 +95,8 @@ angular
                 <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
                 <div id="spacer"></div>
                 <div id="star-container">
-                    <i class="material-icons star" ng-hide="movie.starred" ng-click="watchlistEditor(movie)">star_border</i>
-                    <i class="material-icons star" ng-show="movie.starred" ng-click="watchlistEditor(movie)">star</i>
+                    <i class="material-icons star" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
+                    <i class="material-icons star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
                 </div>
             </div>
             <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>

@@ -20,6 +20,8 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
     service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
 
+    service.movieList = [];
+
     // Hardcoded variables for testing - should only return 1 page of titles from 2000-2019, of duration 60-120 min.
     
     // service.pageNumber = 1;
