@@ -25,7 +25,7 @@ function MovieListController(MovieAppService, $q) {
                   }
                  
                   
-    //               ctrl.movieList.push(movieObj);
+                  ctrl.movieList.push(movieObj);
       
                   if ( index === (children.length - 1) ){
                     console.log(ctrl.movieList); 
@@ -36,13 +36,13 @@ function MovieListController(MovieAppService, $q) {
             });
         });
       }
-
-    
+      
+        ctrl.getMovies()
        
     }
 
     
-
+    
 
 
 
@@ -51,20 +51,19 @@ angular
 .module('MovieApp')  
 .component('movieList', {
     template: `
-    <div ng-repeat="movie in $ctrl.movieList">
-        <div id="box-container">
-            <div class = "title">
-            <h2>{{movie.title}}</h2>
-        </div>
-        <div class = "image">
-      <img ng-src="{{movie.poster}}"></img>
+    <div ng-repeat="post in $ctrl.movieList">
+    <div id="box-container">
+    <div class = "title">
+      <h2>{{post.title}}</h2>
+    </div>
+    <div class = "image">
+      <img ng-src="{{post.poster}}"></img>
     </div>
     <div class = "description">
         <p>{{post.description}}</p>
     </div>
     </div>
   </div>
-
         `,
     controller: MovieListController
 });
