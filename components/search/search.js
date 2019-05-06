@@ -1,6 +1,6 @@
 "use strict";
 
-function SearchController(MovieAppService, $scope, $timeout) { 
+function SearchController(MovieAppService, $scope, $timeout, factory) { 
     const ctrl = this;
     const service = MovieAppService;
     ctrl.arrayOfParams = service.arrayOfParams; // binding arrayOfParams for watcher.
@@ -12,11 +12,20 @@ function SearchController(MovieAppService, $scope, $timeout) {
  *      
  * */
 
-$scope.$watch("ctrl.arrayOfParams", function( newValue, oldValue ) {
-    console.log("service.arrayOfParams:");
-    console.log(service.arrayOfParams);
-    $timeout(service.getMovies(), 500);
-    },true);
+// $scope.$watch("ctrl.arrayOfParams", function( newValue, oldValue ) {
+//     console.log("service.arrayOfParams:");
+//     console.log(service.arrayOfParams);
+//     $timeout(service.getMovies(), 500);
+//     },true);
+
+//define initial values
+    $scope.arrayOfParams = ctrl.arrayOfParams; // products array populated with data from a service
+    $scope.paramChanges = 0;
+//watch products for changes with 1 second debounce to 
+//prevent every keystroke incrementing productChanges
+    $scope.$watch('$scope.arrayOfParams', debounce(function() {
+        $scope.paramChanges++;
+    },1000), true);
 
 
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
