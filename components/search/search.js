@@ -1,6 +1,6 @@
 "use strict";
 
-function SearchController(MovieAppService, $scope, $timeout, factory) { 
+function SearchController(MovieAppService, $scope, $timeout, debounce) { 
     const ctrl = this;
     const service = MovieAppService;
     ctrl.arrayOfParams = service.arrayOfParams; // binding arrayOfParams for watcher.
