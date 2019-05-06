@@ -1,6 +1,6 @@
 "use strict";
 
-function SearchController(MovieAppService, $scope, $timeout, debounce) { 
+function SearchController(MovieAppService, $scope, $timeout, $watch, debounce) { 
     const ctrl = this;
     const service = MovieAppService;
     ctrl.arrayOfParams = service.arrayOfParams; // binding arrayOfParams for watcher.
@@ -19,7 +19,7 @@ function SearchController(MovieAppService, $scope, $timeout, debounce) {
 //     },true);
 
 //define initial values
-    $scope.arrayOfParams = ctrl.arrayOfParams; // products array populated with data from a service
+    $scope.arrayOfParams = service.arrayOfParams;
     $scope.paramChanges = 0;
 //watch products for changes with 1 second debounce to 
 //prevent every keystroke incrementing productChanges
@@ -28,6 +28,29 @@ function SearchController(MovieAppService, $scope, $timeout, debounce) {
         console.log(service.arrayOfParams);
         $scope.paramChanges++;
     },1000), true);
+
+
+    $watch(watchExpression, listener, [objectEquality]);
+
+// Original example:
+
+// //define initial values
+// $scope.products = []; // products array populated with data from a service
+// $scope.productChanges = 0;
+// //watch products for changes with 1 second debounce to 
+// //prevent every keystroke incrementing productChanges
+// $scope.$watch('products', debounce(function() {
+//    $scope.productChanges++;
+// },1000), true);
+
+// //define initial values
+// $scope.products = []; // products array populated with data from a service
+// $scope.productChanges = 0;
+// //watch products for changes with 1 second debounce to 
+// //prevent every keystroke incrementing productChanges
+// $scope.$watch('products', debounce(function() {
+//    $scope.productChanges++;
+// },1000), true);
 
 
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
@@ -156,6 +179,11 @@ angular
         `,
     controller: SearchController
 });
+
+angular.module('MovieApp')  
+
+.controller('SearchController', ["MovieAppService", "$scope", "$timeout", "$watch", "debounce", SearchController])
+
 
 /**
  * Questions:
