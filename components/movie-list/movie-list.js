@@ -29,22 +29,9 @@ function MovieListController(MovieAppService, $q) {
         }
     }
 
-/* watchlist button */
+/* watchlist button - moved logic to service for use by watch-list component*/
 
-    ctrl.watchlistEditor = function(movie){
-        if(movie.starred === true){ // if star is filled out, add movie to watchlist array
-            movie.starred = false;
-            // console.log(`watchlistArray before movie addition: ${service.watchlistArray}`)
-            ctrl.service.removeFromWatchlistArray(movie);
-            // console.log(`watchlistArray after movie addition: ${service.watchlistArray}`)
-        }
-        else if (movie.starred === false){ // if star is empty, remove from watchlist array
-            movie.starred = true;
-            // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
-            ctrl.service.addToWatchlistArray(movie);
-            // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
-        }
-    }
+    ctrl.watchlistEditor = service.watchlistEditor
 
 /* movie list generator */
 

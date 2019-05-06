@@ -164,19 +164,37 @@ service.callTheMovieDbApi = () => {
     service.watchlistArray = [];
 
         service.addToWatchlistArray = function(movie){ // adds movies to watchlist array from movie-list component
-            console.log(`watchlistArray b4 addition: ${service.watchlistArray}`);
+            console.log(`watchlistArray b4 addition: `);
+            console.log(service.watchlistArray)
             service.watchlistArray.push(movie);
-            console.log(`watchlistArray after addition: ${service.watchlistArray}`);
+            console.log(`watchlistArray after addition: `);
+            console.log(service.watchlistArray)
         }
 
         service.removeFromWatchlistArray = function(movie){ // will this work with objects? removes movies from watchlistArray
-            console.log(`pre-splice watchlistArray: ${service.watchlistArray}`)
+            console.log('pre-splice watchlistArray: ');
+            console.log(service.watchlistArray)
             let target = service.watchlistArray.indexOf(movie);
             service.watchlistArray.splice(target, 1);
-            console.log(`post-splice watchlistArray: ${service.watchlistArray}`);
+            console.log(`post-splice watchlistArray: `);
+            console.log(service.watchlistArray)
         };
 
-    // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
+        service.watchlistEditor = function(movie){
+            if(movie.starred === true){ // if star is filled out, add movie to watchlist array
+                movie.starred = false;
+                // console.log(`watchlistArray before movie addition: ${service.watchlistArray}`)
+                service.removeFromWatchlistArray(movie);
+                // console.log(`watchlistArray after movie addition: ${service.watchlistArray}`)
+            }
+            else if (movie.starred === false){ // if star is empty, remove from watchlist array
+                movie.starred = true;
+                // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
+                service.addToWatchlistArray(movie);
+                // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
+            }
+        }
+
 
 }
 
