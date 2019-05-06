@@ -1,57 +1,15 @@
 "use strict";
 
-function SearchController(MovieAppService, $scope, $timeout, $watch, debounce) { 
+function SearchController(MovieAppService, $scope, $timeout) { 
     const ctrl = this;
     const service = MovieAppService;
     ctrl.arrayOfParams = service.arrayOfParams; // binding arrayOfParams for watcher.
 
-/**
- * A watcher for all the params to refresh the page
- * I don't think this will work however, since the timeout would only delay the firing of get movies, not limit the firings,
- * time to look at debouncing again.
- *      
- * */
+/* a watcher for all the params to refresh the page - it is supposed to watch for changes in arrayOfParams, then, on change, refresh the content w/ a 200ms throttle */
 
-// $scope.$watch("ctrl.arrayOfParams", function( newValue, oldValue ) {
-//     console.log("service.arrayOfParams:");
-//     console.log(service.arrayOfParams);
-//     $timeout(service.getMovies(), 500);
-//     },true);
-
-//define initial values
-    $scope.arrayOfParams = service.arrayOfParams;
-    $scope.paramChanges = 0;
-//watch products for changes with 1 second debounce to 
-//prevent every keystroke incrementing productChanges
-    $scope.$watch('$scope.arrayOfParams', debounce(function() {
-        console.log("service.arrayOfParams:");
-        console.log(service.arrayOfParams);
-        $scope.paramChanges++;
-    },1000), true);
-
-
-    $watch(watchExpression, listener, [objectEquality]);
-
-// Original example:
-
-// //define initial values
-// $scope.products = []; // products array populated with data from a service
-// $scope.productChanges = 0;
-// //watch products for changes with 1 second debounce to 
-// //prevent every keystroke incrementing productChanges
-// $scope.$watch('products', debounce(function() {
-//    $scope.productChanges++;
-// },1000), true);
-
-// //define initial values
-// $scope.products = []; // products array populated with data from a service
-// $scope.productChanges = 0;
-// //watch products for changes with 1 second debounce to 
-// //prevent every keystroke incrementing productChanges
-// $scope.$watch('products', debounce(function() {
-//    $scope.productChanges++;
-// },1000), true);
-
+$scope.$watch("ctrl.arrayOfParams", function( newValue, oldValue ) {
+    $timeout(service.callTheMovieDbApi(), 200);
+    },true);
 
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
     ctrl.callGenerateGenreArray = function(){
@@ -179,11 +137,6 @@ angular
         `,
     controller: SearchController
 });
-
-angular.module('MovieApp')  
-
-.controller('SearchController', ["MovieAppService", "$scope", "$timeout", "$watch", "debounce", SearchController])
-
 
 /**
  * Questions:

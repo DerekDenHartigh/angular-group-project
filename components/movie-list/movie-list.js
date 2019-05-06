@@ -38,8 +38,10 @@ function MovieListController(MovieAppService, $q) {
 /* movie list generator - moved logic to service for reference by search module*/
 
     ctrl.movieList = ctrl.service.movieList;
-    // ctrl.getMovies = service.getMovies
-    service.getMovies()  // calls once
+
+    ctrl.getMovies = service.getMovies
+    
+    ctrl.getMovies()  // calls once
        
     }
 
