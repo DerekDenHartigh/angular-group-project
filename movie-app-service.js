@@ -34,45 +34,45 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
 /* API call */
 
-service.callTheMovieDbApi = () => {
-    console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-        service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.vote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual)
-        // all the variables are working as they should.
-    $http.get('https://api.themoviedb.org/3/discover/movie', {
-        params: {
-            api_key: service.api_key,
-            language: "en-US",
-            sort_by: "popularity.desc",
-            include_adult: false,
-            include_video: false,
-            page: service.pageNumber,
-            'release_date.gte': service.earliestReleaseDate,
-            'release_date.lte': service.latestReleaseDate,
-            with_genres: service.genreSelection,
-            without_genres: service.genresNotWanted,
-            'with_runtime.gte': service.runTimeGreaterThanOrEqual,
-            'with_runtime.lte': service.runTimeLessThanOrEqual,
-            'vote_average.gte': service.vote_averageGreaterThanOrEqual,
-            'vote_average.lte': service.vote_averageLessThanOrEqual
-        }
-    })
-    .then( (response)=>{
-        response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
-            movie.starred = false;
-        });
-        console.log(response.data);
-        service.responseData = response.data; // saves data to service
-        console.warn(service.responseData) // check to see that the data saved correctly
-        return response.data;  // don't need this since it is saved to service?
-    })
-};
+// Derek's pre-merge API call function:
+// service.callTheMovieDbApi = () => {
+//     console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+//         service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.vote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual)
+//         // all the variables are working as they should.
+//     $http.get('https://api.themoviedb.org/3/discover/movie', {
+//         params: {
+//             api_key: service.api_key,
+//             language: "en-US",
+//             sort_by: "popularity.desc",
+//             include_adult: false,
+//             include_video: false,
+//             page: service.pageNumber,
+//             'release_date.gte': service.earliestReleaseDate,
+//             'release_date.lte': service.latestReleaseDate,
+//             with_genres: service.genreSelection,
+//             without_genres: service.genresNotWanted,
+//             'with_runtime.gte': service.runTimeGreaterThanOrEqual,
+//             'with_runtime.lte': service.runTimeLessThanOrEqual,
+//             'vote_average.gte': service.vote_averageGreaterThanOrEqual,
+//             'vote_average.lte': service.vote_averageLessThanOrEqual
+//         }
+//     })
+//     .then( (response)=>{
+        // response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+        //     movie.starred = false;
+        // });
+//         console.log(response.data);
+//         service.responseData = response.data; // saves data to service
+//         console.warn(service.responseData) // check to see that the data saved correctly
+//         return response.data;  // don't need this since it is saved to service?
+//     })
+// };
 
 
 /* incoming modified callTheMovieDbApi from movie-list branch, compare/contrast after merge */
 
 service.callTheMovieDbApi = () => {
     return $q(function(resolve, reject){
-
       $http.get('https://api.themoviedb.org/3/discover/movie', {
         params: {
             api_key: service.api_key,
@@ -90,8 +90,13 @@ service.callTheMovieDbApi = () => {
         }
     })
     .then( (response)=>{
+        response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+            movie.starred = false;
+        });
         console.log(response.data);
-        resolve(response.data);
+        service.responseData = response.data; // saves data to service
+        console.warn(service.responseData) // check to see that the data saved correctly
+        resolve(response.data);  // the return of a promise
     })
 
     }
@@ -103,8 +108,6 @@ service.callTheMovieDbApi = () => {
     
       // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
   };
-
-  service.callTheMovieDbApi();
 
 /* Genre Land */
 

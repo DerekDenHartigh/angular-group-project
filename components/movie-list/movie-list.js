@@ -64,7 +64,8 @@ function MovieListController(MovieAppService, $q) {
                   let movieObj = {
                     title: child.title,
                     poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
-                    description: child.overview  // Change permalink to appropraite return from API 
+                    description: child.overview,  // Change permalink to appropraite return from API 
+                    starred: false
                   }
                  
                   
@@ -89,17 +90,17 @@ angular
 .component('movieList', {
     template: `
     <!--Movie Display (title, poster, rating, description)-->
-    <div id="movie-list-container">
-        <div class="movie-post" ng-repeat="movie in $ctrl.service.responseData.data.results">
+    <div id="movie-list-container box-container">
+        <div class="movie-post" ng-repeat="movie in $ctrl.movieList">
             <div class="title-container">
                 <div id="star-container">
                     <i class="material-icons star" ng-hide="movie.starred" ng-click="watchlistEditor(movie)">star_border</i>
                     <i class="material-icons star" ng-show="movie.starred" ng-click="watchlistEditor(movie)">star</i>
                 </div>
-                <h1 class="movie-title">{{movie.original_title}}</h1>
+                <h1 class="movie-title title">{{movie.title}}</h1>
             </div>
-            <img class="movie-poster" src="https://image.tmdb.org/t/p/w500{{poster_path}}" alt="movie poster">
-            <p class ="movie-description">Synopsis:\n{{movie.overview}}</p>
+            <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}"></img>
+            <p class ="movie-description description">Synopsis:\n{{movie.description}}</p>
         </div>
     </div>
 
@@ -112,21 +113,7 @@ angular
 
 
 <!-- movie list changes below, search branch above, will sort this out after merge -->
-
-
-    <div ng-repeat="post in $ctrl.movieList">
-    <div id="box-container">
-    <div class = "title">
-      <h2>{{post.title}}</h2>
-    </div>
-    <div class = "image">
-      <img ng-src="{{post.poster}}"></img>
-    </div>
-    <div class = "description">
-        <p>{{post.description}}</p>
-    </div>
-    </div>
-  </div>
+<!-- added ".title" ".image" ".box-container (formerly #box-container, but you can't have multiple ids)",  ".description"
         `,
     controller: MovieListController
 });
