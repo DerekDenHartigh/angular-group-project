@@ -21,7 +21,7 @@ function MovieListController(MovieAppService, $q) {
                   let movieObj = {
                     title: child.title,
                     poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
-                    description: child.overview  // Change permalink to appropraite return from API 
+                    // description: child.overview  // Change permalink to appropraite return from API 
                   }
                  
                   
@@ -51,7 +51,7 @@ angular
 .module('MovieApp')  
 .component('movieList', {
     template: `
-    <div ng-repeat="post in $ctrl.movieList">
+    <div id="movieInfoContainer" ng-repeat="post in $ctrl.movieList">
     <div id="box-container">
     <div class = "title">
       <h2>{{post.title}}</h2>
@@ -59,15 +59,17 @@ angular
     <div class = "image">
       <img ng-src="{{post.poster}}"></img>
     </div>
-    <div class = "description">
-        <p>{{post.description}}</p>
+    
     </div>
-    </div>
-  </div>
+  
 
         `,
     controller: MovieListController
 });
+
+// <div class = "description">
+    //     <p>{{post.description}}</p>
+    // </div>
 
 // results: Array(20)
 // 0:
