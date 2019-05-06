@@ -363,14 +363,14 @@ search{
                     font-size: 1.5em;
                 }
 
-                #spacer{
+                .spacer{
                     width: 35px;
                     display: flex;
                 }
 
                   /* favorite button */
 
-                #star-container{
+                .star-container{
                     display: flex;
                     position: absolute;
                     width: 24px;
@@ -428,4 +428,17 @@ search{
             cursor: pointer;
         }
 
-/* Favorites Styling */
+/* watchlist Styling */
+
+    #watchlist-container{
+        background-color: olivedrab;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: center;
+        justify-items: center;
+    }
