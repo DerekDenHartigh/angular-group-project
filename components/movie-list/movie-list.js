@@ -90,17 +90,18 @@ angular
 .component('movieList', {
     template: `
     <!--Movie Display (title, poster, rating, description)-->
-    <div id="movie-list-container box-container">
+    <div id="movie-list-container">
         <div class="movie-post" ng-repeat="movie in $ctrl.movieList">
             <div class="title-container">
+                <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
+                <div id="spacer"></div>
                 <div id="star-container">
                     <i class="material-icons star" ng-hide="movie.starred" ng-click="watchlistEditor(movie)">star_border</i>
                     <i class="material-icons star" ng-show="movie.starred" ng-click="watchlistEditor(movie)">star</i>
                 </div>
-                <h1 class="movie-title title">{{movie.title}}</h1>
             </div>
-            <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}"></img>
-            <p class ="movie-description description">Synopsis:\n{{movie.description}}</p>
+            <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
+            <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
         </div>
     </div>
 
@@ -113,7 +114,7 @@ angular
 
 
 <!-- movie list changes below, search branch above, will sort this out after merge -->
-<!-- added ".title" ".image" ".box-container (formerly #box-container, but you can't have multiple ids)",  ".description"
+<!-- added ".title" ".image"  ".description"
         `,
     controller: MovieListController
 });
