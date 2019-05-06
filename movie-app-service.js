@@ -171,8 +171,8 @@ service.callTheMovieDbApi = () => {
 
         service.removeFromWatchlistArray = function(movie){ // will this work with objects? removes movies from watchlistArray
             console.log(`pre-splice watchlistArray: ${service.watchlistArray}`)
-            let target = service.genreSelectionArray.indexOf(movie);
-            service.genreSelectionArray.splice(target, 1);
+            let target = service.watchlistArray.indexOf(movie);
+            service.watchlistArray.splice(target, 1);
             console.log(`post-splice watchlistArray: ${service.watchlistArray}`);
         };
 
