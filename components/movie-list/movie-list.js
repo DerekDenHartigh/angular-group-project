@@ -15,11 +15,13 @@ function MovieListController(MovieAppService, $q) {
         console.log('service.pageNumber:');
         console.log(service.pageNumber);
         }
-        else if (service.pageNumber<=1){
+        if (service.pageNumber<=1){
             console.error("1 is the lowest possible page number")
         }
-    }
-
+        if(service.pageNumber>=ctrl.service.responseData.total_pages){
+            console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+        }
+    };
     ctrl.pageForward = function(){
         if(service.pageNumber<service.responseData.total_pages){
             ctrl.service.pageNumber += 1;
@@ -68,7 +70,7 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-        <input id="page-selection-input" type="number" min="1" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
+        <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
         <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
     </div>
 
