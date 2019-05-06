@@ -5,11 +5,19 @@ function SearchController(MovieAppService, $scope, $timeout) {
     const service = MovieAppService;
     ctrl.arrayOfParams = service.arrayOfParams; // binding arrayOfParams for watcher.
 
-/* a watcher for all the params to refresh the page - it is supposed to watch for changes in arrayOfParams, then, on change, refresh the content w/ a 200ms throttle */
+/**
+ * A watcher for all the params to refresh the page
+ * I don't think this will work however, since the timeout would only delay the firing of get movies, not limit the firings,
+ * time to look at debouncing again.
+ *      
+ * */
 
 $scope.$watch("ctrl.arrayOfParams", function( newValue, oldValue ) {
-    $timeout(service.callTheMovieDbApi(), 200);
+    console.log("service.arrayOfParams:");
+    console.log(service.arrayOfParams);
+    $timeout(service.getMovies(), 500);
     },true);
+
 
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
     ctrl.callGenerateGenreArray = function(){
