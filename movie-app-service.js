@@ -1,6 +1,6 @@
 "use strict";
 
-function MovieAppService($http, $location, $rootScope) {
+function MovieAppService($http, $location, $rootScope, $q) {
 
     const service = this;
 
@@ -75,29 +75,36 @@ function MovieAppService($http, $location, $rootScope) {
             }
 
     service.callTheMovieDbApi = () => {
-        console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-            service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
-            // all the variables are working as they should.
+      return $q(function(resolve, reject){
+
         $http.get('https://api.themoviedb.org/3/discover/movie', {
-            params: {
-                api_key: service.api_key,
-                language: "en-US",
-                sort_by: "popularity.desc",
-                include_adult: false,
-                include_video: false,
-                page: service.pageNumber,
-                'release_date.gte': service.earliestReleaseDate,
-                'release_date.lte': service.latestReleaseDate,
-                with_genres: service.genreSelection,
-                without_genres: service.genresNotWanted,
-                'with_runtime.gte': service.runTimeGreaterThanOrEqual,
-                'with_runtime.lte': service.runTimeLessThanOrEqual
-            }
-        })
-        .then( (response)=>{
-            console.log(response.data);
-            return response.data;
-        })
+          params: {
+              api_key: service.api_key,
+              language: "en-US",
+              sort_by: "popularity.desc",
+              include_adult: false,
+              include_video: false,
+              page: service.pageNumber,
+              'release_date.gte': service.earliestReleaseDate,
+              'release_date.lte': service.latestReleaseDate,
+              with_genres: service.genreSelection,
+              without_genres: service.genresNotWanted,
+              'with_runtime.gte': service.runTimeGreaterThanOrEqual,
+              'with_runtime.lte': service.runTimeLessThanOrEqual
+          }
+      })
+      .then( (response)=>{
+          console.log(response.data);
+          resolve(response.data);
+      })
+
+      }
+    )
+
+        // console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+            // service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
+            // all the variables are working as they should.
+      
         // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
     };
 
@@ -106,7 +113,7 @@ function MovieAppService($http, $location, $rootScope) {
 
 angular
     .module("MovieApp")
-    .service("MovieAppService", ["$http", "$location", "$rootScope", MovieAppService]);
+    .service("MovieAppService", ["$http", "$location", "$rootScope", "$q", MovieAppService]);
     // felt cute, might need to strip some of these dependencies later
 
 
