@@ -4,7 +4,8 @@ function WatchListController(MovieAppService) {
     const ctrl = this;
     const service = MovieAppService;
     ctrl.watchlistArray = service.watchlistArray;
-    
+    ctrl.watchlistEditor = service.watchlistEditor
+
 }
 
 angular
