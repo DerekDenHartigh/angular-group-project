@@ -164,15 +164,16 @@ service.callTheMovieDbApi = () => {
     service.watchlistArray = [];
 
         service.addToWatchlistArray = function(movie){ // adds movies to watchlist array from movie-list component
+            console.log(`watchlistArray b4 addition: ${service.watchlistArray}`);
             service.watchlistArray.push(movie);
-            console.log(`watchlistArray: ${watchlistArray}`);
+            console.log(`watchlistArray after addition: ${service.watchlistArray}`);
         }
 
         service.removeFromWatchlistArray = function(movie){ // will this work with objects? removes movies from watchlistArray
-            console.log(`pre-splice watchlistArray: ${watchlistArray}`)
+            console.log(`pre-splice watchlistArray: ${service.watchlistArray}`)
             let target = service.genreSelectionArray.indexOf(movie);
             service.genreSelectionArray.splice(target, 1);
-            console.log(`post-splice watchlistArray: ${watchlistArray}`);
+            console.log(`post-splice watchlistArray: ${service.watchlistArray}`);
         };
 
     // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image

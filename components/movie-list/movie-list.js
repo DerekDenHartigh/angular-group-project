@@ -35,13 +35,13 @@ function MovieListController(MovieAppService, $q) {
         if(movie.starred === true){ // if star is filled out, add movie to watchlist array
             movie.starred = false;
             // console.log(`watchlistArray before movie addition: ${service.watchlistArray}`)
-            ctrl.service.addToWatchlistArray(movie);
+            ctrl.service.removeFromWatchlistArray(movie);
             // console.log(`watchlistArray after movie addition: ${service.watchlistArray}`)
         }
         else if (movie.starred === false){ // if star is empty, remove from watchlist array
             movie.starred = true;
             // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
-            ctrl.service.removeFromWatchlistArray(movie);
+            ctrl.service.addToWatchlistArray(movie);
             // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
         }
     }
