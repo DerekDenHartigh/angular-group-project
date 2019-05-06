@@ -12,7 +12,8 @@ function MovieListController(MovieAppService, $q) {
     ctrl.pageBack = function(){
         if (service.pageNumber>1){
         ctrl.service.pageNumber -= 1;
-        console.log(service.pageNumber);  // so this is not a binding, but a setting
+        console.log('service.pageNumber:');
+        console.log(service.pageNumber);
         }
         else if (service.pageNumber<=1){
             console.error("1 is the lowest possible page number")
@@ -22,6 +23,7 @@ function MovieListController(MovieAppService, $q) {
     ctrl.pageForward = function(){
         if(service.pageNumber<service.responseData.total_pages){
             ctrl.service.pageNumber += 1;
+            console.log('service.pageNumber:');
             console.log(service.pageNumber);
         }
         else if(service.pageNumber>=ctrl.service.responseData.total_pages){
@@ -33,41 +35,13 @@ function MovieListController(MovieAppService, $q) {
 
     ctrl.watchlistEditor = service.watchlistEditor
 
-/* movie list generator */
+/* movie list generator - moved logic to service for reference by search module*/
 
     ctrl.movieList = ctrl.service.movieList;
 
-    ctrl.getMovies = () => {
-        return $q(function(resolve, reject) {
+    ctrl.getMovies = service.getMovies
     
-        MovieAppService.callTheMovieDbApi()
-          .then ( (response) => {
-            console.log(response);
-             
-              let children = response.results; //Adjust for proper API return
-              console.log(children);
-      
-                children.forEach( function(child, index) {
-                  let movieObj = {
-                    title: child.title,
-                    poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
-                    description: child.overview,  // Change permalink to appropraite return from API 
-                    starred: false
-                  }
-                 
-                  ctrl.service.movieList.push(movieObj);
-      
-                  if ( index === (children.length - 1) ){
-                    console.error(service.movieList); // just added the error for coloring, movieList is now build in service and referenced in the controller.
-                    resolve();
-                  }
-      
-                })
-            });
-        });
-      }
-      
-    ctrl.getMovies()
+    ctrl.getMovies()  // calls once
        
     }
 

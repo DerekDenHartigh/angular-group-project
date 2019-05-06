@@ -107,9 +107,38 @@ service.callTheMovieDbApi = () => {
       // console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
           // service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
           // all the variables are working as they should.
-    
-      // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
-  };
+};
+
+service.getMovies = () => {
+    return $q(function(resolve, reject) {
+
+    service.callTheMovieDbApi()
+      .then ( (response) => {
+        console.log("response in getMovies from callTheMovieDbApi:")
+        console.log(response);
+          let children = response.results; //Adjust for proper API return
+          console.log("children of response from getMovies:")
+          console.log(children);
+  
+            children.forEach( function(child, index) {
+              let movieObj = {
+                title: child.title,
+                poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
+                description: child.overview,  // Change permalink to appropraite return from API 
+                starred: false
+              }
+             
+              service.movieList.push(movieObj);
+  
+              if ( index === (children.length - 1) ){
+                console.log("service.movieList:")
+                console.log(service.movieList);
+                resolve();
+              }
+            })
+        });
+    });
+  }
 
 /* Genre Land */
 
