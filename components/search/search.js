@@ -24,6 +24,8 @@ function SearchController(MovieAppService, $scope, $timeout, debounce) {
 //watch products for changes with 1 second debounce to 
 //prevent every keystroke incrementing productChanges
     $scope.$watch('$scope.arrayOfParams', debounce(function() {
+        console.log("service.arrayOfParams:");
+        console.log(service.arrayOfParams);
         $scope.paramChanges++;
     },1000), true);
 
@@ -150,18 +152,6 @@ angular
     Rating as range: <input type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
     <hr>
     Rating as number: <input type="number" ng-model="ratingvalue"><br> 
-
-
-
-
-
-
-
-
-
-
-   
-
     </div>
         `,
     controller: SearchController

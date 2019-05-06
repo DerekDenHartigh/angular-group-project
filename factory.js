@@ -1,6 +1,8 @@
 "use strict"
 //angularjs debounce
-MovieApp.factory('debounce', function($timeout) {
+angular
+.module("MovieApp")
+.factory('debounce', function($timeout) {
     // var args = Array.prototype.slice.call(arguments);
     return function(callback, interval) {
         var timeout = null;
