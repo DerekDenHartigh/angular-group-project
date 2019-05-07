@@ -7,7 +7,6 @@ function MovieListController(MovieAppService, $q) {
     ctrl.service = MovieAppService; // this binds/embeds object w/in controller - ist it for modeling/changing service
     ctrl.pageNumber = service.pageNumber;
 
-
 /* page forward/back functions */
     ctrl.pageBack = function(){
         if (service.pageNumber>1){
@@ -49,6 +48,7 @@ angular
 .module('MovieApp')  
 .component('movieList', {
     template: `
+
     <!--Movie Display (title, poster, rating, description)-->
     <div id="movie-list-container">
         <div class="movie-post" ng-repeat="movie in $ctrl.movieList">
@@ -71,7 +71,6 @@ angular
         <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
         <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
     </div>
-
 
 <!-- movie list changes below, search branch above, will sort this out after merge -->
 <!-- added ".title" ".image"  ".description"

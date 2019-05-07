@@ -1,163 +1,306 @@
-/* Omni-Styling */
+@import url('https://fonts.googleapis.com/css?family=Limelight');
+@import url('https://fonts.googleapis.com/css?family=Monoton');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+@import url('https://fonts.googleapis.com/css?family=Permanent+Marker');
 
-    /* custom scollbar styling */
-    /* width */
-    ::-webkit-scrollbar {
-        width: 20px;
-    }
-  
-    /* Track */
-    ::-webkit-scrollbar-track {
-        box-shadow: inset 0 0 5px grey; 
-        border-radius: 10px;
-    }
-    
-    /* Handle */
-    ::-webkit-scrollbar-thumb {
-        background: red; 
-        border-radius: 10px;
-    }
-    
-    /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
-        background: #b30000; 
-    }
-
-/* Header Styling*/
-
-header{
+body {
+    /* width: 100vw;
+    height: 100vh; */
+    background-image: url("aperture.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
     display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    justify-items: space-around;
-    align-content: center;
-    align-items: center;
-    background-color: burlywood;
+    text-decoration: none;
+    color: white;
+    box-sizing: border-box;
 }
 
-    #header{
-        display: flex;
-        width: 100%;
-        padding: 20px;
-        font-size: 3em;
-    }
-    #header-list{
-       display: flex;
-       width: 100%;
-       justify-content: space-around;
-       justify-items: space-around;
-       align-content: center;
-       align-items: center;
-    }
-        #header-list li{
-            background-color: orange;
-            border: solid black 1px;
-            padding: 10px;
-            border-radius: 15px;
-        }
-        
-        #header-list li:hover{
-            background-color: turquoise;
-        }
+header {
+    width: 100vw;
+}
 
-        #header-list li a{
-            
-        }
+.genre-option-box {
+    color: white;
+    font-size: 25px;
+    width: 50%;
+    margin: 0;
+    height: 65px;
+    
+}
 
-/* Footer Styling*/
+#search-spec-form {
+    width: 60%;
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-weight: 100;
+}
 
-/* Home Page Styling */
+.title {
+    color: white;
+}
 
-/* Search Styling 
-        sauces: https://codepen.io/AurelienZMN/pen/RadXBZ, 
-                https://webdesign.tutsplus.com/articles/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953
-                http://jsbin.com/itejak/1/edit?html,css,output
-                https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
-                https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
-*/
+.image {
+    display: flex;
+}
 
-search{
+#movieInfoContainer {
+   
+    
+  
+}
+
+/* #body {
+    /* background-image: url("bar.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    /* display: block;
+    position: relative; 
+} */
+
+#body::after {
+    content: "";
+    background: url("aperture.jpg");
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    
+}
+.body {
+    margin: 0 auto;
+    padding: 0;
+    /* background: rgba(255, 255, 255, 0.3); */
+}
+
+nav {
+    float: right;
+    color: white;
+}
+
+/* p {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    width: 40%;
+    color: white;
+    margin-left: 25px;
+    font-weight: 100px;
+} */
+p {
+    color: white;
+}
+
+.badAss {
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    width: 40%;
+    color: white;
+    margin-left: 25px;
+    font-weight: 100px;
+}
+    
+
+.allThingsMovies {
+    font-family: 'Permanent Marker', cursive;
+    padding-top: 75px;
+    font-size: 75px;
+    text-align: center;
+    /* font-family: 'Playfair Display', serif; */
+    width: 40%;
+    color: white;
+    margin-left: 25px;
+    font-weight: 100px;
+}
+
+#result-filter:hover{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: solid black;
+    box-shadow: none;
+}
+
+#result-filter {
+    color: black;
+    background-color: white;
+    width: 40%;
+    /* margin-top: 200px;
+    margin-left: 40px;
+    margin-bottom: 200px; */
+    /* margin: 0 auto; */
+    text-align: center;
+    margin-top: 155px;
+    border: 2px solid white;
+    font-size: 35px;
+    border-radius: 7px;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 2px 2px 5px lightgray;
+    margin-left: 25px;
+
+}
+
+a {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100px;
+}
+
+.rating {
+    overflow: hidden;
+    display: inline-block;
+}
+.rating-input {
+    float: right;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0 0 0 -16px;
+    opacity: 0;
+    
+}
+
+.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+
+ .rating-star,
+.rating:hover .rating-star {
+ margin-top: 125px;
+    position: relative;
+    display: block;
+  float: right;
+    width: 16px;
+    height: 16px;
+    background: url('https://www.everythingfrontend.com/samples/star-rating/star.png') 0 -16px;
+}
+
+.rating-star {
+    
+}
+  
+ search {
     display: flex;
     flex-direction: column;
-    background-color: grey;
     padding: 10px;
     border-radius: 10px;
+    text-decoration: underline;
+    color: white;
+   
+} 
+
+#search-spec-form {
+    display: flex;
+    flex-wrap: wrap;
+    /* width: 60%; */
+    margin-top: 70px;
+} 
+
+.genre-option-box {
+display: flex;
+flex-direction: row;
+justify-content: space-around;
+justify-items: space-around;
+/* align-content: center;
+align-items: center; 
+text-align: left; */
+width: 300px;
+font-size: 15px;
+} 
+
+input [type=checkbox] {
+    transform: scale(2);
+    
 }
 
-    #result-filter:hover{
-        cursor: pointer;
-        background-color: red;
-    }
+.genre-option-box label{
+margin: 5px;
+}
 
-    #search-spec-form{
-        display: flex;
-        flex-wrap: wrap;
-        width: 100%;
-    }
+.genre-option{
+display: flex;
 
-        .genre-option-box{
-            display: flex;
-            flex-direction: row;
-            justify-content: space-around;
-            justify-items: space-around;
-            align-content: center;
-            align-items: center;
-            margin: 10px;
-            background-color: yellow;
-            padding: 10px;
-            border-radius: 15px;
-        }
+padding: 15px;
+border-radius: 15px;
+}
 
-        .genre-option-box label{
-            margin: 5px;
-        }
+.checkbox-box{
+display: flex;
+flex-direction: column;
 
-            .genre-option{
-                display: flex;
-                background-color: grey;
-                padding: 15px;
-                border-radius: 15px;
-            }
-        
-            .checkbox-box{
-                display: flex;
-                flex-direction: column;
-                background-color: blueviolet;
-            }
+}
 
-                .checkbox-container{
-                    display: flex;
-                    justify-content: space-between;
-                    justify-items: space-between;
-                    align-content: center;
-                    align-content: center;
-                }
+.checkbox-container{
+    display: flex;
+    justify-content: space-between;
+    justify-items: space-between;
+    align-content: center;
+    align-content: center;
+} 
 
-                .checkbox{
-                    display: flex;
-                    align-self: center;
-                    height: 20px;
-                    width: 20px;
-                }
+.checkbox{
+display: flex;
+align-self: center;
+height: 20px;
+width: 20px;
+}
 
-                    .genre-inclusion-checkbox-container{
-                        background-color: green;
-                    }
+.genre-inclusion-checkbox-container{
+background-color: green;
+} 
 
-                        .genre-inclusion-checkbox{
-                            font-family: 'Material Icons';
-                            content: 'check';
-                        }
+.genre-inclusion-checkbox{
+    font-family: 'Material Icons';
+    content: 'check';
+}
 
-                    .genre-exclusion-checkbox-container{
-                        background-color: red;
-                    }
+.genre-exclusion-checkbox-container{
+background-color: red;
+} 
 
-                        .genre-exclusion-checkbox{
-                            font-family: 'Material Icons';
-                            content: 'close';
-                        }
+.genre-exclusion-checkbox{
+    font-family: 'Material Icons';
+    content: 'close';
+}   
 
+#box-container {
+    /* background-color: white; */  
+    display: flex;
+    height: 325px;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    width: 280px;
+    background-color: white;
+    margin: 20px;
+    border-radius: 8px;
+}
+
+h2 {
+ display: flex;
+ flex-wrap: wrap;
+ width: 300px;
+ text-align: center;
+ color: black;
+ 
+}
+
+img {
+    width: auto;
+    height: auto;
+    max-width: 180px;
+    max-height: 180px;    
+}
 
             /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
                 position: absolute;
@@ -177,8 +320,8 @@ search{
                 height: 20px;
                 border: 1px solid #aaa;
                 background: #f8f8f8;
-           }
-            [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+           } */
+            /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
                 font-family: 'Material Icons';
                 content: 'check';
                 text-rendering: optimizeLegibility;
@@ -199,16 +342,16 @@ search{
                 -moz-osx-font-smoothing: grayscale;
                 color: #09ad7e;
                 transition: all 0.2s;
-           }
-            [type="checkbox"]:not(:checked) {
+           } */
+            /* [type="checkbox"]:not(:checked) {
                 opacity: 0;
                 transform: scale(0);
            }
             [type="checkbox"]:checked {
                 opacity: 1;
                 transform: scale(1);
-           }
-            [type="checkbox"]:disabled:not(:checked), [type="checkbox"]:disabled:checked, [type="checkbox"]:disabled:not(:checked):hover, [type="checkbox"]:disabled:checked:hover {
+           } */
+            /* [type="checkbox"]:disabled:not(:checked), [type="checkbox"]:disabled:checked, [type="checkbox"]:disabled:not(:checked):hover, [type="checkbox"]:disabled:checked:hover {
                 border-color: #bbb !important;
                 background-color: #ddd;
            }
@@ -227,7 +370,7 @@ search{
 
     /* slider styling */
     /* runtime slider */
-    .runtime-slider.rzslider .rz-bar {
+    /* .runtime-slider.rzslider .rz-bar {
         background: #ffe4d1;
         height: 2px;
       }
@@ -239,7 +382,7 @@ search{
         width: 8px;
         height: 16px;
         top: auto; /* to remove the default positioning */
-        bottom: 0;
+        /* bottom: 0;
         background-color: #333;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
@@ -251,9 +394,9 @@ search{
       
       .runtime-slider.rzslider .rz-bubble {
         bottom: 14px;
-      }
+      } */
       
-      .runtime-slider.rzslider .rz-limit {
+      /* .runtime-slider.rzslider .rz-limit {
         font-weight: bold;
         color: orange;
       }
@@ -269,9 +412,9 @@ search{
       
       .runtime-slider.rzslider .rz-tick.rz-selected {
         background: orange;
-      }
+      } */
     /* rating slider*/
-    .rating-slider.rzslider .rz-bar {
+    /* .rating-slider.rzslider .rz-bar {
         background: #ffe4d1;
         height: 2px;
       }
@@ -283,17 +426,17 @@ search{
         width: 8px;
         height: 16px;
         top: auto; /* to remove the default positioning */
-        bottom: 0;
+        /* bottom: 0;
         background-color: #333;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
       }
-      
-      .rating-slider.rzslider .rz-pointer:after {
+       */
+      /* .rating-slider.rzslider .rz-pointer:after {
         display: none;
-      }
-      
-      .rating-slider.rzslider .rz-bubble {
+      } */
+       
+      /* .rating-slider.rzslider .rz-bubble {
         bottom: 14px;
       }
       
@@ -313,6 +456,7 @@ search{
       
       .rating-slider.rzslider .rz-tick.rz-selected {
         background: orange;
+
       }
 
 /* movie-list Styling */
@@ -354,14 +498,17 @@ search{
                 align-content: center;
                 align-items: center;
             }
+      }  */
 
-                .movie-title{
-                    display: flex;
-                    text-align: center;
-                    width: 100%;
-                    font-style: bolder;
-                    font-size: 1.5em;
-                }
+        /* .arrows{
+            color: purple;
+        }
+
+        .arrows:hover{
+            cursor: pointer;
+        } */
+
+/* Favorites Styling */
 
                 .spacer{
                     width: 35px;
@@ -384,49 +531,134 @@ search{
                         height: 100%;
                         color: gold;
                     }
+/* header {
+    margin: 0 auto;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.3);
+    height: 100vh;
+} */
 
-                    .star:hover{
-                        cursor: pointer;
-                    }
+/* li {
+    color: red; 
+    height: 100px;
+    z-index: 5;
+    font-weight: bold;
+    
+} */
 
+/* Omni-Styling */
+
+
+    /* custom scollbar styling */
+    /* width */
+    /* ::-webkit-scrollbar {
+        width: 20px;
+    } */
+  
+    /* Track */
+    /* ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+    } */
+    
+    /* Handle */
+    /* ::-webkit-scrollbar-thumb {
+        background: red; 
+        border-radius: 10px;
+    } */
+    
+    /* Handle on hover */
+    /* ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+    } */
             .movie-poster{
                 display: flex;
                 width: 100%;
             }
 
-            .movie-description{
-                display: flex;
-            }
+/* Header Styling*/
+/* 
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: space-around;
+    align-content: center;
+    align-items: center;
+    background-color: burlywood;
+}
 
-
-    /* page selection */
-
-    #page-number-container{
-        width: 100%;
+    #header{
         display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        justify-content: center;
-        justify-items: center;
-        align-content: center;
-        align-items: center;
-        text-align: center;
+        width: 100%;
+        padding: 20px;
+        font-size: 3em;
     }
-        #page-selection-input{
-            margin: 10px 20px;
-            color: purple;
-            text-align: center;
-            font-size: 1.5em;
-            font-style: bolder;
+    #header-list{
+       display: flex;
+       width: 100%;
+       justify-content: space-around;
+       justify-items: space-around;
+       align-content: center;
+       align-items: center;
+    }
+        #header-list li{
+            background-color: orange;
+            border: solid black 1px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+        
+        #header-list li:hover{
+            background-color: turquoise;
         }
 
-        .arrows{
-            color: purple;
+        #header-list li a{
+            
+        } */
+
+/* header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: space-around;
+    align-content: center;
+    align-items: center;
+    background-color: burlywood;
+}
+
+    #header{
+        display: flex;
+        width: 100%;
+        padding: 20px;
+        font-size: 3em;
+    }
+    #header-list{
+       display: flex;
+       width: 100%;
+       justify-content: space-around;
+       justify-items: space-around;
+       align-content: center;
+       align-items: center;
+    }
+        #header-list li{
+            background-color: orange;
+            border: solid black 1px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+        
+        #header-list li:hover{
+            background-color: turquoise;
         }
 
-        .arrows:hover{
-            cursor: pointer;
-        }
+        #header-list li a{
+            
+        } */
+
+/* Footer Styling*/
+
+/* Home Page Styling */
 
 /* watchlist Styling */
 
@@ -442,3 +674,12 @@ search{
         justify-content: center;
         justify-items: center;
     }
+
+/* Search Styling 
+        sauces: https://codepen.io/AurelienZMN/pen/RadXBZ, 
+                https://webdesign.tutsplus.com/articles/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953
+                http://jsbin.com/itejak/1/edit?html,css,output
+                https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
+                https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
+*/
+

@@ -143,6 +143,20 @@ service.getMovies = () => {
 
 /* Genre Land */
 
+
+    // Hardcoded variables for testing - should only return 1 page of titles from 2000-2019, of duration 60-120 min.
+    
+    // service.pageNumber = 1;
+    // service.earliestReleaseDate = 2000;
+    // service.latestReleaseDate = 2019;
+    // service.genreSelection;
+    // service.genresNotWanted;
+    // service.runTimeGreaterThanOrEqual = 60;
+    // service.runTimeLessThanOrEqual = 120;
+    // service.vote_averageGreaterThanOrEqual = 5;
+    // service.vote_averageLessThanOrEqual = 10;
+
+/* Genre Land */
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
     service.genreSelectionArray = []; // houses preferred genres (initially same as genreOptionArray)
     service.genreExclusionArray = []; // houses excluded genres, initially empty
@@ -222,9 +236,9 @@ service.getMovies = () => {
                 // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
                 service.addToWatchlistArray(movie);
                 // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
+
             }
         }
-
 
 }
 

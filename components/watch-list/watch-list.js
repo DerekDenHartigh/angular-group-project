@@ -5,7 +5,6 @@ function WatchListController(MovieAppService) {
     const service = MovieAppService;
     ctrl.watchlistArray = service.watchlistArray;
     ctrl.watchlistEditor = service.watchlistEditor
-
 }
 
 angular
@@ -14,7 +13,7 @@ angular
     template: `
     <!--Watchlist-->
     <div id="watchlist-container">
-        <div class="movie-post" ng-repeat="movie in $ctrl.watchlistArray">
+        <div class="movie-post watchlist-box" ng-repeat="movie in $ctrl.watchlistArray">
         <div class="title-container">
             <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
             <div class="spacer"></div>
