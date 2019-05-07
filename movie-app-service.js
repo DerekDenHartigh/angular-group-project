@@ -14,6 +14,8 @@ function MovieAppService($http, $location, $rootScope, $q) {
     // service.genresNotWanted = [];
     // service.runTimeGreaterThanOrEqual;
     // service.runTimeLessThanOrEqual;
+    // service.ote_averageGreaterThanOrEqual;
+    // service.vote_averageLessThanOrEqual;
 
     // Hardcoded variables for testing - should only return 1 page of action titles (no horror titles) from 2000-2019, of duration 60-120 min.
     
@@ -24,6 +26,8 @@ function MovieAppService($http, $location, $rootScope, $q) {
     service.genresNotWanted = 27;
     service.runTimeGreaterThanOrEqual = 60;
     service.runTimeLessThanOrEqual = 120;
+    service.vote_averageGreaterThanOrEqual = 5
+    service.vote_averageLessThanOrEqual = 10
 
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
         
@@ -31,9 +35,11 @@ function MovieAppService($http, $location, $rootScope, $q) {
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
             .then( (response)=>{ // response includes headers
                 response.data.genres.forEach( genre => {
-                    service.genreOptionArray.push(genre);  // genre is an object containing name(string) and id(number)
+                    // adding onto the object for checkbox usage
+                    genre.include = false;
+                    genre.exclude = false;
+                    service.genreOptionArray.push(genre); // genre is an object containing name(string) and id(number)
                 });
-                // console.log(`genreOptionArray: ${service.genreOptionArray}`)  // just kicks out a bunch of [object object]'s anyway
             });
         };
         service.generateGenreArray();

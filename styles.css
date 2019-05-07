@@ -172,6 +172,7 @@ a {
 .rating-input:checked ~ .rating-star {
     background-position: 0 0;
 }
+<<<<<<< HEAD
 
  .rating-star,
 .rating:hover .rating-star {
@@ -184,6 +185,20 @@ a {
     background: url('https://www.everythingfrontend.com/samples/star-rating/star.png') 0 -16px;
 }
 
+=======
+
+ .rating-star,
+.rating:hover .rating-star {
+ margin-top: 125px;
+    position: relative;
+    display: block;
+  float: right;
+    width: 16px;
+    height: 16px;
+    background: url('https://www.everythingfrontend.com/samples/star-rating/star.png') 0 -16px;
+}
+
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
 .rating-star {
     
 }
@@ -257,6 +272,7 @@ width: 20px;
 .genre-inclusion-checkbox-container{
 background-color: green;
 } 
+<<<<<<< HEAD
 
 .genre-inclusion-checkbox{
     font-family: 'Material Icons';
@@ -272,6 +288,23 @@ background-color: red;
     content: 'close';
 }   
 
+=======
+
+.genre-inclusion-checkbox{
+    font-family: 'Material Icons';
+    content: 'check';
+}
+
+.genre-exclusion-checkbox-container{
+background-color: red;
+} 
+
+.genre-exclusion-checkbox{
+    font-family: 'Material Icons';
+    content: 'close';
+}   
+
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
 #box-container {
     /* background-color: white; */  
     display: flex;
@@ -456,6 +489,7 @@ img {
       
       .rating-slider.rzslider .rz-tick.rz-selected {
         background: orange;
+<<<<<<< HEAD
       }
 /* movie-list Styling */
 
@@ -501,19 +535,36 @@ img {
         /* .arrows{
             color: purple;
         }
+=======
+      }  */
+
+        /* .arrows{
+            color: purple;
+        }
+
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
         .arrows:hover{
             cursor: pointer;
         } */
 
 /* Favorites Styling */
 
+<<<<<<< HEAD
                 .spacer{
                     width: 35px;
                     display: flex;
                 }
+=======
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
 
-                  /* favorite button */
+/* header {
+    margin: 0 auto;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.3);
+    height: 100vh;
+} */
 
+<<<<<<< HEAD
                 .star-container{
                     display: flex;
                     position: absolute;
@@ -584,6 +635,53 @@ header{
     align-items: center;
     background-color: burlywood;
 }
+=======
+/* li {
+    color: red; 
+    height: 100px;
+    z-index: 5;
+    font-weight: bold;
+    
+} */
+
+/* Omni-Styling */
+
+    /* custom scollbar styling */
+    /* width */
+    /* ::-webkit-scrollbar {
+        width: 20px;
+    } */
+  
+    /* Track */
+    /* ::-webkit-scrollbar-track {
+        box-shadow: inset 0 0 5px grey; 
+        border-radius: 10px;
+    } */
+    
+    /* Handle */
+    /* ::-webkit-scrollbar-thumb {
+        background: red; 
+        border-radius: 10px;
+    } */
+    
+    /* Handle on hover */
+    /* ::-webkit-scrollbar-thumb:hover {
+        background: #b30000; 
+    } */
+
+/* Header Styling*/
+/* 
+header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: space-around;
+    align-content: center;
+    align-items: center;
+    background-color: burlywood;
+}
+
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
     #header{
         display: flex;
         width: 100%;
@@ -608,6 +706,7 @@ header{
         #header-list li:hover{
             background-color: turquoise;
         }
+<<<<<<< HEAD
         #header-list li a{
             
         } */
@@ -667,6 +766,55 @@ header{
         justify-content: center;
         justify-items: center;
     }
+=======
+
+        #header-list li a{
+            
+        } */
+
+/* header{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    justify-items: space-around;
+    align-content: center;
+    align-items: center;
+    background-color: burlywood;
+}
+
+    #header{
+        display: flex;
+        width: 100%;
+        padding: 20px;
+        font-size: 3em;
+    }
+    #header-list{
+       display: flex;
+       width: 100%;
+       justify-content: space-around;
+       justify-items: space-around;
+       align-content: center;
+       align-items: center;
+    }
+        #header-list li{
+            background-color: orange;
+            border: solid black 1px;
+            padding: 10px;
+            border-radius: 15px;
+        }
+        
+        #header-list li:hover{
+            background-color: turquoise;
+        }
+
+        #header-list li a{
+            
+        } */
+
+/* Footer Styling*/
+
+/* Home Page Styling */
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
 
 /* Search Styling 
         sauces: https://codepen.io/AurelienZMN/pen/RadXBZ, 
@@ -674,4 +822,8 @@ header{
                 http://jsbin.com/itejak/1/edit?html,css,output
                 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
+<<<<<<< HEAD
 */
+=======
+*/
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b

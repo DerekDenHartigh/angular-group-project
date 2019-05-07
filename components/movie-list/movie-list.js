@@ -19,8 +19,13 @@ function MovieListController(MovieAppService, $q) {
                 children.forEach( function(child, index) {
                   let movieObj = {
                     title: child.title,
+<<<<<<< HEAD
                     poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, 
                     description: child.overview   
+=======
+                    poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
+                    // description: child.overview  // Change permalink to appropraite return from API 
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
                   }
                  
                   
@@ -46,7 +51,7 @@ angular
 .module('MovieApp')  
 .component('movieList', {
     template: `
-    <div ng-repeat="post in $ctrl.movieList">
+    <div id="movieInfoContainer" ng-repeat="post in $ctrl.movieList">
     <div id="box-container">
     <div class = "title">
       <h2>{{post.title}}</h2>
@@ -54,17 +59,21 @@ angular
     <div class = "image">
       <img ng-src="{{post.poster}}"></img>
     </div>
-    <div class = "description">
-        <p>{{post.description}}</p>
+    
     </div>
-    </div>
-  </div>
+  
 
         `,
     controller: MovieListController
 });
 
+<<<<<<< HEAD
 
+=======
+// <div class = "description">
+    //     <p>{{post.description}}</p>
+    // </div>
+>>>>>>> f5b72a9e5a5b597cefad73154ef36cb62f9dcb6b
 
 // results: Array(20)
 // 0:
