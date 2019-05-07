@@ -52,16 +52,15 @@ angular
 .component('movieList', {
     template: `
     <div id="movieInfoContainer" ng-repeat="post in $ctrl.movieList">
-    <div id="box-container">
-    <div class = "title">
-      <h2>{{post.title}}</h2>
+        <div id="box-container">
+            <div class = "title">
+                <h2>{{post.title}}</h2>
+            </div>
+            <div class = "image">
+                <img ng-src="{{post.poster}}"></img>
+            </div>
+        </div>
     </div>
-    <div class = "image">
-      <img ng-src="{{post.poster}}"></img>
-    </div>
-    
-    </div>
-  
 
         `,
     controller: MovieListController
