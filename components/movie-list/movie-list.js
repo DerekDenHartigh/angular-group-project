@@ -3,73 +3,82 @@
 function MovieListController(MovieAppService, $q) {
 
     const ctrl = this;
-    const service = MovieAppService;
-    ctrl.movieList = [];
+    const service = MovieAppService; // this only sets
+    ctrl.service = MovieAppService; // this binds/embeds object w/in controller - ist it for modeling/changing service
+    ctrl.pageNumber = service.pageNumber;
 
-    ctrl.getMovies = () => {
-        console.log("Hello");
-        return $q(function(resolve, reject) {
-    
-        MovieAppService.callTheMovieDbApi()
-          .then ( (response) => {
-            console.log(response);
-             
-              let children = response.results; //Adjust for proper API return
-              console.log(children);
-      
-                children.forEach( function(child, index) {
-                  let movieObj = {
-                    title: child.title,
-                    poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
-                    // description: child.overview  // Change permalink to appropraite return from API 
-                  }
-                 
-                  
-                  ctrl.movieList.push(movieObj);
-      
-                  if ( index === (children.length - 1) ){
-                    console.log(ctrl.movieList); 
-                    resolve();
-                  }
-      
-                })
-            });
-        });
-      }
-      
-        ctrl.getMovies()
-       
+/* page forward/back functions */
+    ctrl.pageBack = function(){
+        if (service.pageNumber>1){
+        ctrl.service.pageNumber -= 1;
+        console.log('service.pageNumber:');
+        console.log(service.pageNumber);
+        }
+        if (service.pageNumber<=1){
+            console.error("1 is the lowest possible page number")
+        }
+        if(service.pageNumber>=ctrl.service.responseData.total_pages){
+            console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+        }
+    };
+    ctrl.pageForward = function(){
+        if(service.pageNumber<service.responseData.total_pages){
+            ctrl.service.pageNumber += 1;
+            console.log('service.pageNumber:');
+            console.log(service.pageNumber);
+        }
+        else if(service.pageNumber>=ctrl.service.responseData.total_pages){
+            console.error("There aren't that many pages!")
+        }
     }
 
-    
-    
+/* watchlist button - moved logic to service for use by watch-list component*/
 
+    ctrl.watchlistEditor = service.watchlistEditor
 
+/* movie list generator - moved logic to service for reference by search module*/
 
+    ctrl.movieList = ctrl.service.movieList;
+    ctrl.getMovies = service.getMovies
+    ctrl.getMovies()  // calls once
+       
+    }
 
 angular
 .module('MovieApp')  
 .component('movieList', {
     template: `
-    <div id="movieInfoContainer" ng-repeat="post in $ctrl.movieList">
-        <div id="box-container">
-            <div class = "title">
-                <h2>{{post.title}}</h2>
+
+    <!--Movie Display (title, poster, rating, description)-->
+    <div id="movie-list-container">
+        <div class="movie-post" ng-repeat="movie in $ctrl.movieList">
+            <div class="title-container">
+                <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
+                <div class="spacer"></div>
+                <div class="star-container">
+                    <i class="material-icons star" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
+                    <i class="material-icons star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
+                </div>
             </div>
-            <div class = "image">
-                <img ng-src="{{post.poster}}"></img>
-            </div>
+            <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
+            <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
         </div>
     </div>
 
+    <!--Page Number Selector-->
+    <div id="page-number-container">
+        <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
+        <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
+        <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
+    </div>
+
+<!-- movie list changes below, search branch above, will sort this out after merge -->
+<!-- added ".title" ".image"  ".description"
         `,
     controller: MovieListController
 });
 
-// <div class = "description">
-    //     <p>{{post.description}}</p>
-    // </div>
-
+// sample movie object:
 // results: Array(20)
 // 0:
 // adult: false

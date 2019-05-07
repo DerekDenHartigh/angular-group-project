@@ -6,6 +6,7 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
+    service.responseData = {};
 
     service.pageNumber = 1;
     service.earliestReleaseDate;
@@ -16,6 +17,132 @@ function MovieAppService($http, $location, $rootScope, $q) {
     service.runTimeLessThanOrEqual;
     service.ote_averageGreaterThanOrEqual;
     service.vote_averageLessThanOrEqual;
+
+    service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
+
+    service.movieList = [];
+
+    // Hardcoded variables for testing - should only return 1 page of titles from 2000-2019, of duration 60-120 min.
+    
+    // service.pageNumber = 1;
+    // service.earliestReleaseDate = 2000;
+    // service.latestReleaseDate = 2019;
+    // service.genreSelection;
+    // service.genresNotWanted;
+    // service.runTimeGreaterThanOrEqual = 60;
+    // service.runTimeLessThanOrEqual = 120;
+    // service.vote_averageGreaterThanOrEqual = 5;
+    // service.vote_averageLessThanOrEqual = 10;
+
+/* API call */
+
+// Derek's pre-merge API call function:
+// service.callTheMovieDbApi = () => {
+//     console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+//         service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.vote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual)
+//         // all the variables are working as they should.
+//     $http.get('https://api.themoviedb.org/3/discover/movie', {
+//         params: {
+//             api_key: service.api_key,
+//             language: "en-US",
+//             sort_by: "popularity.desc",
+//             include_adult: false,
+//             include_video: false,
+//             page: service.pageNumber,
+//             'release_date.gte': service.earliestReleaseDate,
+//             'release_date.lte': service.latestReleaseDate,
+//             with_genres: service.genreSelection,
+//             without_genres: service.genresNotWanted,
+//             'with_runtime.gte': service.runTimeGreaterThanOrEqual,
+//             'with_runtime.lte': service.runTimeLessThanOrEqual,
+//             'vote_average.gte': service.vote_averageGreaterThanOrEqual,
+//             'vote_average.lte': service.vote_averageLessThanOrEqual
+//         }
+//     })
+//     .then( (response)=>{
+        // response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+        //     movie.starred = false;
+        // });
+//         console.log(response.data);
+//         service.responseData = response.data; // saves data to service
+//         console.warn(service.responseData) // check to see that the data saved correctly
+//         return response.data;  // don't need this since it is saved to service?
+//     })
+// };
+
+
+/* incoming modified callTheMovieDbApi from movie-list branch, compare/contrast after merge */
+
+service.callTheMovieDbApi = () => {
+    return $q(function(resolve, reject){
+      $http.get('https://api.themoviedb.org/3/discover/movie', {
+        params: {
+            api_key: service.api_key,
+            language: "en-US",
+            sort_by: "popularity.desc",
+            include_adult: false,
+            include_video: false,
+            page: service.pageNumber,
+            'release_date.gte': service.earliestReleaseDate,
+            'release_date.lte': service.latestReleaseDate,
+            with_genres: service.genreSelection,
+            without_genres: service.genresNotWanted,
+            'with_runtime.gte': service.runTimeGreaterThanOrEqual,
+            'with_runtime.lte': service.runTimeLessThanOrEqual
+        }
+    })
+    .then( (response)=>{
+        response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+            movie.starred = false;
+        });
+        console.log(response.data);
+        service.responseData = response.data; // saves data to service
+        console.warn(service.responseData) // check to see that the data saved correctly
+        resolve(response.data);  // the return of a promise
+    })
+
+    }
+  )
+
+      // console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+          // service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
+          // all the variables are working as they should.
+};
+
+service.getMovies = () => {
+    // service.movieList = [];
+    return $q(function(resolve, reject) {
+
+    service.callTheMovieDbApi()
+      .then ( (response) => {
+        console.log("response in getMovies from callTheMovieDbApi:")
+        console.log(response);
+          let children = response.results; //Adjust for proper API return
+          console.log("children of response from getMovies:")
+          console.log(children);
+  
+            children.forEach( function(child, index) {
+              let movieObj = {
+                title: child.title,
+                poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
+                description: child.overview,  // Change permalink to appropraite return from API 
+                starred: false
+              }
+             
+              service.movieList.push(movieObj);
+  
+              if ( index === (children.length - 1) ){
+                console.log("service.movieList:")
+                console.log(service.movieList);
+                resolve();
+              }
+            })
+        });
+    });
+  }
+
+/* Genre Land */
+
 
     // Hardcoded variables for testing - should only return 1 page of titles from 2000-2019, of duration 60-120 min.
     
@@ -80,54 +207,39 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
     service.watchlistArray = [];
 
-        service.addToWatchlistArray = function(movie){
+        service.addToWatchlistArray = function(movie){ // adds movies to watchlist array from movie-list component
+            console.log(`watchlistArray b4 addition: `);
+            console.log(service.watchlistArray)
             service.watchlistArray.push(movie);
-            console.log(`watchlistArray: ${watchlistArray}`);
+            console.log(`watchlistArray after addition: `);
+            console.log(service.watchlistArray)
         }
 
-        service.removeFromWatchlistArray = function(movie){ // will this work with objects?
-            console.log(`pre-splice watchlistArray: ${watchlistArray}`)
-            let target = service.genreSelectionArray.indexOf(movie);
-            service.genreSelectionArray.splice(target, 1);
-            console.error(`post-splice watchlistArray: ${watchlistArray}`);
+        service.removeFromWatchlistArray = function(movie){ // will this work with objects? removes movies from watchlistArray
+            console.log('pre-splice watchlistArray: ');
+            console.log(service.watchlistArray)
+            let target = service.watchlistArray.indexOf(movie);
+            service.watchlistArray.splice(target, 1);
+            console.log(`post-splice watchlistArray: `);
+            console.log(service.watchlistArray)
         };
 
+        service.watchlistEditor = function(movie){
+            if(movie.starred === true){ // if star is filled out, add movie to watchlist array
+                movie.starred = false;
+                // console.log(`watchlistArray before movie addition: ${service.watchlistArray}`)
+                service.removeFromWatchlistArray(movie);
+                // console.log(`watchlistArray after movie addition: ${service.watchlistArray}`)
+            }
+            else if (movie.starred === false){ // if star is empty, remove from watchlist array
+                movie.starred = true;
+                // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
+                service.addToWatchlistArray(movie);
+                // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
 
-    service.callTheMovieDbApi = () => {
-      return $q(function(resolve, reject){
+            }
+        }
 
-        $http.get('https://api.themoviedb.org/3/discover/movie', {
-          params: {
-              api_key: service.api_key,
-              language: "en-US",
-              sort_by: "popularity.desc",
-              include_adult: false,
-              include_video: false,
-              page: service.pageNumber,
-              'release_date.gte': service.earliestReleaseDate,
-              'release_date.lte': service.latestReleaseDate,
-              with_genres: service.genreSelection,
-              without_genres: service.genresNotWanted,
-              'with_runtime.gte': service.runTimeGreaterThanOrEqual,
-              'with_runtime.lte': service.runTimeLessThanOrEqual
-          }
-      })
-      .then( (response)=>{
-          console.log(response.data);
-          resolve(response.data);
-      })
-
-      }
-    )
-
-        // console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-            // service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
-            // all the variables are working as they should.
-      
-        // https://image.tmdb.org/t/p/w185_and_h278_bestv2/cmJ71gdZxCqkMUvGwWgSg3MK7pC.jpg - example of how to use poster image
-    };
-
-    service.callTheMovieDbApi();
 }
 
 angular

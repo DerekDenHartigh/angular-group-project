@@ -456,6 +456,48 @@ img {
       
       .rating-slider.rzslider .rz-tick.rz-selected {
         background: orange;
+
+      }
+
+/* movie-list Styling */
+
+    #movie-list-container{
+        background-color: rgb(226, 61, 226);
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: center;
+        justify-items: center;
+    }
+
+        .movie-post{
+            background-color: blue;
+            padding: 10px;
+            width: 20%;
+            margin: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            justify-items: space-around;
+            align-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+            .title-container{
+                margin: 10px;
+                display: flex;
+                flex-direction: row;
+                flex-wrap: nowrap;
+                justify-content: space-between;
+                justify-items: space-between;
+                align-content: center;
+                align-items: center;
+            }
       }  */
 
         /* .arrows{
@@ -468,7 +510,27 @@ img {
 
 /* Favorites Styling */
 
+                .spacer{
+                    width: 35px;
+                    display: flex;
+                }
 
+                  /* favorite button */
+
+                .star-container{
+                    display: flex;
+                    position: absolute;
+                    width: 24px;
+                    height: 24px;
+                    top: 10px;
+                    right: 10px;
+                }
+
+                    .star{
+                        width: 100%;
+                        height: 100%;
+                        color: gold;
+                    }
 /* header {
     margin: 0 auto;
     padding: 0;
@@ -485,6 +547,7 @@ img {
 } */
 
 /* Omni-Styling */
+
 
     /* custom scollbar styling */
     /* width */
@@ -508,6 +571,10 @@ img {
     /* ::-webkit-scrollbar-thumb:hover {
         background: #b30000; 
     } */
+            .movie-poster{
+                display: flex;
+                width: 100%;
+            }
 
 /* Header Styling*/
 /* 
@@ -593,6 +660,21 @@ header{
 
 /* Home Page Styling */
 
+/* watchlist Styling */
+
+    #watchlist-container{
+        background-color: olivedrab;
+        width: 100%;
+        height: auto;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: flex-start;
+        align-items: flex-start;
+        justify-content: center;
+        justify-items: center;
+    }
+
 /* Search Styling 
         sauces: https://codepen.io/AurelienZMN/pen/RadXBZ, 
                 https://webdesign.tutsplus.com/articles/quick-tip-easy-css3-checkboxes-and-radio-buttons--webdesign-8953
@@ -600,3 +682,4 @@ header{
                 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
 */
+
