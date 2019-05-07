@@ -110,6 +110,7 @@ service.callTheMovieDbApi = () => {
 };
 
 service.getMovies = () => {
+    // service.movieList = [];
     return $q(function(resolve, reject) {
 
     service.callTheMovieDbApi()
