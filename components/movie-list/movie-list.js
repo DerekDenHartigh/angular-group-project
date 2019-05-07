@@ -7,26 +7,26 @@ function MovieListController(MovieAppService, $q) {
     ctrl.movieList = [];
 
     ctrl.getMovies = () => {
-        console.log("Hello");
         return $q(function(resolve, reject) {
     
         MovieAppService.callTheMovieDbApi()
           .then ( (response) => {
             console.log(response);
              
-              let children = response.results; //Adjust for proper API return
+              let children = response.results; 
               console.log(children);
       
                 children.forEach( function(child, index) {
                   let movieObj = {
                     title: child.title,
-                    poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
-                    description: child.overview  // Change permalink to appropraite return from API 
+                    poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, 
+                    description: child.overview   
                   }
                  
                   
                   ctrl.movieList.push(movieObj);
-      
+                  
+                  // Adjust for the number of movies to be returned? 
                   if ( index === (children.length - 1) ){
                     console.log(ctrl.movieList); 
                     resolve();
@@ -42,11 +42,6 @@ function MovieListController(MovieAppService, $q) {
     }
 
     
-    
-
-
-
-
 angular
 .module('MovieApp')  
 .component('movieList', {
@@ -68,6 +63,8 @@ angular
         `,
     controller: MovieListController
 });
+
+
 
 // results: Array(20)
 // 0:
