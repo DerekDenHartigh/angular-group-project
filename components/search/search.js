@@ -8,13 +8,13 @@ function SearchController(MovieAppService, $scope, $interval) {
 /* a watcher for all the params to refresh the page - it is supposed to watch for changes in arrayOfParams, then, on change, refresh the content w/ a 200ms throttle */
     ctrl.hasUpdated = false;
 
-    $scope.$watch("ctrl.service.genreSelection", function( newValue, oldValue ) {
+    $scope.$watch("ctrl.service.genreSelectionArray", function( newValue, oldValue ) {
         console.error("who will watch the watchers?");
         ctrl.hasUpdated = true;
     },true);
 
     $interval(function(){
-        console.log("I'm the interval service!")
+        // console.log("I'm the interval service!")
         if (ctrl.hasUpdated === true){ //ctrl.hasUpdated === true
             console.error("im not firing");
             service.getMovies();
