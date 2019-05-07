@@ -1,30 +1,208 @@
+@import url('https://fonts.googleapis.com/css?family=Limelight');
+@import url('https://fonts.googleapis.com/css?family=Monoton');
+@import url('https://fonts.googleapis.com/css?family=Pacifico');
+@import url('https://fonts.googleapis.com/css?family=Playfair+Display');
+
+body {
+    width: 100vw;
+    height: 100vh;
+    background-image: url("aperture.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; 
+    display: flex;
+    text-decoration: none;
+    color: white;
+    box-sizing: border-box;
+
+}
+
+.genre-option-box {
+    color: white;
+    font-size: 25px;
+    width: 50%;
+    margin: 0;
+    height: 65px;
+    
+}
+
+#search-spec-form {
+    width: 60%;
+    font-family: 'Playfair Display', serif;
+    color: white;
+    font-weight: 100;
+    
+}
+
+
+
+
+#body {
+    /* background-image: url("bar.jpg");
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover; */
+    display: block;
+    position: relative;
+    
+}
+#body::after {
+    content: "";
+    background: url("aperture.jpg");
+    opacity: 0.2;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    z-index: -1;
+    
+}
+.body {
+    margin: 0 auto;
+    padding: 0;
+    /* background: rgba(255, 255, 255, 0.3); */
+    
+}
+
+nav {
+    float: right;
+    color: white;
+}
+
+p {
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    font-size: 70px;
+    width: 30%;
+    color: white;
+    margin-top: 50px;
+    text-shadow: 4px 4px 9px gray;
+}
+
+#result-filter:hover{
+    cursor: pointer;
+    background-color: black;
+    color: white;
+    border: solid black;
+    box-shadow: none;
+}
+
+#result-filter {
+    color: black;
+    background-color: white;
+    width: 400px;
+    /* margin-top: 200px;
+    margin-left: 40px;
+    margin-bottom: 200px; */
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 55px;
+    border: 2px solid white;
+    font-size: 35px;
+    border-radius: 7px;
+    font-family: 'Playfair Display', serif;
+    box-shadow: 2px 2px 5px lightgray;
+    
+}
+
+a {
+    display: flex;
+    flex-direction: row-reverse;
+    width: 100px;
+}
+
+.rating {
+    overflow: hidden;
+    display: inline-block;
+}
+.rating-input {
+    float: right;
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    margin: 0 0 0 -16px;
+    opacity: 0;
+}
+
+.rating:hover .rating-star:hover,
+.rating:hover .rating-star:hover ~ .rating-star,
+.rating-input:checked ~ .rating-star {
+    background-position: 0 0;
+}
+
+ .rating-star,
+.rating:hover .rating-star {
+  position: relative;
+    display: block;
+  float: right;
+    width: 16px;
+    height: 16px;
+    background: url('https://www.everythingfrontend.com/samples/star-rating/star.png') 0 -16px;
+}
+
+.rating-star {
+    
+}
+  
+
+
+
+/* header {
+    margin: 0 auto;
+    padding: 0;
+    background: rgba(255, 255, 255, 0.3);
+    height: 100vh;
+} */
+
+/* li {
+    color: red; 
+    height: 100px;
+    z-index: 5;
+    font-weight: bold;
+    
+} */
+
+
+
+
+
+
+
+
+
+
+
+
 /* Omni-Styling */
 
     /* custom scollbar styling */
     /* width */
-    ::-webkit-scrollbar {
+    /* ::-webkit-scrollbar {
         width: 20px;
-    }
+    } */
   
     /* Track */
-    ::-webkit-scrollbar-track {
+    /* ::-webkit-scrollbar-track {
         box-shadow: inset 0 0 5px grey; 
         border-radius: 10px;
-    }
+    } */
     
     /* Handle */
-    ::-webkit-scrollbar-thumb {
+    /* ::-webkit-scrollbar-thumb {
         background: red; 
         border-radius: 10px;
-    }
+    } */
     
     /* Handle on hover */
-    ::-webkit-scrollbar-thumb:hover {
+    /* ::-webkit-scrollbar-thumb:hover {
         background: #b30000; 
-    }
+    } */
 
 /* Header Styling*/
-
+/* 
 header{
     display: flex;
     flex-direction: row;
@@ -62,7 +240,7 @@ header{
 
         #header-list li a{
             
-        }
+        } */
 
 /* Footer Styling*/
 
@@ -76,26 +254,22 @@ header{
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
 */
 
-search{
+/* search{
     display: flex;
     flex-direction: column;
     background-color: grey;
     padding: 10px;
     border-radius: 10px;
-}
+} */
 
-    #result-filter:hover{
-        cursor: pointer;
-        background-color: red;
-    }
-
-    #search-spec-form{
+/* 
+     #search-spec-form{
         display: flex;
         flex-wrap: wrap;
         width: 100%;
-    }
+    } */
 
-        .genre-option-box{
+        /* .genre-option-box{
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -156,7 +330,7 @@ search{
                         .genre-exclusion-checkbox{
                             font-family: 'Material Icons';
                             content: 'close';
-                        }
+                        }  */ 
 
 
             /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
@@ -227,7 +401,7 @@ search{
 
     /* slider styling */
     /* runtime slider */
-    .runtime-slider.rzslider .rz-bar {
+    /* .runtime-slider.rzslider .rz-bar {
         background: #ffe4d1;
         height: 2px;
       }
@@ -239,7 +413,7 @@ search{
         width: 8px;
         height: 16px;
         top: auto; /* to remove the default positioning */
-        bottom: 0;
+        /* bottom: 0;
         background-color: #333;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
@@ -251,9 +425,9 @@ search{
       
       .runtime-slider.rzslider .rz-bubble {
         bottom: 14px;
-      }
+      } */
       
-      .runtime-slider.rzslider .rz-limit {
+      /* .runtime-slider.rzslider .rz-limit {
         font-weight: bold;
         color: orange;
       }
@@ -269,9 +443,9 @@ search{
       
       .runtime-slider.rzslider .rz-tick.rz-selected {
         background: orange;
-      }
+      } */
     /* rating slider*/
-    .rating-slider.rzslider .rz-bar {
+    /* .rating-slider.rzslider .rz-bar {
         background: #ffe4d1;
         height: 2px;
       }
@@ -283,17 +457,17 @@ search{
         width: 8px;
         height: 16px;
         top: auto; /* to remove the default positioning */
-        bottom: 0;
+        /* bottom: 0;
         background-color: #333;
         border-top-left-radius: 3px;
         border-top-right-radius: 3px;
       }
-      
-      .rating-slider.rzslider .rz-pointer:after {
+       */
+      /* .rating-slider.rzslider .rz-pointer:after {
         display: none;
-      }
-      
-      .rating-slider.rzslider .rz-bubble {
+      } */
+       
+      /* .rating-slider.rzslider .rz-bubble {
         bottom: 14px;
       }
       
@@ -313,7 +487,7 @@ search{
       
       .rating-slider.rzslider .rz-tick.rz-selected {
         background: orange;
-      }
+      }  */
 
 /* Movies Styling */
 
