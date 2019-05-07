@@ -8,7 +8,14 @@ function SearchController(MovieAppService, $scope, $interval) {
 /* a watcher for all the params to refresh the page - it is supposed to watch for changes in arrayOfParams, then, on change, refresh the content w/ a 200ms throttle */
     ctrl.hasUpdated = false;
 
-    $scope.$watch("ctrl.service.genreSelectionArray", function( newValue, oldValue ) {
+    // $scope.$watch("ctrl.service.genreSelectionArray", function( newValue, oldValue ) {
+    //     console.error("who will watch the watchers?");
+    //     ctrl.hasUpdated = true;
+    // },true);
+
+    $scope.service = MovieAppService;
+// can't watch an array, watching each param individually - may need to add other params
+    $scope.$watchGroup(['service.pageNumber', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         console.error("who will watch the watchers?");
         ctrl.hasUpdated = true;
     },true);
