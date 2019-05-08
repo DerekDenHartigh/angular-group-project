@@ -682,3 +682,8 @@ header{
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
 */
 
+.blue{
+    color: blue;
+    font-size: 3em;
+    background-color: lime;
+}

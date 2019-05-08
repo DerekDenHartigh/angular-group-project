@@ -9,6 +9,9 @@ angular.module("MovieApp")
     .when("/watchList", {
         template: "<watch-list></watch-list>"
     })
+    .when("/moreInfo", {
+        template: "<more-info></more-info>"
+    })
     .otherwise({
         redirectTo: "/home"
     })

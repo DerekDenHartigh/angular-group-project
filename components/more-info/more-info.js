@@ -1,64 +1,18 @@
 "use strict";
 
-function MovieListController(MovieAppService) {
+function MoreInfoController(MovieAppService) {
 
     const ctrl = this;
     const service = MovieAppService; // this only sets
     ctrl.service = MovieAppService; // this binds/embeds object w/in controller - ist it for modeling/changing service
-    ctrl.pageNumber = service.pageNumber;
-    ctrl.movieList = service.movieList;
-
-/* page forward/back functions */
-    ctrl.pageBack = function(){
-        if (service.pageNumber>1){
-        ctrl.service.pageNumber -= 1;
-        console.log('service.pageNumber:');
-        console.log(service.pageNumber);
-        }
-        if (service.pageNumber<=1){
-            console.log(service.pageNumber);
-            console.error("1 is the lowest possible page number")
-        }
-        if(service.pageNumber>=ctrl.service.responseData.total_pages){
-            console.log(service.pageNumber);
-            console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
-        }
-    };
-    ctrl.pageForward = function(){
-        if(service.pageNumber<service.responseData.total_pages){
-            ctrl.service.pageNumber += 1;
-            console.log('service.pageNumber:');
-            console.log(service.pageNumber);
-        }
-        else if(service.pageNumber>=ctrl.service.responseData.total_pages){
-            console.log(service.pageNumber);
-            console.error("There aren't that many pages!")
-        }
-    }
-
-/* watchlist button - moved logic to service for use by watch-list component*/
-
-    ctrl.watchlistEditor = service.watchlistEditor
-
-/* movie list generator - moved logic to service for reference by search module*/
-
-    ctrl.movieList = ctrl.service.movieList;
-    ctrl.getMovies = service.getMovies
-    ctrl.getMovies()  // calls once
-     
-/* more info functions */
-
-    ctrl.infoFunction = function(){
-
-    };
-
+    
     }
 
 angular
 .module('MovieApp')  
-.component('movieList', {
+.component('MoreInfo', {
+    // fix this template - this is just copy/paste from movie-list
     template: `
-
     <!--Movie Display (title, poster, rating, description)-->
     <div id="movie-list-container">
         <div class="movie-post" ng-repeat="movie in $ctrl.service.movieList">
@@ -71,8 +25,7 @@ angular
                 </div>
             </div>
             <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
-            <a class = "blue" href="#!/moreInfo" ng-click="$ctrl.infoFunction(movie)">More Info...</a>
-
+            <p ng-click="$ctrl.infoFunction(movie)">More Info...</p>
             <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
         </div>
     </div>
@@ -87,7 +40,7 @@ angular
 <!-- movie list changes below, search branch above, will sort this out after merge -->
 <!-- added ".title" ".image"  ".description"
         `,
-    controller: MovieListController
+    controller: MoreInfoController
 });
 
 // sample movie object:
