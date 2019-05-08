@@ -9,7 +9,7 @@ function MoreInfoController(MovieAppService) {
     ctrl.watchlistEditor = ctrl.service.watchlistEditor;
 
 /* genre id to string conversion */
-
+    
 
     }
 
@@ -32,7 +32,7 @@ angular
         <div id="detailed-info-pane"> <!-- translucent white background? -->
             <h1 class="movie-title title" id="detailed-title">{{movie.title}}</h1>
             <p class ="movie-description description" id="detailed-movie-description">{{movie.description}}</p>
-            <p id="detailed-genres">Genres: <span class="detailed-genre-list">{{$ctrl.service.detailedMovieGenreString}}</span><p>
+            <p id="detailed-genres">Genres: <span class="detailed-genre-list">{{$ctrl.service.movieObjGenreArrayToString(movie)}}</span><p>
             <p id="detailed-vote-avg">User Rating: {{movie.avgVote}}</p>
         </div>
     </div>

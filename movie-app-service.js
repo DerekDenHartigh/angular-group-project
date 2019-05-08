@@ -259,7 +259,7 @@ service.getMovies = () => {
 /* movie id to string converter */
         service.movieObjGenreArrayToString = function(movieObj){
             service.detailedMovieGenreArray = []; // empties out previous detailed movie's genres
-            movieObj.genres.forEach(genre)//{ // why is this an error?
+            movieObj.genres.forEach((genre)=>{
                 switch(genre) {
                     case 28: service.detailedMovieGenreArray.push("Action"); break;
                     case 12: service.detailedMovieGenreArray.push("Adventure"); break;
@@ -283,9 +283,11 @@ service.getMovies = () => {
                     case 37: service.detailedMovieGenreArray.push("Western"); break;
                     default: console.error("An invalid Genre ID was input to movieObjGenreArrayToString()")
                 };
-            //};
+            })
             service.detailedMovieGenreString = service.detailedMovieGenreArray.join(", "); // converts array into a list
+            return service.detailedMovieGenreString;
         }
+        
 }
 
 angular
