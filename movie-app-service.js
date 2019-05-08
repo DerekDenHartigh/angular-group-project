@@ -4,6 +4,10 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
     const service = this;
 
+    service.detailedMovie = []; // [{movieObj}] - an array of one
+    service.detailedMovieGenreArray = [];  // stores names corresponding to genre id#s
+    service.detailedMovieGenreString = "";
+
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
     service.responseData = {};
@@ -18,7 +22,9 @@ function MovieAppService($http, $location, $rootScope, $q) {
     service.vote_averageGreaterThanOrEqual = "";
     service.vote_averageLessThanOrEqual = "";
 
-    service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
+    service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,
+        service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, 
+        service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
 
     service.movieList = [];
 
@@ -128,10 +134,14 @@ service.getMovies = () => {
           console.log(children);
   
             children.forEach( function(child, index) {
-              let movieObj = {
+              let movieObj = { // why is this done?  why not just return the child as is?
                 title: child.title,
                 poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
                 description: child.overview,  // Change permalink to appropraite return from API 
+                backdrop: `https://image.tmdb.org/t/p/original/` + child.backdrop_path,
+                avgVote: child.vote_average,
+                releaseDate: child.release_date,
+                genres: child.genre_ids, // array of genre id #s
                 starred: false
               }
               service.movieList.push(movieObj);
@@ -245,6 +255,36 @@ service.getMovies = () => {
             }
         }
 
+/* movie id to string converter */
+        service.movieObjGenreArrayToString = function(movieObj){
+            service.detailedMovieGenreArray = []; // empties out previous detailed movie's genres
+            movieObj.genres.forEach(genre)//{ // why is this an error?
+                switch(genre) {
+                    case 28: service.detailedMovieGenreArray.push("Action"); break;
+                    case 12: service.detailedMovieGenreArray.push("Adventure"); break;
+                    case 16: service.detailedMovieGenreArray.push("Animation"); break;
+                    case 35: service.detailedMovieGenreArray.push("Comedy"); break;
+                    case 80: service.detailedMovieGenreArray.push("Crime"); break;
+                    case 99: service.detailedMovieGenreArray.push("Documentary"); break;
+                    case 18: service.detailedMovieGenreArray.push("Drama"); break;
+                    case 10751: service.detailedMovieGenreArray.push("Family"); break;
+                    case 14: service.detailedMovieGenreArray.push("Fantasy"); break;
+                    case 36: service.detailedMovieGenreArray.push("History"); break;
+                    case 27: service.detailedMovieGenreArray.push("Horror"); break;
+                    case 10402: service.detailedMovieGenreArray.push("Music"); break;
+                    case 9648: service.detailedMovieGenreArray.push("Mystery"); break;
+                    case 10749: service.detailedMovieGenreArray.push("Romance"); break;
+                    case 878: service.detailedMovieGenreArray.push("Science Fiction"); break;
+                    case 10770: service.detailedMovieGenreArray.push("TV Movie"); break;
+                    case 53: service.detailedMovieGenreArray.push("Thriller"); break;
+                    case 10402: service.detailedMovieGenreArray.push("Music"); break;
+                    case 10752: service.detailedMovieGenreArray.push("War"); break;
+                    case 37: service.detailedMovieGenreArray.push("Western"); break;
+                    default: console.error("An invalid Genre ID was input to movieObjGenreArrayToString()")
+                };
+            //};
+            service.detailedMovieGenreString = service.detailedMovieGenreArray.join(", "); // converts array into a list
+        }
 }
 
 angular

@@ -11,6 +11,7 @@ angular.module("MovieApp")
     })
     .when("/moreInfo", {
         template: "<more-info></more-info>"
+        //template: "<more-info>Hi I'm more-info</more-info>" // this template is routed, correctly
     })
     .otherwise({
         redirectTo: "/home"

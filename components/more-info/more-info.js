@@ -3,42 +3,38 @@
 function MoreInfoController(MovieAppService) {
 
     const ctrl = this;
-    const service = MovieAppService; // this only sets
     ctrl.service = MovieAppService; // this binds/embeds object w/in controller - ist it for modeling/changing service
     
+/* watchlist editor for star functionality */
+    ctrl.watchlistEditor = ctrl.service.watchlistEditor;
+
+/* genre id to string conversion */
+
+
     }
 
 angular
 .module('MovieApp')  
-.component('MoreInfo', {
-    // fix this template - this is just copy/paste from movie-list
+.component('moreInfo', {
     template: `
-    <!--Movie Display (title, poster, rating, description)-->
-    <div id="movie-list-container">
-        <div class="movie-post" ng-repeat="movie in $ctrl.service.movieList">
-            <div class="title-container">
-                <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
-                <div class="spacer"></div>
-                <div class="star-container">
-                    <i class="material-icons star" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
-                    <i class="material-icons star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
-                </div>
-            </div>
-            <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
-            <p ng-click="$ctrl.infoFunction(movie)">More Info...</p>
-            <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
+    <div id="detailed-movie-container" ng-repeat="movie in $ctrl.service.detailedMovie">
+
+        <!-- absolutely positioned elements -->
+        <img id="detailed-backdrop" src="{{movie.backdrop}}">
+        <div class="star-container" id="detailed-star-container">
+            <i class="material-icons star" id="detailed-star-empty" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
+            <i class="material-icons star" id="dtailed-star-full" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
+        </div>
+
+        <!-- relatively positioned elements -->
+        <img class="movie-poster image" id="detailed-movie-poster" alt="movie poster" ng-src="{{movie.poster}}"></img>
+        <div id="detailed-info-pane">
+            <h1 class="movie-title title" id="detailed-title">{{movie.title}}</h1>
+            <p class ="movie-description description" id="detailed-movie-description">{{movie.description}}</p>
+            <p id="detailed-genres">Genres: <span class="detailed-genres">{{$ctrl.service.detailedMovieGenreString}}</span><p>
+            <p id="detailed-vote-avg">User Rating: {{movie.avgVote}}</p>
         </div>
     </div>
-
-    <!--Page Number Selector-->
-    <div id="page-number-container">
-        <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-        <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
-        <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
-    </div>
-
-<!-- movie list changes below, search branch above, will sort this out after merge -->
-<!-- added ".title" ".image"  ".description"
         `,
     controller: MoreInfoController
 });
@@ -60,3 +56,98 @@ angular
 // video: false
 // vote_average: 8.4
 // vote_count: 3590
+
+/** Sample movieObj template:
+ *               
+ *  let movieObj = { // why is this done?  why not just return the child as is?
+    title: child.title,
+    poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
+    description: child.overview,  // Change permalink to appropraite return from API 
+    backdrop: `https://image.tmdb.org/t/p/original/` + child.backdrop_path,
+    avgVote: child.vote_average,
+    releaseDate: release_date,
+    genres: genre_ids,
+    starred: false
+    }
+ */
+
+/**
+ * "genres": [
+    {
+      "id": 28,
+      "name": "Action"
+    },
+    {
+      "id": 12,
+      "name": "Adventure"
+    },
+    {
+      "id": 16,
+      "name": "Animation"
+    },
+    {
+      "id": 35,
+      "name": "Comedy"
+    },
+    {
+      "id": 80,
+      "name": "Crime"
+    },
+    {
+      "id": 99,
+      "name": "Documentary"
+    },
+    {
+      "id": 18,
+      "name": "Drama"
+    },
+    {
+      "id": 10751,
+      "name": "Family"
+    },
+    {
+      "id": 14,
+      "name": "Fantasy"
+    },
+    {
+      "id": 36,
+      "name": "History"
+    },
+    {
+      "id": 27,
+      "name": "Horror"
+    },
+    {
+      "id": 10402,
+      "name": "Music"
+    },
+    {
+      "id": 9648,
+      "name": "Mystery"
+    },
+    {
+      "id": 10749,
+      "name": "Romance"
+    },
+    {
+      "id": 878,
+      "name": "Science Fiction"
+    },
+    {
+      "id": 10770,
+      "name": "TV Movie"
+    },
+    {
+      "id": 53,
+      "name": "Thriller"
+    },
+    {
+      "id": 10752,
+      "name": "War"
+    },
+    {
+      "id": 37,
+      "name": "Western"
+    }
+  ]
+ */
