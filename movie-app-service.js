@@ -15,7 +15,7 @@ function MovieAppService($http, $location, $rootScope, $q) {
     service.genresNotWanted = [];
     service.runTimeGreaterThanOrEqual;
     service.runTimeLessThanOrEqual;
-    service.ote_averageGreaterThanOrEqual;
+    service.vote_averageGreaterThanOrEqual;
     service.vote_averageLessThanOrEqual;
 
     service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
@@ -88,7 +88,9 @@ service.callTheMovieDbApi = () => {
             with_genres: service.genreSelection,
             without_genres: service.genresNotWanted,
             'with_runtime.gte': service.runTimeGreaterThanOrEqual,
-            'with_runtime.lte': service.runTimeLessThanOrEqual
+            'with_runtime.lte': service.runTimeLessThanOrEqual,
+            'vote_average.gte': service.vote_averageGreaterThanOrEqual,
+            'vote_average.lte': service.vote_averageLessThanOrEqual
         }
     })
     .then( (response)=>{
