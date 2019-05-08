@@ -9,14 +9,14 @@ function MovieAppService($http, $location, $rootScope, $q) {
     service.responseData = {};
 
     service.pageNumber = 1;
-    service.earliestReleaseDate;
-    service.latestReleaseDate;
+    service.earliestReleaseDate = "";
+    service.latestReleaseDate = "";
     service.genreSelection = [];
     service.genresNotWanted = [];
-    service.runTimeGreaterThanOrEqual;
-    service.runTimeLessThanOrEqual;
-    service.vote_averageGreaterThanOrEqual;
-    service.vote_averageLessThanOrEqual;
+    service.runTimeGreaterThanOrEqual = "";
+    service.runTimeLessThanOrEqual = "";
+    service.vote_averageGreaterThanOrEqual = "";
+    service.vote_averageLessThanOrEqual = "";
 
     service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
 

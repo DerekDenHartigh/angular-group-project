@@ -1,6 +1,6 @@
 "use strict";
 
-function MovieListController(MovieAppService, $q) {
+function MovieListController(MovieAppService) {
 
     const ctrl = this;
     const service = MovieAppService; // this only sets
