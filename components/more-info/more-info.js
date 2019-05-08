@@ -20,7 +20,7 @@ angular
     <div id="detailed-movie-container" ng-repeat="movie in $ctrl.service.detailedMovie">
 
         <!-- absolutely positioned elements -->
-        <img id="detailed-backdrop" src="{{movie.backdrop}}">
+        <img id="detailed-backdrop" src="{{movie.backdrop}}"> <!-- page background? -->
         <div class="star-container" id="detailed-star-container">
             <i class="material-icons star" id="detailed-star-empty" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
             <i class="material-icons star" id="dtailed-star-full" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
@@ -28,7 +28,8 @@ angular
 
         <!-- relatively positioned elements -->
         <img class="movie-poster image" id="detailed-movie-poster" alt="movie poster" ng-src="{{movie.poster}}"></img>
-        <div id="detailed-info-pane">
+        
+        <div id="detailed-info-pane"> <!-- translucent white background? -->
             <h1 class="movie-title title" id="detailed-title">{{movie.title}}</h1>
             <p class ="movie-description description" id="detailed-movie-description">{{movie.description}}</p>
             <p id="detailed-genres">Genres: <span class="detailed-genres">{{$ctrl.service.detailedMovieGenreString}}</span><p>

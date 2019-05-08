@@ -5,8 +5,8 @@ function MovieAppService($http, $location, $rootScope, $q) {
     const service = this;
 
     service.detailedMovie = []; // [{movieObj}] - an array of one
-    service.detailedMovieGenreArray = [];  // stores names corresponding to genre id#s
-    service.detailedMovieGenreString = "";
+        service.detailedMovieGenreArray = [];  // stores names corresponding to genre id#s
+        service.detailedMovieGenreString = "";
 
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
@@ -138,6 +138,7 @@ service.getMovies = () => {
                 title: child.title,
                 poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
                 description: child.overview,  // Change permalink to appropraite return from API 
+                // I backdrop path broken - how to fix?
                 backdrop: `https://image.tmdb.org/t/p/original/` + child.backdrop_path,
                 avgVote: child.vote_average,
                 releaseDate: child.release_date,
