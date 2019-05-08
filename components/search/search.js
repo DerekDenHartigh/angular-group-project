@@ -63,8 +63,9 @@ function SearchController(MovieAppService, $scope, $interval) {
     $scope.timevaluemin =0;
     $scope.timevaluemax=300;
     $scope.ratingvalue=0;
-    $scope.min=0;
     $scope.max=10;
+    $scope.min=0;
+    
 
 }
 
@@ -88,17 +89,29 @@ angular
 
     <!--Runtime-->
 
-    Time as range: <input type="range" name="range" ng-model="timevalue" min="{{timevaluemin}}"  max="{{timevaluemax}}">
-    <hr>
-    Time as number: <input type="number" ng-model="timevalue"><br><br><br>
+    <div class="questions">
+    <div class="stuff">
+    <p class="lengthQuestion">How long can you handle sitting in the dark?</p><input class="movieLength ranges" type="range" name="range" ng-model="timevalue" min="{{timevaluemin}}"  max="{{timevaluemax}}"> 
+    <input class="lengthInput inputs" type="number" ng-model="timevalue">
+    </div>
     
     <!--Rating-->
 
-    Rating as range: <input type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
-    <hr>
-    Rating as number: <input type="number" ng-model="ratingvalue"><br> 
+    <div>
+    <p class="ratingQuestion">Lowest rating your willing to see?</p><input class="movieRatings ranges" type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
+    <input class="ratingInput inputs" type="number" ng-model="ratingvalue">
+    </div>
+    </div>
 
-<span class="rating">
+
+
+    </div>
+        `,
+    controller: SearchController
+});
+
+
+/* <span class="rating">
     <input type="radio" class="rating-input"
         id="rating-input-1-5" name="rating-input-1">
     <label for="rating-input-1-5" class="rating-star"></label>
@@ -114,9 +127,4 @@ angular
     <input type="radio" class="rating-input"
         id="rating-input-1-1" name="rating-input-1">
     <label for="rating-input-1-1" class="rating-star"></label>
-</span>
-
-    </div>
-        `,
-    controller: SearchController
-});
+</span> */
