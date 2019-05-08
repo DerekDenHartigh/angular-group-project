@@ -16,14 +16,15 @@ function SearchController(MovieAppService, $scope, $interval) {
     $scope.service = MovieAppService;
 // can't watch an array, watching each param individually - may need to add other params
     $scope.$watchGroup(['service.pageNumber', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
-        console.error("who will watch the watchers?");
+        console.error("who will watch the watchers? - watcher observed a change and truthified SearchController.hasUpdated");
         ctrl.hasUpdated = true;
     },true);
 
     $interval(function(){
         // console.log("I'm the interval service!")
         if (ctrl.hasUpdated === true){ //ctrl.hasUpdated === true
-            console.error("im not firing");
+            console.log("Interval service detected a change");
+            service.movieList = [];
             service.getMovies();
             ctrl.hasUpdated = false;
         }

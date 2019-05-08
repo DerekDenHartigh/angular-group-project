@@ -6,6 +6,7 @@ function MovieListController(MovieAppService, $q) {
     const service = MovieAppService; // this only sets
     ctrl.service = MovieAppService; // this binds/embeds object w/in controller - ist it for modeling/changing service
     ctrl.pageNumber = service.pageNumber;
+    ctrl.movieList = service.movieList;
 
 /* page forward/back functions */
     ctrl.pageBack = function(){
@@ -15,9 +16,11 @@ function MovieListController(MovieAppService, $q) {
         console.log(service.pageNumber);
         }
         if (service.pageNumber<=1){
+            console.log(service.pageNumber);
             console.error("1 is the lowest possible page number")
         }
         if(service.pageNumber>=ctrl.service.responseData.total_pages){
+            console.log(service.pageNumber);
             console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
         }
     };
@@ -28,6 +31,7 @@ function MovieListController(MovieAppService, $q) {
             console.log(service.pageNumber);
         }
         else if(service.pageNumber>=ctrl.service.responseData.total_pages){
+            console.log(service.pageNumber);
             console.error("There aren't that many pages!")
         }
     }
@@ -51,7 +55,7 @@ angular
 
     <!--Movie Display (title, poster, rating, description)-->
     <div id="movie-list-container">
-        <div class="movie-post" ng-repeat="movie in $ctrl.movieList">
+        <div class="movie-post" ng-repeat="movie in $ctrl.service.movieList">
             <div class="title-container">
                 <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
                 <div class="spacer"></div>

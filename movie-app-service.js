@@ -75,6 +75,9 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
 service.callTheMovieDbApi = () => {
     return $q(function(resolve, reject){
+        console.log("all the params in callTheMovieDbApi:");
+        console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+              service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual);
       $http.get('https://api.themoviedb.org/3/discover/movie', {
         params: {
             api_key: service.api_key,
@@ -85,8 +88,8 @@ service.callTheMovieDbApi = () => {
             page: service.pageNumber,
             'release_date.gte': service.earliestReleaseDate,
             'release_date.lte': service.latestReleaseDate,
-            with_genres: service.genreSelection,
-            without_genres: service.genresNotWanted,
+            // 'with_genres': service.genreSelection,  // perhaps having both params breaks it?  i'm not sure why..
+            'without_genres': service.genresNotWanted,
             'with_runtime.gte': service.runTimeGreaterThanOrEqual,
             'with_runtime.lte': service.runTimeLessThanOrEqual,
             'vote_average.gte': service.vote_averageGreaterThanOrEqual,
@@ -97,26 +100,27 @@ service.callTheMovieDbApi = () => {
         response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
             movie.starred = false;
         });
-        console.log(response.data);
         service.responseData = response.data; // saves data to service
+        console.warn("service.responseData from callTheMovieDbApi") // check to see that the data saved correctly
         console.warn(service.responseData) // check to see that the data saved correctly
         resolve(response.data);  // the return of a promise
     })
 
     }
   )
-
-      // console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-          // service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
-          // all the variables are working as they should.
 };
 
 service.getMovies = () => {
-    // service.movieList = [];
+    // service.movieList = [];  // why does this prevent anything from showing?
     return $q(function(resolve, reject) {
 
     service.callTheMovieDbApi()
       .then ( (response) => {
+        console.log("response of callTheMovieDbApi:");
+        console.log(response);  // response is an empty JSON file...
+        // service.movieList = [];  // also breaks it
+        console.log("service.movieList pre-array push");
+        console.log(service.movieList);
         console.log("response in getMovies from callTheMovieDbApi:")
         console.log(response);
           let children = response.results; //Adjust for proper API return
@@ -130,11 +134,10 @@ service.getMovies = () => {
                 description: child.overview,  // Change permalink to appropraite return from API 
                 starred: false
               }
-             
               service.movieList.push(movieObj);
   
               if ( index === (children.length - 1) ){
-                console.log("service.movieList:")
+                console.log("service.movieList post array push from getMovies:")
                 console.log(service.movieList);
                 resolve();
               }
