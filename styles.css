@@ -39,7 +39,7 @@ header {
 }
 
 .title {
-    color: white;
+    color: black;
 }
 
 .image {
@@ -94,7 +94,7 @@ nav {
     font-weight: 100px;
 } */
 p {
-    color: white;
+    color: black;
 }
 
 .badAss {
@@ -184,8 +184,8 @@ a {
     background: url('https://www.everythingfrontend.com/samples/star-rating/star.png') 0 -16px;
 }
 
-.rating-star {
-    
+.star {
+    cursor: pointer;
 }
   
  search {
@@ -193,7 +193,6 @@ a {
     flex-direction: column;
     padding: 10px;
     border-radius: 10px;
-    text-decoration: underline;
     color: white;
    
 } 
@@ -201,8 +200,11 @@ a {
 #search-spec-form {
     display: flex;
     flex-wrap: wrap;
-    /* width: 60%; */
+    width: 100vw;
     margin-top: 70px;
+    padding-top: 50px;
+    padding-bottom: 50px;
+    background-color: hsla(0, 0%, 100%, 0.1);
 } 
 
 .genre-option-box {
@@ -295,12 +297,41 @@ h2 {
  
 }
 
-img {
+.movie-title {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+
+.movie-description {
+    font-family: 'Playfair Display', serif;
+    text-align: center;
+}
+
+.movie-poster{
+    display: flex;
+    width: 100%;
+    width: auto;
+    height: auto;
+    
+}
+
+
+/* .movie-poster {
+    width: auto;
+    height: auto;
+    max-width: 180px;
+    max-height: 180px;
+    }
+    
+     */
+    
+
+/* img {
     width: auto;
     height: auto;
     max-width: 180px;
     max-height: 180px;    
-}
+} */
 
             /* [type="checkbox"]:not(:checked), [type="checkbox"]:checked {
                 position: absolute;
@@ -462,6 +493,7 @@ img {
 /* movie-list Styling */
 
     #movie-list-container{
+        /* background-color: rgb(226, 61, 226); */
         width: 100%;
         height: auto;
         display: flex;
@@ -474,6 +506,7 @@ img {
     }
 
         .movie-post{
+            background-color: hsla(0, 0%, 100%, 0.7);
             padding: 10px;
             width: 20%;
             margin: 10px;
@@ -572,11 +605,7 @@ img {
     /* ::-webkit-scrollbar-thumb:hover {
         background: #b30000; 
     } */
-            .movie-poster{
-                display: flex;
-                width: 100%;
-            }
-
+         
 /* Header Styling*/
 /* 
 header{
@@ -674,6 +703,37 @@ header{
         justify-content: center;
         justify-items: center;
     }
+
+    .inputs {
+        width: 75px;
+        font-size: 25px;
+        background-color: hsla(0, 0%, 100%, 0.1);
+        color: white;
+        border: none;
+    }
+
+    .ranges {
+        width: 300px;
+    }
+
+    .lengthQuestion {
+        color: white;
+        font-family: 'Playfair Display', serif;
+        font-size: 25px;
+    }
+
+    .ratingQuestion {
+        color: white;
+        font-family: 'Playfair Display', serif;
+        font-size: 25px;
+            }
+    .questions {
+  
+        margin-left: 60px;
+    }
+
+    
+  
 
 /* Search Styling 
         sauces: https://codepen.io/AurelienZMN/pen/RadXBZ, 
