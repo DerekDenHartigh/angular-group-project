@@ -82,7 +82,7 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-        <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
+        <input id="page-selection-input" type="number" min="1" max="1000" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
         <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
     </div>
 
