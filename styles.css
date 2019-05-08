@@ -687,3 +687,53 @@ header{
     font-size: 3em;
     background-color: lime;
 }
+
+/* more-info styling */
+
+#detailed-movie-container{
+    
+}
+
+    #detailed-backdrop{
+        
+    } 
+
+    #detailed-star-container{
+
+    }
+
+        #detailed-star-empty{
+
+        }
+
+        #detailed-star-full{
+
+        } 
+
+    #detailed-movie-poster{
+
+    }
+
+    #detailed-info-pane{
+        background-color: rgba(255,255,255,.6)
+    } 
+
+        #detailed-title{
+            
+        }
+
+        #detailed-movie-description{
+
+        }
+
+        #detailed-genres{
+            
+        }
+
+            .detailed-genre-list{
+
+            }
+
+        #detailed-vote-avg{
+
+        }
