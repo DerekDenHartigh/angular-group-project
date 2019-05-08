@@ -257,7 +257,7 @@ width: 20px;
 }
 
 .genre-inclusion-checkbox-container{
-background-color: green;
+
 } 
 
 .genre-inclusion-checkbox{
@@ -266,7 +266,7 @@ background-color: green;
 }
 
 .genre-exclusion-checkbox-container{
-background-color: red;
+
 } 
 
 .genre-exclusion-checkbox{
@@ -529,7 +529,6 @@ h2 {
                 align-content: center;
                 align-items: center;
             }
-      
 
         /* .arrows{
             color: purple;
@@ -538,6 +537,10 @@ h2 {
         .arrows:hover{
             cursor: pointer;
         } */
+
+        .more-info{
+
+        }
 
 /* Favorites Styling */
 
@@ -740,4 +743,52 @@ header{
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
 */
 
+/* more-info styling */
 
+#detailed-movie-container{
+    
+}
+
+    #detailed-backdrop{
+        
+    } 
+
+    #detailed-star-container{
+
+    }
+
+        #detailed-star-empty{
+
+        }
+
+        #detailed-star-full{
+
+        } 
+
+    #detailed-movie-poster{
+
+    }
+
+    #detailed-info-pane{
+        background-color: rgba(255,255,255,.6)
+    } 
+
+        #detailed-title{
+            
+        }
+
+        #detailed-movie-description{
+
+        }
+
+        #detailed-genres{
+            
+        }
+
+            .detailed-genre-list{
+
+            }
+
+        #detailed-vote-avg{
+
+        }

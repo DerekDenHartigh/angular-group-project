@@ -4,21 +4,27 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
     const service = this;
 
+    service.detailedMovie = []; // [{movieObj}] - an array of one
+        service.detailedMovieGenreArray = [];  // stores names corresponding to genre id#s
+        service.detailedMovieGenreString = "";
+
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";  // if user did need to log in, we'd need to give them one of these
 
     service.responseData = {};
 
     service.pageNumber = 1;
-    service.earliestReleaseDate;
-    service.latestReleaseDate;
+    service.earliestReleaseDate = "";
+    service.latestReleaseDate = "";
     service.genreSelection = [];
     service.genresNotWanted = [];
-    service.runTimeGreaterThanOrEqual;
-    service.runTimeLessThanOrEqual;
-    service.vote_averageGreaterThanOrEqual;
-    service.vote_averageLessThanOrEqual;
+    service.runTimeGreaterThanOrEqual = "";
+    service.runTimeLessThanOrEqual = "";
+    service.vote_averageGreaterThanOrEqual = "";
+    service.vote_averageLessThanOrEqual = "";
 
-    service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
+    service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,
+        service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, 
+        service.runTimeLessThanOrEqual, service.ote_averageGreaterThanOrEqual, service.vote_averageLessThanOrEqual]
 
     service.movieList = [];
 
@@ -75,6 +81,9 @@ function MovieAppService($http, $location, $rootScope, $q) {
 
 service.callTheMovieDbApi = () => {
     return $q(function(resolve, reject){
+        console.log("all the params in callTheMovieDbApi:");
+        console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
+              service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual);
       $http.get('https://api.themoviedb.org/3/discover/movie', {
         params: {
             api_key: service.api_key,
@@ -85,8 +94,8 @@ service.callTheMovieDbApi = () => {
             page: service.pageNumber,
             'release_date.gte': service.earliestReleaseDate,
             'release_date.lte': service.latestReleaseDate,
-            with_genres: service.genreSelection,
-            without_genres: service.genresNotWanted,
+            // 'with_genres': service.genreSelection,  // perhaps having both params breaks it?  i'm not sure why..
+            'without_genres': service.genresNotWanted,
             'with_runtime.gte': service.runTimeGreaterThanOrEqual,
             'with_runtime.lte': service.runTimeLessThanOrEqual,
             'vote_average.gte': service.vote_averageGreaterThanOrEqual,
@@ -97,26 +106,27 @@ service.callTheMovieDbApi = () => {
         response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
             movie.starred = false;
         });
-        console.log(response.data);
         service.responseData = response.data; // saves data to service
+        console.warn("service.responseData from callTheMovieDbApi") // check to see that the data saved correctly
         console.warn(service.responseData) // check to see that the data saved correctly
         resolve(response.data);  // the return of a promise
     })
 
     }
   )
-
-      // console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-          // service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual)
-          // all the variables are working as they should.
 };
 
 service.getMovies = () => {
-    // service.movieList = [];
+    // service.movieList = [];  // why does this prevent anything from showing?
     return $q(function(resolve, reject) {
 
     service.callTheMovieDbApi()
       .then ( (response) => {
+        console.log("response of callTheMovieDbApi:");
+        console.log(response);  // response is an empty JSON file...
+        // service.movieList = [];  // also breaks it
+        console.log("service.movieList pre-array push");
+        console.log(service.movieList);
         console.log("response in getMovies from callTheMovieDbApi:")
         console.log(response);
           let children = response.results; //Adjust for proper API return
@@ -124,17 +134,21 @@ service.getMovies = () => {
           console.log(children);
   
             children.forEach( function(child, index) {
-              let movieObj = {
+              let movieObj = { // why is this done?  why not just return the child as is?
                 title: child.title,
                 poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
                 description: child.overview,  // Change permalink to appropraite return from API 
+                // I backdrop path broken - how to fix?
+                backdrop: `https://image.tmdb.org/t/p/original/` + child.backdrop_path,
+                avgVote: child.vote_average,
+                releaseDate: child.release_date,
+                genres: child.genre_ids, // array of genre id #s
                 starred: false
               }
-             
               service.movieList.push(movieObj);
   
               if ( index === (children.length - 1) ){
-                console.log("service.movieList:")
+                console.log("service.movieList post array push from getMovies:")
                 console.log(service.movieList);
                 resolve();
               }
@@ -242,6 +256,36 @@ service.getMovies = () => {
             }
         }
 
+/* movie id to string converter */
+        service.movieObjGenreArrayToString = function(movieObj){
+            service.detailedMovieGenreArray = []; // empties out previous detailed movie's genres
+            movieObj.genres.forEach(genre)//{ // why is this an error?
+                switch(genre) {
+                    case 28: service.detailedMovieGenreArray.push("Action"); break;
+                    case 12: service.detailedMovieGenreArray.push("Adventure"); break;
+                    case 16: service.detailedMovieGenreArray.push("Animation"); break;
+                    case 35: service.detailedMovieGenreArray.push("Comedy"); break;
+                    case 80: service.detailedMovieGenreArray.push("Crime"); break;
+                    case 99: service.detailedMovieGenreArray.push("Documentary"); break;
+                    case 18: service.detailedMovieGenreArray.push("Drama"); break;
+                    case 10751: service.detailedMovieGenreArray.push("Family"); break;
+                    case 14: service.detailedMovieGenreArray.push("Fantasy"); break;
+                    case 36: service.detailedMovieGenreArray.push("History"); break;
+                    case 27: service.detailedMovieGenreArray.push("Horror"); break;
+                    case 10402: service.detailedMovieGenreArray.push("Music"); break;
+                    case 9648: service.detailedMovieGenreArray.push("Mystery"); break;
+                    case 10749: service.detailedMovieGenreArray.push("Romance"); break;
+                    case 878: service.detailedMovieGenreArray.push("Science Fiction"); break;
+                    case 10770: service.detailedMovieGenreArray.push("TV Movie"); break;
+                    case 53: service.detailedMovieGenreArray.push("Thriller"); break;
+                    case 10402: service.detailedMovieGenreArray.push("Music"); break;
+                    case 10752: service.detailedMovieGenreArray.push("War"); break;
+                    case 37: service.detailedMovieGenreArray.push("Western"); break;
+                    default: console.error("An invalid Genre ID was input to movieObjGenreArrayToString()")
+                };
+            //};
+            service.detailedMovieGenreString = service.detailedMovieGenreArray.join(", "); // converts array into a list
+        }
 }
 
 angular

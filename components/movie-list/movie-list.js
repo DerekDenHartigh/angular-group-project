@@ -1,11 +1,12 @@
 "use strict";
 
-function MovieListController(MovieAppService, $q) {
+function MovieListController(MovieAppService) {
 
     const ctrl = this;
     const service = MovieAppService; // this only sets
     ctrl.service = MovieAppService; // this binds/embeds object w/in controller - ist it for modeling/changing service
     ctrl.pageNumber = service.pageNumber;
+    ctrl.movieList = service.movieList;
 
 /* page forward/back functions */
     ctrl.pageBack = function(){
@@ -15,9 +16,11 @@ function MovieListController(MovieAppService, $q) {
         console.log(service.pageNumber);
         }
         if (service.pageNumber<=1){
+            console.log(service.pageNumber);
             console.error("1 is the lowest possible page number")
         }
         if(service.pageNumber>=ctrl.service.responseData.total_pages){
+            console.log(service.pageNumber);
             console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
         }
     };
@@ -28,6 +31,7 @@ function MovieListController(MovieAppService, $q) {
             console.log(service.pageNumber);
         }
         else if(service.pageNumber>=ctrl.service.responseData.total_pages){
+            console.log(service.pageNumber);
             console.error("There aren't that many pages!")
         }
     }
@@ -41,17 +45,25 @@ function MovieListController(MovieAppService, $q) {
     ctrl.movieList = ctrl.service.movieList;
     ctrl.getMovies = service.getMovies
     ctrl.getMovies()  // calls once
-       
+     
+/* more info functions */
+
+    ctrl.infoFunction = function(movie){ // saves selected movie to service as href directs to moreInfo route
+        service.detailedMovie = []; // clears out any previous movies pushed in.
+        service.detailedMovie.push(movie);  // adds the new movie obj to the array
+        console.log("from infoFunction - service.detailedMovie:"); // logs for dev
+        console.log(service.detailedMovie);
+    };
+
     }
 
 angular
 .module('MovieApp')  
 .component('movieList', {
     template: `
-
     <!--Movie Display (title, poster, rating, description)-->
     <div id="movie-list-container">
-        <div class="movie-post" ng-repeat="movie in $ctrl.movieList">
+        <div class="movie-post" ng-repeat="movie in $ctrl.service.movieList">
             <div class="title-container">
                 <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
                 <div class="spacer"></div>
@@ -61,6 +73,8 @@ angular
                 </div>
             </div>
             <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
+            <a class = "more-info" href="#!/moreInfo" ng-click="$ctrl.infoFunction(movie)">More Info...</a>
+
             <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
         </div>
     </div>
@@ -73,7 +87,7 @@ angular
     </div>
 
 <!-- movie list changes below, search branch above, will sort this out after merge -->
-<!-- added ".title" ".image"  ".description"
+<!-- added ".title" ".image"  ".description" -->
         `,
     controller: MovieListController
 });
@@ -95,3 +109,21 @@ angular
 // video: false
 // vote_average: 8.4
 // vote_count: 3590
+
+/**
+adult: false
+backdrop_path: "/7RyHsO4yDXtBv1zUU3mTpHeQ0d5.jpg"
+genre_ids: (3) [12, 878, 28]
+id: 299534
+original_language: "en"
+original_title: "Avengers: Endgame"
+overview: "After the devastating events of Avengers: Infinity War, the universe is in ruins due to the efforts of the Mad Titan, Thanos. With the help of remaining allies, the Avengers must assemble once more in order to undo Thanos' actions and restore order to the universe once and for all, no matter what consequences may be in store."
+popularity: 323.106
+poster_path: "/or06FN3Dka5tukK1e9sl16pB3iy.jpg"
+release_date: "2019-04-24"
+starred: false
+title: "Avengers: Endgame"
+video: false
+vote_average: 8.6
+vote_count: 4484
+ */
