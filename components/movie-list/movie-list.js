@@ -73,7 +73,7 @@ angular
                 </div>
             </div>
             <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
-            <a class = "blue" href="#!/moreInfo" ng-click="$ctrl.infoFunction(movie)">More Info...</a>
+            <a class = "more-info" href="#!/moreInfo" ng-click="$ctrl.infoFunction(movie)">More Info...</a>
 
             <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
         </div>

@@ -255,7 +255,7 @@ width: 20px;
 }
 
 .genre-inclusion-checkbox-container{
-background-color: green;
+
 } 
 
 .genre-inclusion-checkbox{
@@ -264,7 +264,7 @@ background-color: green;
 }
 
 .genre-exclusion-checkbox-container{
-background-color: red;
+
 } 
 
 .genre-exclusion-checkbox{
@@ -462,7 +462,6 @@ img {
 /* movie-list Styling */
 
     #movie-list-container{
-        background-color: rgb(226, 61, 226);
         width: 100%;
         height: auto;
         display: flex;
@@ -475,7 +474,6 @@ img {
     }
 
         .movie-post{
-            background-color: blue;
             padding: 10px;
             width: 20%;
             margin: 10px;
@@ -506,6 +504,10 @@ img {
         .arrows:hover{
             cursor: pointer;
         } */
+
+        .more-info{
+
+        }
 
 /* Favorites Styling */
 
@@ -662,7 +664,6 @@ header{
 /* watchlist Styling */
 
     #watchlist-container{
-        background-color: olivedrab;
         width: 100%;
         height: auto;
         display: flex;
@@ -681,12 +682,6 @@ header{
                 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
 */
-
-.blue{
-    color: blue;
-    font-size: 3em;
-    background-color: lime;
-}
 
 /* more-info styling */
 
