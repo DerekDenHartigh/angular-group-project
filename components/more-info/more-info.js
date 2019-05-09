@@ -15,7 +15,7 @@ angular
     <div id="detailed-movie-container" ng-repeat="movie in $ctrl.service.detailedMovie">
 
         <!-- absolutely positioned elements -->
-        <img id="detailed-backdrop" src="{{movie.backdrop}}"> <!-- page background? -->
+        <img id="detailed-backdrop" ng-src="{{movie.backdrop}}"> <!-- page background? -->
 
         <!-- relatively positioned elements -->
         <div id="detailed-info-pane"> <!-- translucent white background? -->
