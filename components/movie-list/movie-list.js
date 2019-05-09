@@ -84,7 +84,8 @@ angular
                     <i class="material-icons star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
                 </div>
             </div>
-            <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
+            
+            <img class="movie-poster image" id="more" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
             <a class = "more-info" href="#!/moreInfo" ng-click="$ctrl.infoFunction(movie)">More Info</a>
 
             <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
@@ -94,7 +95,7 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <div id="page-box-1">
-            <p id="page-limit-text">Page Limit: {{$ctrl.pageLimit}}</p>
+            
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
@@ -108,6 +109,8 @@ angular
         `,
     controller: MovieListController
 });
+
+/* <p id="page-limit-text">Page Limit: {{$ctrl.pageLimit}}</p> */
 
 // sample movie object:
 // results: Array(20)

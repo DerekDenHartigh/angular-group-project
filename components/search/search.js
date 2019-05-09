@@ -112,8 +112,8 @@ angular
     
     <!--Rating-->
 
-    <div>
-    <p class="ratingQuestion">Lowest rated movie your willing to see? (on a scale of 0-10)</p><input class="movieRatings ranges" type="range" name="range" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
+    <div class="stuffQuestions">
+    <p class="ratingQuestion">Lowest rated movie you're willing to see? (on a scale of 0-10)</p><input class="movieRatings ranges" type="range" name="range" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
     <input class="ratingInput inputs" type="number" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
     </div>
     </div>
