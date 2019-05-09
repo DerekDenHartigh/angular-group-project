@@ -85,17 +85,17 @@ angular
         <!--Runtime-->
         <div class="questions">
             <div class="stuff">
-            <p class="lengthQuestion">How long can you handle sitting in the dark? (in minutes)</p>
-            <input class="movieLength ranges" type="range" name="range" ng-model="$ctrl.service.runTimeLessThanOrEqual" min="{{timevaluemin}}"  max="{{timevaluemax}}"> 
-            <input class="lengthInput inputs" type="number" ng-model="$ctrl.service.runTimeLessThanOrEqual" min="{{timevaluemin}}"  max="{{timevaluemax}}">
-        </div>
+                <p class="length-question">How long can you handle sitting in the dark? (in minutes)</p>
+                <input class="movieLength ranges" type="range" name="range" ng-model="$ctrl.service.runTimeLessThanOrEqual" min="{{timevaluemin}}"  max="{{timevaluemax}}"> 
+                <input class="lengthInput inputs" type="number" ng-model="$ctrl.service.runTimeLessThanOrEqual" min="{{timevaluemin}}"  max="{{timevaluemax}}">
+            </div>
     
         <!--Rating-->
-        <div>
-            <p class="ratingQuestion">Lowest rated movie your willing to see? (on a scale of 0-10)</p>
-            <input class="movieRatings ranges" type="range" name="range" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
-            <input class="ratingInput inputs" type="number" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
-        </div>
+            <div class="stuff">
+                <p class="rating-question">Lowest rated movie your willing to see?\n(on a scale of 0-10)</p>
+                <input class="movieRatings ranges" type="range" name="range" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
+                <input class="ratingInput inputs" type="number" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
+            </div>
     </div>
         `,
     controller: SearchController

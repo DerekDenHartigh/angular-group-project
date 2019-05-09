@@ -404,18 +404,18 @@ h2 {
         width: 300px;
     }
 
-    .lengthQuestion {
+    .length-question {
         color: white;
         font-family: 'Playfair Display', serif;
         font-size: 25px;
     }
 
-    .ratingQuestion {
+    .rating-question {
         color: white;
         font-family: 'Playfair Display', serif;
         font-size: 25px;
-        padding-top: 35px;
-        padding-left: 35px;
+        /* padding-top: 35px;
+        padding-left: 35px; */
             }
 
     .ratingInput {
