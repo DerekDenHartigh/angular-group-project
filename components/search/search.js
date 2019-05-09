@@ -12,13 +12,11 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     $scope.service = MovieAppService;
     $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
-        console.error("who will watch the watchers? - watcher observed a change and truthified SearchController.hasUpdated");
         ctrl.hasUpdated = true;
     },true);
 
     $interval(function(){
         if (ctrl.hasUpdated === true){ 
-            console.log("Interval service detected a change");
             service.movieList = [];
             service.getMovies();
             ctrl.hasUpdated = false;
@@ -33,30 +31,22 @@ function SearchController(MovieAppService, $scope, $interval) {
     };
 
     ctrl.checkboxIncludeFunction = function(genre){
-        console.log(`genreSelection: ${service.genreSelection}\ngenresNotWanted: ${service.genresNotWanted}`)
-        console.log(`Pre-switch: genre.include: ${genre.include}\ngenre.exclude: ${genre.exclude}`)
         genre.include = !genre.include; // toggles true/false on checkbox click - default is true
         genre.exclude = !genre.include; // ensures that if a genre is included, it is not excluded.
-        console.log(`post Switch: genre.include: ${genre.include}\ngenre.exclude: ${genre.exclude}`)
         if (genre.include === true){  // if genre is included, add it to the genreSelectionArray
             service.addToGenreSelectionArray(genre.id);
-            console.log(`genreSelectionArray: ${service.genreSelectionArray}`)
         }
         if (genre.include === false){  // if genre is not included, cut it from the genreSelectionArray
             service.removeFromGenreSelectionArray(genre.id);
-            console.warn(`genreSelectionArray: ${service.genreSelectionArray}`)
         }
         if (genre.exclude === true){ // if genre is excluded, add it to the genreExclusionArray
             service.addToGenreExclusionArray(genre.id);
-            console.log(`genreExclusionArray: ${service.genreExclusionArray}`)
         }
         if (genre.exclude === false){  // if genre isn't excluded, cut it from the genreExclusionArray
             service.removeFromGenreExclusionArray(genre.id);
-            console.warn(`genreExclusionArray: ${service.genreExclusionArray}`)
         }
         service.genreSelectionArrayToString(); // convert the arrays to strings that can be passed as params
         service.genreExclusionArrayToString();
-        console.warn(`genreSelection: ${service.genreSelection}\ngenresNotWanted: ${service.genresNotWanted}`);
     };
 
     ctrl.genreExclusionArray = service.genreExclusionArray;

@@ -29,7 +29,7 @@ function MovieAppService($http, $q) {
     service.callTheMovieDbApi = () => {
         return $q(function(resolve, reject){
             console.log("all the params in callTheMovieDbApi:");
-            console.error(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
+            console.log(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
                 service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
             $http.get('https://api.themoviedb.org/3/discover/movie', {
             params: {
@@ -99,11 +99,7 @@ service.getMovies = () => {
         service.generateGenreArray = function (){
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
             .then( (response)=>{ // response includes headers
-                console.error("response:")
-                console.error(response)
                 response.data.genres.forEach( genre => {
-                    console.error(genre);
-                    console.log(service.genreExclusionArray);
                     let genreChecked = (service.isGenreChecked(genre.id));
                     genre.include = genreChecked;
                     genre.exclude = false;
