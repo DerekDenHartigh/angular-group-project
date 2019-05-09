@@ -134,7 +134,9 @@ service.getMovies = () => {
           console.log("children of response from getMovies:")
           console.log(children);
   
+
             children.forEach( function(child, index) {
+                let isWatchlisted = ( service.isWatchlisted(child.id) !== false );
               let movieObj = { // why is this done?  why not just return the child as is?
                 title: child.title,
                 poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
@@ -144,8 +146,11 @@ service.getMovies = () => {
                 avgVote: child.vote_average,
                 releaseDate: child.release_date,
                 genres: child.genre_ids, // array of genre id #s
-                starred: false
+                id: child.id,
+                starred: isWatchlisted // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is true, if it returns false, false!==false is false.
               }
+
+              console.log('>>>>>',isWatchlisted, child.id, movieObj, service.watchlistArray);
               service.movieList.push(movieObj);
   
               if ( index === (children.length - 1) ){
@@ -233,12 +238,16 @@ service.getMovies = () => {
         }
 
         service.removeFromWatchlistArray = function(movie){ // will this work with objects? removes movies from watchlistArray
-            console.log('pre-splice watchlistArray: ');
-            console.log(service.watchlistArray)
-            let target = service.watchlistArray.indexOf(movie);
-            service.watchlistArray.splice(target, 1);
-            console.log(`post-splice watchlistArray: `);
-            console.log(service.watchlistArray)
+        
+            let target = service.isWatchlisted(movie.id);
+
+            if ( target === false ) {
+                alert('no');
+            } else {
+                service.watchlistArray.splice(target, 1);
+            }
+
+         
         };
 
         service.watchlistEditor = function(movie){
@@ -255,6 +264,18 @@ service.getMovies = () => {
                 // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
 
             }
+        }
+
+        service.isWatchlisted = function(movieID){  // serches watchlist array for movie, if 
+            let isWatchlisted = false;
+
+            service.watchlistArray.forEach((movie, index)=>{
+                if(movie.id === movieID){
+                    isWatchlisted = index;
+                }
+            })
+
+            return isWatchlisted;
         }
 
 /* movie id to string converter */
