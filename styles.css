@@ -311,14 +311,6 @@ h2 {
             cursor: pointer;
         }
 
-        .more-info{
-            font-family: 'Playfair Display', serif;
-            font-weight: 600;
-            padding-top: 10px;
-            text-align: center;
-            justify-content: center;
-        }
-
         #page-number-container{
             display: flex;
             flex-direction: row;
@@ -384,7 +376,7 @@ h2 {
                     }
 
     #watchlist-container{
-        width: 100%;
+        width: 100vw;
         height: auto;
         display: flex;
         flex-direction: row;
@@ -448,14 +440,29 @@ h2 {
         width: 40px;
     }
 
-    #detailed-backdrop {
+.more-info{
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+    padding-top: 10px;
+    text-align: center;
+    justify-content: center;
+}
 
-    }
+more-info{
+    /* position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index:2; */
+}
 
 #detailed-backdrop{
     width: 100vw;
     height: auto;
     overflow: hidden;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index:1;
 } 
 
 #detailed-info-pane{
@@ -464,6 +471,7 @@ h2 {
     overflow: hidden;
     padding: 30px;
     position: relative;
+    z-index:2;
 }
 
     #detailed-star-container{
