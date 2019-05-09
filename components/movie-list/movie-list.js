@@ -61,8 +61,8 @@ angular
                 <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
                 <div class="spacer"></div>
                 <div class="star-container">
-                    <i class="material-icons detailed-star" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
-                    <i class="material-icons detailed-star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
+                    <i class="material-icons star" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
+                    <i class="material-icons star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
                 </div>
             </div>
             
