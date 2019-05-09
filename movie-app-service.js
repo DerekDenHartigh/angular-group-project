@@ -84,7 +84,6 @@ service.callTheMovieDbApi = () => {
         console.log("all the params in callTheMovieDbApi:");
         console.error(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
               service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
-        console.warn(service.runTimeLessThanOrEqual);
       $http.get('https://api.themoviedb.org/3/discover/movie', {
         params: {
             api_key: service.api_key,
@@ -124,12 +123,8 @@ service.getMovies = () => {
     service.callTheMovieDbApi()
       .then ( (response) => {
         console.log("response of callTheMovieDbApi:");
-        console.log(response);  // response is an empty JSON file...
-        // service.movieList = [];  // also breaks it
-        console.log("service.movieList pre-array push");
-        console.log(service.movieList);
-        console.log("response in getMovies from callTheMovieDbApi:")
         console.log(response);
+
           let children = response.results; //Adjust for proper API return
           console.log("children of response from getMovies:")
           console.log(children);
@@ -150,7 +145,6 @@ service.getMovies = () => {
                 starred: isWatchlisted // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is true, if it returns false, false!==false is false.
               }
 
-              console.log('>>>>>',isWatchlisted, child.id, movieObj, service.watchlistArray);
               service.movieList.push(movieObj);
   
               if ( index === (children.length - 1) ){
@@ -186,8 +180,11 @@ service.getMovies = () => {
         service.generateGenreArray = function (){
             $http.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=${service.api_key}`)
             .then( (response)=>{ // response includes headers
+                console.error("response:")
+                console.error(response)
                 response.data.genres.forEach( genre => {
-                    genre.include = true;
+                    let genreChecked = (service.isCheckedFunction(genre.id));
+                    genre.include = genreChecked;
                     genre.exclude = false;
                     service.genreOptionArray.push(genre); // genre is an object containing name(string) and id(number)
                     service.genreSelectionArray.push(genre.id);
@@ -198,13 +195,25 @@ service.getMovies = () => {
         };
         service.generateGenreArray();
 
+        service.isCheckedFunction = function(genreID){  // serches watchlist array for movie, if 
+            let genreChecked = true;
+            service.genreExclusionArray.forEach( (genre, index) => {
+                if(genre.id === genreID){
+                    genreChecked = false;
+                }
+            })
+
+            return genreChecked;
+        }
+
+        //data.genres[n]
+
             // builds genreSelectionArray when user checks a desiredgenre
             service.addToGenreSelectionArray = function(genre){ // genreSelection should correspond to genre's ID
                 service.genreSelectionArray.push(genre);
             }
             // searches out removedGenre and splices it from the genreSelectionArray
             service.removeFromGenreSelectionArray = function(genre){
-                console.log(`genre being removed from genreSelectionArray: ${genre}`)
                 let target = service.genreSelectionArray.indexOf(genre);
                 service.genreSelectionArray.splice(target, 1);
               };
@@ -218,7 +227,6 @@ service.getMovies = () => {
             }
 
             service.removeFromGenreExclusionArray = function(genre){
-                console.log(`genre being removed from genreExclusionArray: ${genre}`)
                 let target = service.genreExclusionArray.indexOf(genre);
                 service.genreExclusionArray.splice(target, 1);
               };
@@ -230,11 +238,7 @@ service.getMovies = () => {
     service.watchlistArray = [];
 
         service.addToWatchlistArray = function(movie){ // adds movies to watchlist array from movie-list component
-            console.log(`watchlistArray b4 addition: `);
-            console.log(service.watchlistArray)
             service.watchlistArray.push(movie);
-            console.log(`watchlistArray after addition: `);
-            console.log(service.watchlistArray)
         }
 
         service.removeFromWatchlistArray = function(movie){ // will this work with objects? removes movies from watchlistArray
@@ -253,16 +257,11 @@ service.getMovies = () => {
         service.watchlistEditor = function(movie){
             if(movie.starred === true){ // if star is filled out, add movie to watchlist array
                 movie.starred = false;
-                // console.log(`watchlistArray before movie addition: ${service.watchlistArray}`)
                 service.removeFromWatchlistArray(movie);
-                // console.log(`watchlistArray after movie addition: ${service.watchlistArray}`)
             }
             else if (movie.starred === false){ // if star is empty, remove from watchlist array
                 movie.starred = true;
-                // console.log(`watchlistArray before movie deletion: ${service.watchlistArray}`)
                 service.addToWatchlistArray(movie);
-                // console.log(`watchlistArray after movie deletion: ${service.watchlistArray}`)
-
             }
         }
 
