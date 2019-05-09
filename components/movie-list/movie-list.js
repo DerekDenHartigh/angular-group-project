@@ -3,47 +3,30 @@
 function MovieListController(MovieAppService) {
 
     const ctrl = this;
-    const service = MovieAppService; // this only sets
-    ctrl.service = MovieAppService; // this binds/embeds object w/in controller - ist it for modeling/changing service
+    const service = MovieAppService;
+    ctrl.service = MovieAppService;
     ctrl.pageNumber = service.pageNumber;
     ctrl.movieList = service.movieList;
 
 /* page forward/back functions */
 
-    ctrl.pageLimit = 1000;
-
-    ctrl.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
-        if($ctrl.service.responseData.total_pages<=1000){
-            ctrl.pageLimit = $ctrl.service.responseData.total_pages;
-        }
-        else {
-            ctrl.pageLimit = 1000;
-        }
-    };
-
     ctrl.pageBack = function(){
         if (service.pageNumber>1){
         ctrl.service.pageNumber -= 1;
-        console.log('service.pageNumber:');
-        console.log(service.pageNumber);
         }
         if (service.pageNumber<=1){
-            console.log(service.pageNumber);
             console.error("1 is the lowest possible page number")
         }
-        if(service.pageNumber>=ctrl.pageLimit){
+        if(service.pageNumber>=service.pageLimit){
             console.log(service.pageNumber);
             console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
         }
     };
     ctrl.pageForward = function(){
-        if(service.pageNumber<ctrl.pageLimit){
+        if(service.pageNumber<service.pageLimit){
             ctrl.service.pageNumber += 1;
-            console.log('service.pageNumber:');
-            console.log(service.pageNumber);
         }
-        else if(service.pageNumber>=ctrl.pageLimit){
-            console.log(service.pageNumber);
+        else if(service.pageNumber>=service.pageLimit){
             console.error("There aren't that many available pages!")
         }
     }
@@ -63,8 +46,6 @@ function MovieListController(MovieAppService) {
     ctrl.infoFunction = function(movie){ // saves selected movie to service as href directs to moreInfo route
         service.detailedMovie = []; // clears out any previous movies pushed in.
         service.detailedMovie.push(movie);  // adds the new movie obj to the array
-        console.log("from infoFunction - service.detailedMovie:"); // logs for dev
-        console.log(service.detailedMovie);
     };
 
     }
@@ -80,8 +61,8 @@ angular
                 <h1 class="movie-title title" ng-click="show=!show">{{movie.title}}</h1>
                 <div class="spacer"></div>
                 <div class="star-container">
-                    <i class="material-icons star" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
-                    <i class="material-icons star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
+                    <i class="material-icons detailed-star" ng-hide="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star_border</i>
+                    <i class="material-icons detailed-star" ng-show="movie.starred" ng-click="$ctrl.watchlistEditor(movie)">star</i>
                 </div>
             </div>
             
@@ -95,17 +76,15 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <div id="page-box-1">
-            
+            <p id="page-limit-text">Page Limit: {{$ctrl.service.pageLimit}}</p>
+
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.pageLimit}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.pageLimit}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>
-
-<!-- movie list changes below, search branch above, will sort this out after merge -->
-<!-- added ".title" ".image"  ".description" -->
         `,
     controller: MovieListController
 });

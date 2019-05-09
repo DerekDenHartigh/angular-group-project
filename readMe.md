@@ -9,7 +9,7 @@ API: https://www.themoviedb.org/documentation/api
 Build Specifications
 1. Allow users to filter movies based on at least three criteria (e.g.: rating, genre, length).
     genre: checkboxes to include/exclude movies
-    length & rating - was initially thinking about using dual scrollbars, but maybe input fields instead
+    length & rating - scrollbars and input fields
 
 2. Display movies that match the user’s selected criteria.
     watchlist page - this functinality has been achieved in search2 branch
@@ -23,9 +23,8 @@ Build Specifications
 5. Include a separate route where users can
     a. See a list of movies they’ve marked for the watchlist
         this has been achieved with watchlist tab
-b. Select individual movies to see more details
-    I don't know that we are meeting this criteria yet...
-    perhaps we can make a "More Details" link on the posts which populate a page with all the movie specific data
+    b. Select individual movies to see more details
+        "More Details" link on the posts which populate a page with all the movie specific data
     c. Remove items from the watchlist
         Achieved on search2 w/ watchlist.
 
@@ -38,12 +37,13 @@ b. Select individual movies to see more details
     c. watchlistPage for the watchlist route
 
 8. Must have a good user experience on desktop browsers. Mobile styling is not required.
-
+    check - don't use this on mobile
 
 
 Wishlist:
     scrollbars, more params (search box?)
+        can't really do the search box, query uses search branch, our app uses discover for the params
 
 BugHunt:
-    checkboxes by defaul are checked due to html, thus not responsive/ don't remain unchecked between routing.
+    
     
