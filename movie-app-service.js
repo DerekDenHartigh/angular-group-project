@@ -17,10 +17,10 @@ function MovieAppService($http, $location, $rootScope, $q) {
     service.latestReleaseDate = "";
     service.genreSelection = [];
     service.genresNotWanted = [];
-    service.runTimeGreaterThanOrEqual = "";
-    service.runTimeLessThanOrEqual = "";
-    service.vote_averageGreaterThanOrEqual = "";
-    service.vote_averageLessThanOrEqual = "";
+    service.runTimeGreaterThanOrEqual = 0
+    service.runTimeLessThanOrEqual = 999;
+    service.vote_averageGreaterThanOrEqual = 0;
+    service.vote_averageLessThanOrEqual = 10;
 
     service.arrayOfParams = [service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate,
         service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, 
@@ -82,8 +82,9 @@ function MovieAppService($http, $location, $rootScope, $q) {
 service.callTheMovieDbApi = () => {
     return $q(function(resolve, reject){
         console.log("all the params in callTheMovieDbApi:");
-        console.log(service.api_key, service.pageNumber, service.earliestReleaseDate, service.latestReleaseDate, 
-              service.genreSelection, service.genresNotWanted, service.runTimeGreaterThanOrEqual, service.runTimeLessThanOrEqual);
+        console.error(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
+              service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
+        console.warn(service.runTimeLessThanOrEqual);
       $http.get('https://api.themoviedb.org/3/discover/movie', {
         params: {
             api_key: service.api_key,
@@ -96,7 +97,7 @@ service.callTheMovieDbApi = () => {
             'release_date.lte': service.latestReleaseDate,
             // 'with_genres': service.genreSelection,  // perhaps having both params breaks it?  i'm not sure why..
             'without_genres': service.genresNotWanted,
-            'with_runtime.gte': service.runTimeGreaterThanOrEqual,
+            // 'with_runtime.gte': service.runTimeGreaterThanOrEqual,
             'with_runtime.lte': service.runTimeLessThanOrEqual,
             'vote_average.gte': service.vote_averageGreaterThanOrEqual,
             'vote_average.lte': service.vote_averageLessThanOrEqual
@@ -287,7 +288,7 @@ service.getMovies = () => {
             service.detailedMovieGenreString = service.detailedMovieGenreArray.join(", "); // converts array into a list
             return service.detailedMovieGenreString;
         }
-        
+
 }
 
 angular
