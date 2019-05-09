@@ -97,7 +97,7 @@ angular
             <label class="genre-option">{{genre.name}}</label>
             <div class="checkbox-box">
                 <label class="checkbox-container genre-inclusion-checkbox-container">
-                    <input class="genre-inclusion-checkbox checkbox" type="checkbox" checked name="genre-inclusion[]" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
+                    <input class="genre-inclusion-checkbox checkbox" type="checkbox" ng-checked="genre.include" name="genre-inclusion[]" ng-click="$ctrl.checkboxIncludeFunction(genre)" />
                 </label>
             </div>
         </div>

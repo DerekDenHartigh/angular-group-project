@@ -185,7 +185,7 @@ service.getMovies = () => {
                 response.data.genres.forEach( genre => {
                     console.error(genre);
                     console.log(service.genreExclusionArray);
-                    let genreChecked = (service.isCheckedFunction(genre.id));
+                    let genreChecked = (service.isGenreChecked(genre.id));
                     genre.include = genreChecked;
                     genre.exclude = false;
                     service.genreOptionArray.push(genre); // genre is an object containing name(string) and id(number)
@@ -197,7 +197,7 @@ service.getMovies = () => {
         };
         service.generateGenreArray();
 
-        service.isCheckedFunction = function(genreID){  // serches watchlist array for movie, if 
+        service.isGenreChecked = function(genreID){  // serches watchlist array for movie, if 
             let genreChecked = true;
             service.genreExclusionArray.forEach( (genre, index) => {
                 if(genre.id === genreID){
