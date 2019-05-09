@@ -114,11 +114,11 @@ p {
     width: 40%;
     text-align: center;
     margin-top: 155px;
-    border: 2px solid white;
+    border: solid white;
     font-size: 35px;
     border-radius: 7px;
     font-family: 'Playfair Display', serif;
-    box-shadow: 2px 2px 5px lightgray;
+    box-shadow: 3px 3px 5px lightgray;
     margin-left: 25px;
 
 }
@@ -294,6 +294,7 @@ h2 {
             align-content: center;
             align-items: center;
             position: relative;
+            height: 650px;
         }
 
             .title-container{
