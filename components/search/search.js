@@ -15,7 +15,7 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     $scope.service = MovieAppService;
 // can't watch an array, watching each param individually - may need to add other params
-    $scope.$watchGroup(['service.pageNumber', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
+    $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         console.error("who will watch the watchers? - watcher observed a change and truthified SearchController.hasUpdated");
         ctrl.hasUpdated = true;
     },true);
@@ -68,10 +68,17 @@ function SearchController(MovieAppService, $scope, $interval) {
 
 
     $scope.timevalue=0;
+
     $scope.timevaluemin =0;
-    $scope.timevaluemax=300;
+
+    $scope.timevaluemax=999;
+    // service.runTimeLessThanOrEqual;
+
     $scope.ratingvalue=0;
+    // service.vote_averageGreaterThanOrEqual
+
     $scope.max=10;
+
     $scope.min=0;
     
 
@@ -99,15 +106,15 @@ angular
 
     <div class="questions">
     <div class="stuff">
-    <p class="lengthQuestion">How long can you handle sitting in the dark?</p><input class="movieLength ranges" type="range" name="range" ng-model="timevalue" min="{{timevaluemin}}"  max="{{timevaluemax}}"> 
-    <input class="lengthInput inputs" type="number" ng-model="timevalue">
+    <p class="lengthQuestion">How long can you handle sitting in the dark? (in minutes)</p><input class="movieLength ranges" type="range" name="range" ng-model="$ctrl.service.runTimeLessThanOrEqual" min="{{timevaluemin}}"  max="{{timevaluemax}}"> 
+    <input class="lengthInput inputs" type="number" ng-model="$ctrl.service.runTimeLessThanOrEqual" min="{{timevaluemin}}"  max="{{timevaluemax}}">
     </div>
     
     <!--Rating-->
 
     <div>
-    <p class="ratingQuestion">Lowest rating your willing to see?</p><input class="movieRatings ranges" type="range" name="range" ng-model="ratingvalue" min="{{min}}"  max="{{max}}">
-    <input class="ratingInput inputs" type="number" ng-model="ratingvalue">
+    <p class="ratingQuestion">Lowest rated movie your willing to see? (on a scale of 0-10)</p><input class="movieRatings ranges" type="range" name="range" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
+    <input class="ratingInput inputs" type="number" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
     </div>
     </div>
 

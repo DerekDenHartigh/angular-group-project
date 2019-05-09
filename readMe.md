@@ -43,3 +43,7 @@ b. Select individual movies to see more details
 
 Wishlist:
     scrollbars, more params (search box?)
+
+BugHunt:
+    checkboxes by defaul are checked due to html, thus not responsive/ don't remain unchecked between routing.
+    

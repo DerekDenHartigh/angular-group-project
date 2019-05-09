@@ -5,6 +5,14 @@ function WatchListController(MovieAppService) {
     const service = MovieAppService;
     ctrl.watchlistArray = service.watchlistArray;
     ctrl.watchlistEditor = service.watchlistEditor
+
+    /* more info */
+    ctrl.infoFunction = function(movie){ // saves selected movie to service as href directs to moreInfo route
+        service.detailedMovie = []; // clears out any previous movies pushed in.
+        service.detailedMovie.push(movie);  // adds the new movie obj to the array
+        console.log("from infoFunction - service.detailedMovie:"); // logs for dev
+        console.log(service.detailedMovie);
+    };
 }
 
 angular
@@ -24,6 +32,7 @@ angular
         </div>
         <img class="movie-poster image" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
         <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
+        <a class = "more-info" href="#!/moreInfo" ng-click="$ctrl.infoFunction(movie)">More Info...</a>
         </div>
     </div>
         `,
