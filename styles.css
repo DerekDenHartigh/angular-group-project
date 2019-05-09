@@ -263,9 +263,8 @@ h2 {
 .movie-poster{
     display: flex;
     width: 100%;
-    width: auto;
-    height: auto;
-    
+    /* width: auto;
+    height: auto; */
 }
 
 /* movie-list Styling */
