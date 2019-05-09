@@ -35,7 +35,6 @@ header {
     height: 65px;
     text-align: center;
     vertical-align: middle;
-    
 }
 
 #search-spec-form {
@@ -53,11 +52,6 @@ header {
     display: flex;
 }
 
-#movieInfoContainer {
-   
-}
-
-
 #body::after {
     content: "";
     background: url("aperture.jpg");
@@ -68,7 +62,6 @@ header {
     right: 0;
     position: absolute;
     z-index: -1;
-    
 }
 .body {
     margin: 0 auto;
@@ -84,6 +77,16 @@ p {
     color: black;
 }
 
+.badAss {
+    font-size: 20px;
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    width: 40%;
+    color: white;
+    margin-left: 25px;
+    font-weight: 100px;
+}
+    
 .allThingsMovies {
     font-family: 'Permanent Marker', cursive;
     padding-top: 75px;
@@ -115,7 +118,6 @@ p {
     font-family: 'Playfair Display', serif;
     box-shadow: 3px 3px 5px lightgray;
     margin-left: 25px;
-
 }
 
 a {
@@ -128,6 +130,7 @@ a {
     overflow: hidden;
     display: inline-block;
 }
+
 .rating-input {
     float: right;
     width: 36px;
@@ -159,6 +162,7 @@ a {
 } 
 
 .genre-option-box {
+
 display: flex;
 flex-direction: row;
 justify-content: space-around;
@@ -172,8 +176,8 @@ input [type=checkbox] {
     transform: scale(2);
 }
 
-.genre-option-box label{
-margin: 5px;
+.genre-option-box label {
+    margin: 5px;
 }
 
 .genre-option-box {
@@ -181,14 +185,14 @@ margin: 5px;
     justify-content: space-between;
 }
 
-.genre-option{
-display: flex;
-padding: 15px;
-border-radius: 15px;
+.genre-option {
+    display: flex;
+    padding: 15px;
+    border-radius: 15px;
 }
 
 .checkbox-box{
-display: flex;
+    display: flex;
 }
 
 .checkbox-container{
@@ -199,32 +203,25 @@ display: flex;
     align-content: center;
 } 
 
-    .checkbox{
+
+.checkbox{
     display: flex;
     align-self: center;
     height: 20px;
     width: 20px;
-    }
+}
 
-    .genre-inclusion-checkbox-container{
+.genre-inclusion-checkbox{
+    font-family: 'Material Icons';
+    content: 'check';
+}
 
-    } 
+.genre-exclusion-checkbox{
+    font-family: 'Material Icons';
+    content: 'close';
+}   
 
-    .genre-inclusion-checkbox{
-        font-family: 'Material Icons';
-        content: 'check';
-    }
-
-    .genre-exclusion-checkbox-container{
-
-    } 
-
-    .genre-exclusion-checkbox{
-        font-family: 'Material Icons';
-        content: 'close';
-    }   
-
-#box-container {
+#box-container {  
     display: flex;
     height: 325px;
     flex-direction: column;
@@ -255,11 +252,9 @@ h2 {
     text-align: center;
 }
 
-.movie-poster{
+.movie-poster {
     display: flex;
     width: 100%;
-    /* width: auto;
-    height: auto; */
 }
 
 /* movie-list Styling */
@@ -417,20 +412,38 @@ h2 {
         margin-left: 60px;
     }
 
-    .material-icons {
-        cursor: pointer;
-        
-    }
+#page-limit-text{
+    display: flex;
+    color: white;
+    justify-content: center;
+    align-content: center;
+    justify-items: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    font-size: 1.5em;
+    margin-bottom: 0px;
+}
 
-    #page-number-container {
-        text-align: center;
-        margin-top: 50px;
-        margin-bottom: 40px;
-    }
+#page-box-2{
+    display: flex;
+    margin-left: 10px;
+}
 
-    #page-selection-input {
-        width: 40px;
-    }
+.spacer{
+    width: 35px;
+    display: flex;
+}
+
+.star-container{
+    display: flex;
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    top: 10px;
+    right: 10px;
+}
+
 
 .more-info{
     font-family: 'Playfair Display', serif;
