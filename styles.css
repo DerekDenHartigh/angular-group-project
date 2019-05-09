@@ -28,6 +28,8 @@ header {
     width: 50%;
     margin: 0;
     height: 65px;
+    text-align: center;
+    vertical-align: middle;
     
 }
 
@@ -164,8 +166,9 @@ a {
     padding: 0;
     margin: 0 0 0 -16px;
     opacity: 0;
-    
 }
+
+
 
 .rating:hover .rating-star:hover,
 .rating:hover .rating-star:hover ~ .rating-star,
@@ -200,11 +203,11 @@ a {
 #search-spec-form {
     display: flex;
     flex-wrap: wrap;
-    width: 100vw;
+    width: 40vw;
     margin-top: 70px;
     padding-top: 50px;
     padding-bottom: 50px;
-    background-color: hsla(0, 0%, 100%, 0.1);
+    /* background-color: hsla(0, 0%, 100%, 0.1); */
 } 
 
 .genre-option-box {
@@ -215,8 +218,9 @@ justify-items: space-around;
 /* align-content: center;
 align-items: center; 
 text-align: left; */
-width: 300px;
+width: 175px;
 font-size: 15px;
+margin-left: 65px;
 } 
 
 input [type=checkbox] {
@@ -228,17 +232,20 @@ input [type=checkbox] {
 margin: 5px;
 }
 
+.genre-option-box {
+    display: flex;
+    justify-content: space-between;
+
+}
+
 .genre-option{
 display: flex;
-
 padding: 15px;
 border-radius: 15px;
 }
 
 .checkbox-box{
 display: flex;
-flex-direction: column;
-
 }
 
 .checkbox-container{
@@ -539,7 +546,11 @@ h2 {
         } */
 
         .more-info{
-
+            font-family: 'Playfair Display', serif;
+            font-weight: 600;
+            padding-top: 10px;
+            text-align: center;
+            justify-content: center;
         }
 
 /* Favorites Styling */
@@ -710,6 +721,11 @@ header{
         background-color: hsla(0, 0%, 100%, 0.1);
         color: white;
         border: none;
+        padding: 0;
+    }
+
+    .stuff {
+        padding: 35px;
     }
 
     .ranges {
@@ -726,13 +742,38 @@ header{
         color: white;
         font-family: 'Playfair Display', serif;
         font-size: 25px;
+        padding-top: 35px;
+        padding-left: 35px;
             }
+
+    .ratingInput {
+       
+    }
     .questions {
   
         margin-left: 60px;
     }
 
-    
+    .material-icons {
+        cursor: pointer;
+        
+    }
+
+    #page-number-container {
+        text-align: center;
+        margin-top: 50px;
+        margin-bottom: 40px;
+    }
+
+    #page-selection-input {
+        width: 40px;
+    }
+
+    #detailed-backdrop {
+
+    }
+
+
   
 
 /* Search Styling 
@@ -743,52 +784,53 @@ header{
                 https://www.tutorialrepublic.com/faq/how-to-create-custom-checkboxes-using-css-and-jquery.php
 */
 
-/* more-info styling */
+#detailed-backdrop{
+    width: 100vw;
+    height: auto;
+    overflow: hidden;
+} 
 
-#detailed-movie-container{
-    
-}
+#detailed-info-pane{
+    background-color: hsla(0, 0%, 100%, 0.7);
+    /* display: flex;
+    justify-content: center */
+    width: 100vw;
+    overflow: hidden;
+    padding: 30px;
+} 
 
-    #detailed-backdrop{
+    #detailed-title{
         
-    } 
+    }
 
-    #detailed-star-container{
+    #detailed-movie-description{
+        text-align: center;
+        font-size: 20px;
+        width: 500px;
+        justify-content: center;
+        display: flex;
+        margin: 0 auto;
 
     }
 
-        #detailed-star-empty{
+    #detailed-genres{
+        padding-top: 20px;
+        font-size: 30px;
+        font-weight: 550;
+        text-align: center;
+        font-family: 'Playfair Display', serif;
+        
+    }
 
-        }
-
-        #detailed-star-full{
-
-        } 
-
-    #detailed-movie-poster{
+    .detailed-genre-list{
+        
 
     }
 
-    #detailed-info-pane{
-        background-color: rgba(255,255,255,.6)
-    } 
+    #detailed-vote-avg{
+        font-size: 30px;
+        font-weight: 550;
+        text-align: center;
+        font-family: 'Playfair Display', serif;
 
-        #detailed-title{
-            
-        }
-
-        #detailed-movie-description{
-
-        }
-
-        #detailed-genres{
-            
-        }
-
-            .detailed-genre-list{
-
-            }
-
-        #detailed-vote-avg{
-
-        }
+    }
