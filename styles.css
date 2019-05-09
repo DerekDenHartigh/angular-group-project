@@ -294,6 +294,7 @@ h2 {
             align-items: center;
             position: relative;
             height: 650px;
+            border-radius: 5px;
         }
 
             .title-container{
