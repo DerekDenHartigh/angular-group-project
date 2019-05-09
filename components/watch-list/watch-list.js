@@ -10,8 +10,6 @@ function WatchListController(MovieAppService) {
     ctrl.infoFunction = function(movie){ // saves selected movie to service as href directs to moreInfo route
         service.detailedMovie = []; // clears out any previous movies pushed in.
         service.detailedMovie.push(movie);  // adds the new movie obj to the array
-        console.log("from infoFunction - service.detailedMovie:"); // logs for dev
-        console.log(service.detailedMovie);
     };
 }
 
