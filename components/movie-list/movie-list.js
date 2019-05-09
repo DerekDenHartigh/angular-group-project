@@ -10,20 +10,6 @@ function MovieListController(MovieAppService) {
 
 /* page forward/back functions */
 
-    let pageLimitVar = 1000;
-    ctrl.pageLimit = pageLimitVar;
-
-    ctrl.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
-        if(ctrl.service.responseData.total_pages<1000){
-            pageLimitVar = ctrl.service.responseData.total_pages;
-            return pageLimitVar;
-        }
-        else {
-            pageLimitVar = 1000;
-            return pageLimitVar;
-        }
-    };
-
     ctrl.pageBack = function(){
         if (service.pageNumber>1){
         ctrl.service.pageNumber -= 1;
@@ -89,11 +75,11 @@ angular
     <!--Page Number Selector-->
     <div id="page-number-container">
         <div id="page-box-1">
-            <p id="page-limit-text">Page Limit: {{$ctrl.pageLimit}}</p>
+            <p id="page-limit-text">Page Limit: {{$ctrl.service.pageLimit}}</p>
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.pageLimit}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.pageLimit}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>

@@ -58,8 +58,6 @@ service.callTheMovieDbApi = () => {
             movie.starred = false;
         });
         service.responseData = response.data; // saves data to service
-        console.warn("service.responseData from callTheMovieDbApi") // check to see that the data saved correctly
-        console.warn(service.responseData) // check to see that the data saved correctly
         resolve(response.data);  // the return of a promise
     })
 
@@ -68,26 +66,20 @@ service.callTheMovieDbApi = () => {
 };
 
 service.getMovies = () => {
-    // service.movieList = [];  // why does this prevent anything from showing?
     return $q(function(resolve, reject) {
 
     service.callTheMovieDbApi()
       .then ( (response) => {
         console.log("response of callTheMovieDbApi:");
         console.log(response);
-
+        service.pageLimitFunction() // uses service.responseData to write page limit        
           let children = response.results; //Adjust for proper API return
-          console.log("children of response from getMovies:")
-          console.log(children);
-  
-
             children.forEach( function(child, index) {
                 let isWatchlisted = ( service.isWatchlisted(child.id) !== false );
-              let movieObj = { // why is this done?  why not just return the child as is?
+              let movieObj = {
                 title: child.title,
                 poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
                 description: child.overview,  // Change permalink to appropraite return from API 
-                // I backdrop path broken - how to fix?
                 backdrop: `https://image.tmdb.org/t/p/original/` + child.backdrop_path,
                 avgVote: child.vote_average,
                 releaseDate: child.release_date,
@@ -95,12 +87,8 @@ service.getMovies = () => {
                 id: child.id,
                 starred: isWatchlisted // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is true, if it returns false, false!==false is false.
               }
-
               service.movieList.push(movieObj);
-  
               if ( index === (children.length - 1) ){
-                console.log("service.movieList post array push from getMovies:")
-                console.log(service.movieList);
                 resolve();
               }
             })
@@ -261,6 +249,17 @@ service.getMovies = () => {
             service.detailedMovieGenreString = service.detailedMovieGenreArray.join(", "); // converts array into a list
             return service.detailedMovieGenreString;
         }
+
+    service.pageLimit = 1000;
+
+    service.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
+        if(service.responseData.total_pages<1000){
+            service.pageLimit = service.responseData.total_pages;
+        }
+        else if(service.responseData.total_pages>=1000) {
+            service.pageLimit = 1000;
+        }
+    };
 
 }
 
