@@ -183,6 +183,8 @@ service.getMovies = () => {
                 console.error("response:")
                 console.error(response)
                 response.data.genres.forEach( genre => {
+                    console.error(genre);
+                    console.log(service.genreExclusionArray);
                     let genreChecked = (service.isCheckedFunction(genre.id));
                     genre.include = genreChecked;
                     genre.exclude = false;
