@@ -17,16 +17,16 @@ function MovieListController(MovieAppService) {
         if (service.pageNumber<=1){
             console.error("1 is the lowest possible page number")
         }
-        if(service.pageNumber>=ctrl.pageLimit){
+        if(service.pageNumber>=service.pageLimit){
             console.log(service.pageNumber);
             console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
         }
     };
     ctrl.pageForward = function(){
-        if(service.pageNumber<ctrl.pageLimit){
+        if(service.pageNumber<service.pageLimit){
             ctrl.service.pageNumber += 1;
         }
-        else if(service.pageNumber>=ctrl.pageLimit){
+        else if(service.pageNumber>=service.pageLimit){
             console.error("There aren't that many available pages!")
         }
     }
