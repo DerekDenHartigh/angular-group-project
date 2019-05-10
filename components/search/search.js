@@ -37,6 +37,13 @@ function SearchController(MovieAppService, $scope, $interval) {
     //     }
     // }, 1000);  // longer delay for user to type
 
+    ctrl.searchInit = function(){
+        if(service.searchQuery !== ""){
+            service.searchMovies();
+        }
+    }
+    ctrl.searchInit();
+
 /* genre checkbox logic */
 
     ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?

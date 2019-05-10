@@ -3,7 +3,7 @@
 function MovieAppService($http, $q) {
 
     const service = this;
-    
+
     service.detailedMovie = []; // [{movieObj}] - an array of one
         service.detailedMovieGenreArray = [];  // stores names corresponding to genre id#s
         service.detailedMovieGenreString = "";
@@ -22,7 +22,7 @@ function MovieAppService($http, $q) {
     service.vote_averageGreaterThanOrEqual = 0;
     service.vote_averageLessThanOrEqual = 10;
 
-    service.searchQuery = "movie";  // reset to 0
+    service.searchQuery = "";
 
     service.movieList = [];
 
