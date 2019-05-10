@@ -1,6 +1,6 @@
 "use strict";
 
-function MovieListController(MovieAppService) {
+function MovieListController(MovieAppService, $interval) {
 
     const ctrl = this;
     const service = MovieAppService;
@@ -11,23 +11,47 @@ function MovieListController(MovieAppService) {
 /* page forward/back functions */
 
     ctrl.pageBack = function(){
-        if (service.pageNumber>1){
-        ctrl.service.pageNumber -= 1;
+        if(service.queryMode === false){
+            if (service.pageNumber>1){
+            ctrl.service.pageNumber -= 1;
+            }
+            if (service.pageNumber<=1){
+                console.error("1 is the lowest possible page number")
+            }
+            if(service.pageNumber>=service.pageLimit){
+                console.log(service.pageNumber);
+                console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+            }
         }
-        if (service.pageNumber<=1){
-            console.error("1 is the lowest possible page number")
-        }
-        if(service.pageNumber>=service.pageLimit){
-            console.log(service.pageNumber);
-            console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+        if(service.queryMode === true){
+            if (service.queryPageNumber>1){
+                ctrl.pageNumber -= 1;
+                }
+                if (service.queryPageNumber<=1){
+                    console.error("1 is the lowest possible page number")
+                }
+                if(service.queryPageNumber>=service.pageLimit){
+                    console.log(service.queryPageNumber);
+                    console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+                }
         }
     };
     ctrl.pageForward = function(){
-        if(service.pageNumber<service.pageLimit){
-            ctrl.service.pageNumber += 1;
+        if(service.queryMode === false){
+            if(service.pageNumber<service.pageLimit){
+                ctrl.pageNumber += 1;
+            }
+            else if(service.pageNumber>=service.pageLimit){
+                console.error("There aren't that many available pages!")
+            }
         }
-        else if(service.pageNumber>=service.pageLimit){
-            console.error("There aren't that many available pages!")
+        if (service.queryMode === true){
+            if(service.QueryPageNumber<service.pageLimit){
+                ctrl.pageNumber += 1;
+            }
+            else if(service.queryPageNumber>=service.pageLimit){
+                console.error("There aren't that many available pages!")
+            }
         }
     }
 
@@ -48,7 +72,15 @@ function MovieListController(MovieAppService) {
         service.detailedMovie.push(movie);  // adds the new movie obj to the array
     };
 
-    }
+    $interval(function(){ // querymode Logic toggle for paging through results
+        if (service.queryMode === true){
+            ctrl.pagenumber = service.queryPageNumber;
+        }
+        if (service.queryMode === false){
+            ctrl.pagenumber = service.pagenumber;
+        }
+    }, 200);
+}
 
 angular
 .module('MovieApp')  
@@ -81,7 +113,7 @@ angular
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.pageLimit}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.pageLimit}}" step="1" ng-model="$ctrl.pageNumber" ng-value="$ctrl.pageNumber">
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>

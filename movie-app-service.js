@@ -22,7 +22,9 @@ function MovieAppService($http, $q) {
     service.vote_averageGreaterThanOrEqual = 0;
     service.vote_averageLessThanOrEqual = 10;
 
+    service.queryMode = false;  // not sure if I want to implement this...
     service.searchQuery = "";
+    service.queryPageNumber = 1;
 
     service.movieList = [];
 
@@ -103,7 +105,7 @@ service.searchTheMovieDbApi = () => {
     return $q(function(resolve, reject){
         console.log("searchQuery:");
         console.log(service.searchQuery);
-        $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.pageNumber}`)
+        $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.queryPageNumber}`)
         .then( (response)=>{
             response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
                 movie.starred = false;

@@ -45,7 +45,9 @@ Wishlist:
         can't really do the search box, query uses search branch, our app uses discover for the params
 
 BugHunt:
-    
+    after searching, on routing - query mode remains activated, but the ng-repeat repopulates with discovery    titles and not query titles
+
+    query mode deactivates when search field is emptied, but doesn't repopulate the ng-repeat
     
 
 Notes on searchBranch:

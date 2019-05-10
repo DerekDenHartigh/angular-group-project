@@ -10,17 +10,37 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     ctrl.hasUpdated = false;
 
+
     $scope.service = MovieAppService;
     $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         ctrl.hasUpdated = true;
+        service.queryMode = false;  // toggles off query mode
     },true);
 
     $interval(function(){
         if (ctrl.hasUpdated === true){ 
             service.getMovies();
             ctrl.hasUpdated = false;
+        };
+        if(service.searchQuery === ""){
+            service.queryMode = false;
+            console.log("query mode deactivated")
+        }
+        if(service.searchQuery !== ""){
+            service.queryMode = true;
+            console.log("query mode activated")
         }
     }, 200);
+
+    ctrl.searchInit = function(){
+        if(service.searchQuery !== ""){
+            service.queryMode = true; // toggles on querymode if search isn't empty
+            service.searchMovies();
+        }
+        if(service.searchQuery===""){
+            service.queryMode = false; // toggle off queryMode
+        }
+    }
 
     // ctrl.hasUpdated2 = false;
     // ctrl.hasUpdated2 = true; // for testing
@@ -36,13 +56,6 @@ function SearchController(MovieAppService, $scope, $interval) {
     //         ctrl.hasUpdated = false;
     //     }
     // }, 1000);  // longer delay for user to type
-
-    ctrl.searchInit = function(){
-        if(service.searchQuery !== ""){
-            service.searchMovies();
-        }
-    }
-    ctrl.searchInit();
 
 /* genre checkbox logic */
 
