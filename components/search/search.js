@@ -22,13 +22,13 @@ function SearchController(MovieAppService, $scope, $interval) {
         }
     }, 200);
 
-    ctrl.hasUpdated2 = false;
+    // ctrl.hasUpdated2 = false;
     // ctrl.hasUpdated2 = true; // for testing
     // service.searchMovies(); // for testing
     
-    $scope.$watchGroup(['service.searchQuery'], function( newValue, oldValue ) {
-        ctrl.hasUpdated2 = true;
-    },true);
+    // $scope.$watch(['service.searchQuery'], function( newValue, oldValue ) {
+    //     ctrl.hasUpdated2 = true;
+    // },true);
 
     // $interval(function(){
     //     if (ctrl.hasUpdated2 === true){ 
@@ -84,7 +84,7 @@ angular
     template: `
 
     <h1 id="search-filter">Search Your Favorite Movie</h1>
-    <input id="search-input" placeholder="Movie Name" type="text" ng-model="$ctrl.service.searchQuery" class="movieLength ranges"/>
+    <input id="search-input" placeholder="Movie Name" type="text" ng-model="$ctrl.service.searchQuery" ng-model-options='{ debounce: 1000 }' ng-change='service.searchMovies()' class="movieLength ranges"/>
 
     <h1 id="result-filter" ng-click="shown=!shown">Discover The Perfect Movie<h1>
     <div name="search-spec-form" id="search-spec-form" ng-hide="!shown">
