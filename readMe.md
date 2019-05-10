@@ -47,3 +47,7 @@ Wishlist:
 BugHunt:
     
     
+
+Notes on searchBranch:
+    the watch function is overriding the search function ... will need to find a way to page through the search results w/o resetting the search results, perhaps modified pageforward/backward functions?
+    more thoughts:  use an alt pageNumber tracker for pageforward/backward functions, maybe a discover/search toggle for showing movie results?  if service.searchQuery = "", discovery: true, else discovery: false?
