@@ -3,7 +3,7 @@
 function MovieAppService($http, $q) {
 
     const service = this;
-
+    
     service.detailedMovie = []; // [{movieObj}] - an array of one
         service.detailedMovieGenreArray = [];  // stores names corresponding to genre id#s
         service.detailedMovieGenreString = "";
@@ -22,15 +22,17 @@ function MovieAppService($http, $q) {
     service.vote_averageGreaterThanOrEqual = 0;
     service.vote_averageLessThanOrEqual = 10;
 
+    service.searchQuery = "movie";  // reset to 0
+
     service.movieList = [];
 
 /* Discover API interactions */
 
     service.callTheMovieDbApi = () => {
         return $q(function(resolve, reject){
-            console.log("all the params in callTheMovieDbApi:");
-            console.log(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
-                service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
+            // console.log("all the params in callTheMovieDbApi:");
+            // console.log(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
+            //     service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
             $http.get('https://api.themoviedb.org/3/discover/movie', {
             params: {
                 api_key: service.api_key,
@@ -65,8 +67,8 @@ service.getMovies = () => {
 
     service.callTheMovieDbApi()
       .then ( (response) => {
-        console.log("response of callTheMovieDbApi:");
-        console.log(response);
+        // console.log("response of callTheMovieDbApi:");
+        // console.log(response);
         let movies=[];
 
         service.pageLimitFunction() // uses service.responseData to write page limit        
@@ -97,29 +99,11 @@ service.getMovies = () => {
 
 /* Search API interactions - not modified yet */
 
-service.callTheMovieDbApi = () => {
+service.searchTheMovieDbApi = () => {
     return $q(function(resolve, reject){
-        console.log("all the params in callTheMovieDbApi:");
-        console.log(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
-            service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
-        $http.get('https://api.themoviedb.org/3/discover/movie', {
-        params: {
-            api_key: service.api_key,
-            language: "en-US",
-            sort_by: "popularity.desc",
-            include_adult: false,
-            include_video: false,
-            page: service.pageNumber,
-            'release_date.gte': service.earliestReleaseDate,
-            'release_date.lte': service.latestReleaseDate,
-            // 'with_genres': service.genreSelection,  // perhaps having both params breaks it?  i'm not sure why..
-            'without_genres': service.genresNotWanted,
-            'with_runtime.gte': service.runTimeGreaterThanOrEqual,
-            'with_runtime.lte': service.runTimeLessThanOrEqual,
-            'vote_average.gte': service.vote_averageGreaterThanOrEqual,
-            'vote_average.lte': service.vote_averageLessThanOrEqual
-        }
-    })
+        console.log("searchQuery:");
+        console.log(service.searchQuery);
+        $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.pageNumber}`)
         .then( (response)=>{
             response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
                 movie.starred = false;
@@ -131,12 +115,12 @@ service.callTheMovieDbApi = () => {
 )
 };
 
-service.getMovies = () => {
+service.searchMovies = () => {
 return $q(function(resolve, reject) {
 
-service.callTheMovieDbApi()
+service.searchTheMovieDbApi()
   .then ( (response) => {
-    console.log("response of callTheMovieDbApi:");
+    console.log("response of searchTheMovieDbApi:");
     console.log(response);
     let movies=[];
 
@@ -161,6 +145,7 @@ service.callTheMovieDbApi()
             resolve();
           }
         })
+        console.warn(service.movieList);
     });
 });
 }

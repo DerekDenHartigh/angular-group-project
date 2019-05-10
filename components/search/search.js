@@ -17,11 +17,25 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     $interval(function(){
         if (ctrl.hasUpdated === true){ 
-          //  service.movieList = [];
             service.getMovies();
             ctrl.hasUpdated = false;
         }
     }, 200);
+
+    ctrl.hasUpdated2 = false;
+    // ctrl.hasUpdated2 = true; // for testing
+    // service.searchMovies(); // for testing
+    
+    $scope.$watchGroup(['service.searchQuery'], function( newValue, oldValue ) {
+        ctrl.hasUpdated2 = true;
+    },true);
+
+    // $interval(function(){
+    //     if (ctrl.hasUpdated2 === true){ 
+    //         service.searchMovies();
+    //         ctrl.hasUpdated = false;
+    //     }
+    // }, 1000);  // longer delay for user to type
 
 /* genre checkbox logic */
 
@@ -69,7 +83,10 @@ angular
 .component('search', {
     template: `
 
-    <h1 id="result-filter" ng-click="shown=!shown">Find The Perfect Movie<h1>
+    <h1 id="search-filter">Search Your Favorite Movie</h1>
+    <input id="search-input" placeholder="Movie Name" type="text" ng-model="$ctrl.service.searchQuery" class="movieLength ranges"/>
+
+    <h1 id="result-filter" ng-click="shown=!shown">Discover The Perfect Movie<h1>
     <div name="search-spec-form" id="search-spec-form" ng-hide="!shown">
 
         <!--Genres-->

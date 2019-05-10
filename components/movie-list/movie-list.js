@@ -66,7 +66,7 @@ angular
                 </div>
             </div>
             
-            <img class="movie-poster image" id="more" alt="movie poster" ng-src="{{movie.poster}}" ng-click="show=!show"></img>
+            <img class="movie-poster image" id="more" alt="movie poster" ng-src="{{movie.poster}}" fallback-src="https://www.kargomaster.com/pub/media/catalog/product/placeholder/default/sorry-image-not-available.jpg" ng-click="show=!show"></img>
             <a class = "more-info" href="#!/moreInfo" ng-click="$ctrl.infoFunction(movie)">More Info</a>
 
             <p class ="movie-description description" ng-hide="!show">Synopsis:\n{{movie.description}}</p>
