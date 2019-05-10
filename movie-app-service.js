@@ -67,6 +67,8 @@ service.getMovies = () => {
       .then ( (response) => {
         console.log("response of callTheMovieDbApi:");
         console.log(response);
+        let movies=[];
+
         service.pageLimitFunction() // uses service.responseData to write page limit        
           let children = response.results; //Adjust for proper API return
             children.forEach( function(child, index) {
@@ -82,8 +84,9 @@ service.getMovies = () => {
                 id: child.id,
                 starred: isWatchlisted // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is "true", if it returns false, false!==false is "false".
               }
-              service.movieList.push(movieObj);
+              movies.push(movieObj);
               if ( index === (children.length - 1) ){
+                  service.movieList = movies;
                 resolve();
               }
             })

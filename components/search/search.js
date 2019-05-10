@@ -17,7 +17,7 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     $interval(function(){
         if (ctrl.hasUpdated === true){ 
-            service.movieList = [];
+          //  service.movieList = [];
             service.getMovies();
             ctrl.hasUpdated = false;
         }
