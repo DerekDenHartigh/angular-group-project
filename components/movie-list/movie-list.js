@@ -5,52 +5,51 @@ function MovieListController(MovieAppService, $interval) {
     const ctrl = this;
     const service = MovieAppService;
     ctrl.service = MovieAppService;
-    ctrl.pageNumber = 1;
     ctrl.movieList = service.movieList;
 
 /* page forward/back functions */
 
     ctrl.pageBack = function(){
-        if(service.queryMode === false){
-            if (service.pageNumber>1){
+        if(ctrl.service.queryMode === false){
+            if (ctrl.service.pageNumber>1){
             ctrl.service.pageNumber -= 1;
             }
-            if (service.pageNumber<=1){
+            if (ctrl.service.pageNumber<=1){
                 console.error("1 is the lowest possible page number")
             }
-            if(service.pageNumber>=service.pageLimit){
-                console.log(service.pageNumber);
+            if(ctrl.service.pageNumber>=ctrl.service.pageLimit){
+                console.log(ctrl.service.pageNumber);
                 console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
             }
         }
-        if(service.queryMode === true){
-            if (service.queryPageNumber>1){
+        if(ctrl.service.queryMode === true){
+            if (ctrl.service.queryPageNumber>1){
                 ctrl.service.queryPageNumber -= 1;
                 }
-                if (service.queryPageNumber<=1){
+                if (ctrl.service.queryPageNumber<=1){
                     console.error("1 is the lowest possible page number")
                 }
-                if(service.queryPageNumber>=service.pageLimit){
-                    console.log(service.queryPageNumber);
+                if(ctrl.service.queryPageNumber>=ctrl.service.pageLimit){
+                    console.log(ctrl.service.queryPageNumber);
                     console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
                 }
         }
     };
 
     ctrl.pageForward = function(){
-        if(service.queryMode === false){
-            if(service.pageNumber<service.pageLimit){
+        if(ctrl.service.queryMode === false){
+            if(ctrl.service.pageNumber<ctrl.service.pageLimit){
                 ctrl.service.pageNumber += 1;
             }
-            else if(service.pageNumber>=service.pageLimit){
+            else if(ctrl.service.pageNumber>=ctrl.service.pageLimit){
                 console.error("There aren't that many available pages!")
             }
         }
-        if (service.queryMode === true){
-            if(service.queryPageNumber<service.pageLimit){
-                ctrl.service.pageNumber += 1;
+        if (ctrl.service.queryMode === true){
+            if(ctrl.service.queryPageNumber<ctrl.service.pageLimit){
+                ctrl.service.querypageNumber += 1;
             }
-            else if(service.queryPageNumber>=service.pageLimit){
+            else if(ctrl.service.queryPageNumber>=ctrl.service.pageLimit){
                 console.error("There aren't that many available pages!")
             }
         }
@@ -72,16 +71,14 @@ function MovieListController(MovieAppService, $interval) {
         service.detailedMovie.push(movie);  // adds the new movie obj to the array
     };
 
-    $interval(function(){ // querymode Logic toggle for paging through results
-        if (service.queryMode === true){
-            ctrl.pageNumber = service.queryPageNumber;
-            console.log('ctrl.pageNumber = service.queryPageNumber'+ctrl.pageNumber,service.queryPageNumber);
-        }
-        if (service.queryMode === false){
-            ctrl.pageNumber = service.pageNumber;
-            console.log('ctrl.pageNumber = service.pageNumber'+ctrl.pageNumber,service.pageNumber)
-        }
-    }, 2000);
+    // $interval(function(){ // querymode Logic toggle for paging through results
+    //     if (service.queryMode === true){
+        
+    //     }
+    //     if (service.queryMode === false){
+           
+    //     }
+    // }, 2000);
 }
 
 angular
@@ -107,15 +104,28 @@ angular
         </div>
     </div>
 
-    <!--Page Number Selector-->
-    <div id="page-number-container">
+    <!--Discovery Page Number Selector-->
+    <div id="page-number-container" ng-if="!$ctrl.service.queryMode">
         <div id="page-box-1">
-            <p id="page-limit-text">Page Limit: {{$ctrl.service.pageLimit}}</p>
+            <p id="page-limit-text">(Discovery) Page Limit: {{$ctrl.service.pageLimit}}</p>
 
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
             <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.pageLimit}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
+            <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
+        </div>
+    </div>
+
+    <!--Search Page Number Selector-->
+    <div id="page-number-container" ng-if="$ctrl.service.queryMode">
+        <div id="page-box-1">
+            <p id="page-limit-text">(Search) Page Limit: {{$ctrl.service.pageLimit}}</p>
+
+        </div>
+        <div id="page-box-2">
+            <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.queryPageLimit}}" step="1" ng-model="$ctrl.service.queryPageNumber" ng-value="$ctrl.service.queryPageNumber">
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>

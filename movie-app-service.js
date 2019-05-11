@@ -11,7 +11,7 @@ function MovieAppService($http, $q) {
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";
 
     service.responseData = {};
-
+/* Discover Params */
     service.pageNumber = 1;
     service.earliestReleaseDate = "";
     service.latestReleaseDate = "";
@@ -22,10 +22,14 @@ function MovieAppService($http, $q) {
     service.vote_averageGreaterThanOrEqual = 0;
     service.vote_averageLessThanOrEqual = 10;
 
+/* Query/search Params */
     service.queryMode = false;  // not sure if I want to implement this...
     service.searchQuery = "";
     service.queryPageNumber = 1;
 
+
+
+    
     service.movieList = [];
 
 /* Discover API interactions */
@@ -77,7 +81,7 @@ service.getMovies = () => {
           let children = response.results; //Adjust for proper API return
             children.forEach( function(child, index) {
                 let isWatchlisted = ( service.isWatchlisted(child.id) !== false );
-              let movieObj = {
+                let movieObj = {
                 title: child.title,
                 poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
                 description: child.overview,  // Change permalink to appropraite return from API 
@@ -99,13 +103,36 @@ service.getMovies = () => {
   }
 
 
-/* Search API interactions - not modified yet */
+/* Search API interactions */
+
+// service.searchTheMovieDbApi = () => {
+//     return $q(function(resolve, reject){
+        // console.log("searchQuery:");
+        // console.log(service.searchQuery);
+//         $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.queryPageNumber}`)
+//         .then( (response)=>{
+//             response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+//                 movie.starred = false;
+//             });
+//             service.responseData = response.data; // saves data to service
+//             resolve(response.data);  // the return of a promise
+//         })
+//     }
+// )
+// };
 
 service.searchTheMovieDbApi = () => {
     return $q(function(resolve, reject){
         console.log("searchQuery:");
         console.log(service.searchQuery);
-        $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.queryPageNumber}`)
+        $http.get('https://api.themoviedb.org/3/search/movie', {
+        params: {
+            api_key: service.api_key,
+            language: "en-US",
+            include_adult: false,
+            page: service.queryPageNumber,
+        }
+    })
         .then( (response)=>{
             response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
                 movie.starred = false;
@@ -117,11 +144,26 @@ service.searchTheMovieDbApi = () => {
 )
 };
 
+// service.searchTheMovieDbApi = () => {
+//     return $q(function(resolve, reject){
+//         console.log("searchQuery:");
+//         console.log(service.searchQuery);
+//         $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.queryPageNumber}`)
+//         .then( (response)=>{
+//             response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+//                 movie.starred = false;
+//             });
+//             service.responseData = response.data; // saves data to service
+//             resolve(response.data);  // the return of a promise
+//         })
+//     }
+// )
+// };
+
 service.searchMovies = () => {
 return $q(function(resolve, reject) {
-
-service.searchTheMovieDbApi()
-  .then ( (response) => {
+    service.searchTheMovieDbApi()
+    .then ( (response) => {
     console.log("response of searchTheMovieDbApi:");
     console.log(response);
     let movies=[];
@@ -130,7 +172,7 @@ service.searchTheMovieDbApi()
       let children = response.results; //Adjust for proper API return
         children.forEach( function(child, index) {
             let isWatchlisted = ( service.isWatchlisted(child.id) !== false );
-          let movieObj = {
+            let movieObj = {
             title: child.title,
             poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
             description: child.overview,  // Change permalink to appropraite return from API 

@@ -9,7 +9,7 @@ function SearchController(MovieAppService, $scope, $interval) {
 /* a watcher for all the params to refresh the page on change */
 
     ctrl.hasUpdated = false;
-
+    ctrl.queryHasUpdated = false;
 
     $scope.service = MovieAppService;
     $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
@@ -17,30 +17,42 @@ function SearchController(MovieAppService, $scope, $interval) {
         service.queryMode = false;  // toggles off query mode
     },true);
 
+    $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
+        ctrl.queryHasUpdated = true;
+        console.error('why does the watcher fire?  service.queryPageNumber never changes?')
+    },true);
+
     $interval(function(){
         if (ctrl.hasUpdated === true){ 
             service.getMovies();
             ctrl.hasUpdated = false;
-        };
+        }
+        if (ctrl.queryHasUpdated = true){
+            console.log("pre-search")
+            // service.searchMovies();  // If I uncomment this, it will call every 2 seconds...
+            console.log("post-search")
+            ctrl.queryHasUpdated = false;
+            return; // prevents an interval reset of queryMode
+        }
         if(service.searchQuery === ""){
             service.queryMode = false;
-            console.log("query mode deactivated");
+            console.log("query mode deactivated - queryMode:"+ctrl.service.queryMode);
         }
-        else {
+        if(service.searchQuery !== ""){
             service.queryMode = true;
-            console.log("query mode activated");
+            console.error("query mode activated - queryMode:"+ctrl.service.queryMode);
         }
     }, 2000);
 
-    ctrl.searchInit = function(){
-        if(service.searchQuery !== ""){
-            service.queryMode = true; // toggles on querymode if search isn't empty
-            service.searchMovies();
-        }
-        if(service.searchQuery===""){
-            service.queryMode = false; // toggle off queryMode
-        }
-    }
+    // ctrl.searchInit = function(){
+    //     if(service.searchQuery !== ""){
+    //         service.queryMode = true; // toggles on querymode if search isn't empty
+    //         service.searchMovies();
+    //     }
+    //     if(service.searchQuery===""){
+    //         service.queryMode = false; // toggle off queryMode
+    //     }
+    // }
 
     // ctrl.hasUpdated2 = false;
     // ctrl.hasUpdated2 = true; // for testing
