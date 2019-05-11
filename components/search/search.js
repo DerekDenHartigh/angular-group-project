@@ -1,6 +1,6 @@
 "use strict";
 
-function SearchController(MovieAppService, $scope, $interval) { 
+function SearchController(MovieAppService, $scope, $interval, $q) { 
     const ctrl = this;
     ctrl.service = MovieAppService;
 
@@ -11,13 +11,27 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     $scope.service = MovieAppService;
 
+    // $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
+    //     console.warn("discovery watcher")
+    //     ctrl.hasUpdated = true;
+    //     $('#search-input').val("");  // supposed to empty input field of search
+    //     ctrl.service.queryMode = false;  // toggles off query mode
+    // },true);
+// me trying to use a promise to delay the setting of queryMode to false
     $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
-        ctrl.hasUpdated = true;
-        // ctrl.service.queryMode = false;  // toggles off query mode
+        return $q(function(resolve, reject){
+            console.warn("discovery watcher")
+            ctrl.hasUpdated = true;
+            $('#search-input').val("");  // supposed to empty input field of search
+        })
+        .then( ()=>{
+            ctrl.service.queryMode = false;
+            resolve();
+        })
     },true);
 
     $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
-        console.error('why does the watcher fire?  service.queryPageNumber never changes?')
+        console.error('search/query watcher')
         ctrl.queryHasUpdated = true;
     },true);
 
@@ -34,7 +48,7 @@ function SearchController(MovieAppService, $scope, $interval) {
         //     ctrl.queryHasUpdated = false;
         //     console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
         // }
-        if(ctrl.service.searchQuery === ""){
+        if(ctrl.service.searchQuery === ""){  // not working when value of input is set to ""
             ctrl.service.queryMode = false;
             console.log("query mode deactivated - queryMode:"+ctrl.service.queryMode);
         }
