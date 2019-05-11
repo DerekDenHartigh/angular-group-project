@@ -131,6 +131,7 @@ service.searchTheMovieDbApi = () => {
             language: "en-US",
             include_adult: false,
             page: service.queryPageNumber,
+            query: service.searchQuery
         }
     })
         .then( (response)=>{
@@ -325,12 +326,24 @@ return $q(function(resolve, reject) {
 
     service.pageLimit = 1000;
     service.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
-        if(service.responseData.total_pages<1000){
-            service.pageLimit = service.responseData.total_pages;
+        if (service.queryMode===false){
+            if(service.responseData.total_pages<1000){
+                service.pageLimit = service.responseData.total_pages;
+            }
+            else if(service.responseData.total_pages>=1000) {
+                service.pageLimit = 1000;
+            }
         }
-        else if(service.responseData.total_pages>=1000) {
-            service.pageLimit = 1000;
+
+        if (service.queryMode===true){
+            if(service.responseData.total_pages<1000){
+                service.queryPageLimit = service.responseData.total_pages;
+            }
+            else if(service.responseData.total_pages>=1000) {
+                service.queryPageLimit = 1000;
+            }
         }
+  
     };
 
 }

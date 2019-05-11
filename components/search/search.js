@@ -2,47 +2,47 @@
 
 function SearchController(MovieAppService, $scope, $interval) { 
     const ctrl = this;
-    const service = MovieAppService;
-    ctrl.arrayOfParams = service.arrayOfParams;
     ctrl.service = MovieAppService;
 
 /* a watcher for all the params to refresh the page on change */
 
     ctrl.hasUpdated = false;
-    ctrl.queryHasUpdated = false;
+    // ctrl.queryHasUpdated = false;
 
     $scope.service = MovieAppService;
+
     $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         ctrl.hasUpdated = true;
-        service.queryMode = false;  // toggles off query mode
+        ctrl.service.queryMode = false;  // toggles off query mode
     },true);
 
-    $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
-        ctrl.queryHasUpdated = true;
-        console.error('why does the watcher fire?  service.queryPageNumber never changes?')
-    },true);
+    // $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
+    //     console.error('why does the watcher fire?  service.queryPageNumber never changes?')
+    //     ctrl.queryHasUpdated = true;
+    // },true);
 
     $interval(function(){
         if (ctrl.hasUpdated === true){ 
-            service.getMovies();
+            ctrl.service.getMovies();
             ctrl.hasUpdated = false;
         }
-        if (ctrl.queryHasUpdated = true){
-            console.log("pre-search")
-            // service.searchMovies();  // If I uncomment this, it will call every 2 seconds...
-            console.log("post-search")
-            ctrl.queryHasUpdated = false;
-            return; // prevents an interval reset of queryMode
-        }
-        if(service.searchQuery === ""){
-            service.queryMode = false;
+        // if (ctrl.queryHasUpdated = true){
+        //     console.log("pre-search")
+        //     console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
+        //     // service.searchMovies();  // If I uncomment this, it will call every 2 seconds...
+        //     console.log("post-search")
+        //     ctrl.queryHasUpdated = false;
+        //     console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
+        // }
+        if(ctrl.service.searchQuery === ""){
+            ctrl.service.queryMode = false;
             console.log("query mode deactivated - queryMode:"+ctrl.service.queryMode);
         }
-        if(service.searchQuery !== ""){
-            service.queryMode = true;
+        if(ctrl.service.searchQuery !== ""){
+            ctrl.service.queryMode = true;
             console.error("query mode activated - queryMode:"+ctrl.service.queryMode);
         }
-    }, 2000);
+    }, 200);
 
     // ctrl.searchInit = function(){
     //     if(service.searchQuery !== ""){
@@ -71,7 +71,7 @@ function SearchController(MovieAppService, $scope, $interval) {
 
 /* genre checkbox logic */
 
-    ctrl.genreOptionArray = service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
+    ctrl.genreOptionArray = ctrl.service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
     ctrl.callGenerateGenreArray = function(){
         return service.generateGenreArray();
     };
@@ -95,8 +95,8 @@ function SearchController(MovieAppService, $scope, $interval) {
         service.genreExclusionArrayToString();
     };
 
-    ctrl.genreExclusionArray = service.genreExclusionArray;
-    ctrl.genreSelectionArray = service.genreSelectionArray;
+    ctrl.genreExclusionArray = ctrl.service.genreExclusionArray;
+    ctrl.genreSelectionArray = ctrl.service.genreSelectionArray;
 
 /* scrollbar settings */
 
@@ -116,7 +116,7 @@ angular
     template: `
 
     <h1 id="search-filter">Search Your Favorite Movie</h1>
-    <input id="search-input" placeholder="Movie Name" type="text" ng-model="$ctrl.service.searchQuery" ng-model-options='{ debounce: 1000 }' ng-change='service.searchMovies()' class="movieLength ranges"/>
+    <input id="search-input" placeholder="Movie Name" type="text" ng-model="$ctrl.service.searchQuery" ng-model-options='{ debounce: 1000 }' ng-change='$ctrl.service.searchMovies()' class="movieLength ranges"/>
 
     <h1 id="result-filter" ng-click="shown=!shown">Discover The Perfect Movie<h1>
     <div name="search-spec-form" id="search-spec-form" ng-hide="!shown">

@@ -3,13 +3,14 @@
 function MovieListController(MovieAppService, $interval) {
 
     const ctrl = this;
-    const service = MovieAppService;
+    // const service = MovieAppService;
     ctrl.service = MovieAppService;
-    ctrl.movieList = service.movieList;
+    ctrl.movieList = ctrl.service.movieList;
 
 /* page forward/back functions */
 
     ctrl.pageBack = function(){
+        console.log("pageBack() pressed")
         if(ctrl.service.queryMode === false){
             if (ctrl.service.pageNumber>1){
             ctrl.service.pageNumber -= 1;
@@ -29,7 +30,7 @@ function MovieListController(MovieAppService, $interval) {
                 if (ctrl.service.queryPageNumber<=1){
                     console.error("1 is the lowest possible page number")
                 }
-                if(ctrl.service.queryPageNumber>=ctrl.service.pageLimit){
+                if(ctrl.service.queryPageNumber>=ctrl.service.queryPageLimit){
                     console.log(ctrl.service.queryPageNumber);
                     console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
                 }
@@ -37,6 +38,7 @@ function MovieListController(MovieAppService, $interval) {
     };
 
     ctrl.pageForward = function(){
+        console.log("pageForward() pressed");
         if(ctrl.service.queryMode === false){
             if(ctrl.service.pageNumber<ctrl.service.pageLimit){
                 ctrl.service.pageNumber += 1;
@@ -46,10 +48,10 @@ function MovieListController(MovieAppService, $interval) {
             }
         }
         if (ctrl.service.queryMode === true){
-            if(ctrl.service.queryPageNumber<ctrl.service.pageLimit){
+            if(ctrl.service.queryPageNumber<ctrl.service.queryPageLimit){
                 ctrl.service.querypageNumber += 1;
             }
-            else if(ctrl.service.queryPageNumber>=ctrl.service.pageLimit){
+            else if(ctrl.service.queryPageNumber>=ctrl.service.queryPageLimit){
                 console.error("There aren't that many available pages!")
             }
         }
@@ -57,18 +59,18 @@ function MovieListController(MovieAppService, $interval) {
 
 /* watchlist button - moved logic to service for use by watch-list component*/
 
-    ctrl.watchlistEditor = service.watchlistEditor
+    ctrl.watchlistEditor = ctrl.service.watchlistEditor
 
 /* movie list generator - moved logic to service for reference by search module*/
 
     ctrl.movieList = ctrl.service.movieList;
-    ctrl.getMovies = service.getMovies
+    ctrl.getMovies = ctrl.service.getMovies
      
 /* more info functions */
 
     ctrl.infoFunction = function(movie){ // saves selected movie to service as href directs to moreInfo route
-        service.detailedMovie = []; // clears out any previous movies pushed in.
-        service.detailedMovie.push(movie);  // adds the new movie obj to the array
+        ctrl.service.detailedMovie = []; // clears out any previous movies pushed in.
+        ctrl.service.detailedMovie.push(movie);  // adds the new movie obj to the array
     };
 
     // $interval(function(){ // querymode Logic toggle for paging through results
@@ -125,7 +127,7 @@ angular
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.queryPageLimit}}" step="1" ng-model="$ctrl.service.queryPageNumber" ng-value="$ctrl.service.queryPageNumber">
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.queryPageLimit}}" step="1" ng-model="$ctrl.service.queryPageNumber" ng-value="$ctrl.service.queryPageNumber" ng-model-options='{ debounce: 200 }' ng-change='$ctrl.service.searchMovies()'>
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>
