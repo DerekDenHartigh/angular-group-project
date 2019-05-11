@@ -325,6 +325,7 @@ return $q(function(resolve, reject) {
 /* pageLimit logic */
 
     service.pageLimit = 1000;
+    service.queryPageLimit = 1000;
     service.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
         if (service.queryMode===false){
             if(service.responseData.total_pages<1000){

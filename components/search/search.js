@@ -13,7 +13,7 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         ctrl.hasUpdated = true;
-        ctrl.service.queryMode = false;  // toggles off query mode
+        // ctrl.service.queryMode = false;  // toggles off query mode
     },true);
 
     // $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
@@ -73,26 +73,26 @@ function SearchController(MovieAppService, $scope, $interval) {
 
     ctrl.genreOptionArray = ctrl.service.genreOptionArray  // will changes to ctrl.genreOptionArray affect service.genreOptionArray?
     ctrl.callGenerateGenreArray = function(){
-        return service.generateGenreArray();
+        return ctrl.service.generateGenreArray();
     };
 
     ctrl.checkboxIncludeFunction = function(genre){
         genre.include = !genre.include; // toggles true/false on checkbox click - default is true
         genre.exclude = !genre.include; // ensures that if a genre is included, it is not excluded.
         if (genre.include === true){  // if genre is included, add it to the genreSelectionArray
-            service.addToGenreSelectionArray(genre.id);
+            ctrl.service.addToGenreSelectionArray(genre.id);
         }
         if (genre.include === false){  // if genre is not included, cut it from the genreSelectionArray
-            service.removeFromGenreSelectionArray(genre.id);
+            ctrl.service.removeFromGenreSelectionArray(genre.id);
         }
         if (genre.exclude === true){ // if genre is excluded, add it to the genreExclusionArray
-            service.addToGenreExclusionArray(genre.id);
+            ctrl.service.addToGenreExclusionArray(genre.id);
         }
         if (genre.exclude === false){  // if genre isn't excluded, cut it from the genreExclusionArray
-            service.removeFromGenreExclusionArray(genre.id);
+            ctrl.service.removeFromGenreExclusionArray(genre.id);
         }
-        service.genreSelectionArrayToString(); // convert the arrays to strings that can be passed as params
-        service.genreExclusionArrayToString();
+        ctrl.service.genreSelectionArrayToString(); // convert the arrays to strings that can be passed as params
+        ctrl.service.genreExclusionArrayToString();
     };
 
     ctrl.genreExclusionArray = ctrl.service.genreExclusionArray;

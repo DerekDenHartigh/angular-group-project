@@ -24,6 +24,7 @@ function MovieListController(MovieAppService, $interval) {
             }
         }
         if(ctrl.service.queryMode === true){
+            console.log("pageBack() queryMode true")
             if (ctrl.service.queryPageNumber>1){
                 ctrl.service.queryPageNumber -= 1;
                 }
@@ -48,6 +49,7 @@ function MovieListController(MovieAppService, $interval) {
             }
         }
         if (ctrl.service.queryMode === true){
+            console.log("pageForward() queryMode true");
             if(ctrl.service.queryPageNumber<ctrl.service.queryPageLimit){
                 ctrl.service.querypageNumber += 1;
             }
