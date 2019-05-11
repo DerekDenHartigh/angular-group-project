@@ -24,13 +24,13 @@ function SearchController(MovieAppService, $scope, $interval) {
         };
         if(service.searchQuery === ""){
             service.queryMode = false;
-            console.log("query mode deactivated")
+            console.log("query mode deactivated");
         }
-        if(service.searchQuery !== ""){
+        else {
             service.queryMode = true;
-            console.log("query mode activated")
+            console.log("query mode activated");
         }
-    }, 200);
+    }, 2000);
 
     ctrl.searchInit = function(){
         if(service.searchQuery !== ""){

@@ -5,7 +5,7 @@ function MovieListController(MovieAppService, $interval) {
     const ctrl = this;
     const service = MovieAppService;
     ctrl.service = MovieAppService;
-    ctrl.pageNumber = service.pageNumber;
+    ctrl.pageNumber = 1;
     ctrl.movieList = service.movieList;
 
 /* page forward/back functions */
@@ -25,7 +25,7 @@ function MovieListController(MovieAppService, $interval) {
         }
         if(service.queryMode === true){
             if (service.queryPageNumber>1){
-                ctrl.pageNumber -= 1;
+                ctrl.service.queryPageNumber -= 1;
                 }
                 if (service.queryPageNumber<=1){
                     console.error("1 is the lowest possible page number")
@@ -36,18 +36,19 @@ function MovieListController(MovieAppService, $interval) {
                 }
         }
     };
+
     ctrl.pageForward = function(){
         if(service.queryMode === false){
             if(service.pageNumber<service.pageLimit){
-                ctrl.pageNumber += 1;
+                ctrl.service.pageNumber += 1;
             }
             else if(service.pageNumber>=service.pageLimit){
                 console.error("There aren't that many available pages!")
             }
         }
         if (service.queryMode === true){
-            if(service.QueryPageNumber<service.pageLimit){
-                ctrl.pageNumber += 1;
+            if(service.queryPageNumber<service.pageLimit){
+                ctrl.service.pageNumber += 1;
             }
             else if(service.queryPageNumber>=service.pageLimit){
                 console.error("There aren't that many available pages!")
@@ -63,7 +64,6 @@ function MovieListController(MovieAppService, $interval) {
 
     ctrl.movieList = ctrl.service.movieList;
     ctrl.getMovies = service.getMovies
-    ctrl.getMovies()  // calls once
      
 /* more info functions */
 
@@ -74,12 +74,14 @@ function MovieListController(MovieAppService, $interval) {
 
     $interval(function(){ // querymode Logic toggle for paging through results
         if (service.queryMode === true){
-            ctrl.pagenumber = service.queryPageNumber;
+            ctrl.pageNumber = service.queryPageNumber;
+            console.log('ctrl.pageNumber = service.queryPageNumber'+ctrl.pageNumber,service.queryPageNumber);
         }
         if (service.queryMode === false){
-            ctrl.pagenumber = service.pagenumber;
+            ctrl.pageNumber = service.pageNumber;
+            console.log('ctrl.pageNumber = service.pageNumber'+ctrl.pageNumber,service.pageNumber)
         }
-    }, 200);
+    }, 2000);
 }
 
 angular
@@ -113,7 +115,7 @@ angular
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.pageLimit}}" step="1" ng-model="$ctrl.pageNumber" ng-value="$ctrl.pageNumber">
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.pageLimit}}" step="1" ng-model="$ctrl.service.pageNumber" ng-value="$ctrl.service.pageNumber">
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>
