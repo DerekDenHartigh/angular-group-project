@@ -42,6 +42,7 @@ function MovieListController(MovieAppService, $interval) {
     ctrl.pageForward = function(){
         console.log("pageForward() pressed");
         if(ctrl.service.queryMode === false){
+            console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.pageNumber: ${ctrl.service.pageNumber}\nctrl.service.pageLimit${ctrl.service.pageLimit}`);
             if(ctrl.service.pageNumber<ctrl.service.pageLimit){
                 ctrl.service.pageNumber += 1;
             }
@@ -51,6 +52,7 @@ function MovieListController(MovieAppService, $interval) {
         }
         if (ctrl.service.queryMode === true){
             console.log("pageForward() queryMode true");
+            console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.queryPageNumber: ${ctrl.service.queryPageNumber}\nctrl.service.pageLimit${ctrl.service.queryPageLimit}`);
             if(ctrl.service.queryPageNumber<ctrl.service.queryPageLimit){
                 ctrl.service.queryPageNumber += 1;
             }
@@ -84,6 +86,7 @@ function MovieListController(MovieAppService, $interval) {
            
     //     }
     // }, 2000);
+    // replaced w/ two versions of the pagefunctions on an ngIf
 }
 
 angular
@@ -125,12 +128,12 @@ angular
     <!--Search Page Number Selector-->
     <div id="page-number-container" ng-if="$ctrl.service.queryMode">
         <div id="page-box-1">
-            <p id="page-limit-text">(Search) Page Limit: {{$ctrl.service.pageLimit}}</p>
+            <p id="page-limit-text">(Search) Page Limit: {{$ctrl.service.responseData.total_pages}}</p>
 
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-model="$ctrl.service.queryPageNumber" ng-value="$ctrl.service.queryPageNumber" ng-model-options='{ debounce: 200 }' ng-change='$ctrl.service.searchMovies()'>
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-value="$ctrl.service.queryPageNumber" ng-model="$ctrl.service.queryPageNumber" ng-model-options='{ debounce: 200 }' ng-change='$ctrl.service.searchMovies()'>
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>

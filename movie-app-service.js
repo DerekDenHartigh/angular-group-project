@@ -15,10 +15,10 @@ function MovieAppService($http, $q) {
     service.pageNumber = 1;
     service.earliestReleaseDate = "";
     service.latestReleaseDate = "";
-    service.genreSelection = [];
+    service.genreSelection = [28,12,16,35,80,99,18,10751,14,36,27,10402,9648,10749,878,10770,53,10752,37];
     service.genresNotWanted = [];
     service.runTimeGreaterThanOrEqual = 0
-    service.runTimeLessThanOrEqual = 999;
+    service.runTimeLessThanOrEqual = 420;
     service.vote_averageGreaterThanOrEqual = 0;
     service.vote_averageLessThanOrEqual = 10;
 
@@ -36,9 +36,9 @@ function MovieAppService($http, $q) {
 
     service.callTheMovieDbApi = () => {
         return $q(function(resolve, reject){
-            // console.log("all the params in callTheMovieDbApi:");
-            // console.log(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
-            //     service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
+            console.log("all the params in callTheMovieDbApi:");
+            console.log(service.api_key, service.pageNumber, service.vote_averageGreaterThanOrEqual, service.earliestReleaseDate, service.latestReleaseDate, 
+                service.genreSelection, service.genresNotWanted, service.runTimeLessThanOrEqual);
             $http.get('https://api.themoviedb.org/3/discover/movie', {
             params: {
                 api_key: service.api_key,
@@ -169,7 +169,7 @@ return $q(function(resolve, reject) {
     console.log(response);
     let movies=[];
 
-    service.pageLimitFunction() // uses service.responseData to write page limit        
+    service.pageLimitFunction(); // uses service.responseData to write page limit        
       let children = response.results; //Adjust for proper API return
         children.forEach( function(child, index) {
             let isWatchlisted = ( service.isWatchlisted(child.id) !== false );
@@ -178,9 +178,9 @@ return $q(function(resolve, reject) {
             poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
             description: child.overview,  // Change permalink to appropraite return from API 
             backdrop: `https://image.tmdb.org/t/p/original/` + child.backdrop_path,
-            avgVote: child.vote_average,
-            releaseDate: child.release_date,
-            genres: child.genre_ids, // array of genre id #s
+            // avgVote: child.vote_average,
+            // releaseDate: child.release_date,
+            // genres: child.genre_ids, // array of genre id #s
             id: child.id,
             starred: isWatchlisted // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is "true", if it returns false, false!==false is "false".
           }
@@ -325,7 +325,7 @@ return $q(function(resolve, reject) {
 /* pageLimit logic */
 
     service.pageLimit = 1000;
-    service.queryPageLimit = service.pageLimit; // so I can use queryPageLimit w/o triggering the watcher
+    // service.queryPageLimit = service.pageLimit; // so I can use queryPageLimit w/o triggering the watcher
 
     service.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
         if (service.queryMode===false){

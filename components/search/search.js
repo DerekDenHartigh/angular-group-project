@@ -20,9 +20,9 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
 // me trying to use a promise to delay the setting of queryMode to false
     $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         return $q(function(resolve, reject){
-            console.warn("discovery watcher")
+            console.warn("discovery watcher"); // why does this run 2x on init?
             ctrl.hasUpdated = true;
-            $('#search-input').val("");  // supposed to empty input field of search
+            ctrl.service.searchQuery = "";
         })
         .then( ()=>{
             ctrl.service.queryMode = false;
@@ -31,8 +31,13 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
     },true);
 
     $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
-        console.error('search/query watcher')
-        ctrl.queryHasUpdated = true;
+        return $q(function(resolve, reject){
+            console.error('search/query watcher')
+            ctrl.queryHasUpdated = true;
+        })
+        .then(()=>{
+            service.searchMovies(); // should re-get on change in pageNumber
+        })
     },true);
 
     $interval(function(){
@@ -40,23 +45,23 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
             ctrl.service.getMovies();
             ctrl.hasUpdated = false;
         }
-        // if (ctrl.queryHasUpdated = true){
-        //     console.log("pre-search")
-        //     console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
-        //     // service.searchMovies();  // If I uncomment this, it will call every 2 seconds...
-        //     console.log("post-search")
-        //     ctrl.queryHasUpdated = false;
-        //     console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
-        // }
+        if (ctrl.queryHasUpdated = true){
+            // console.log("pre-search")
+            // console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
+            // service.searchMovies();  // If I uncomment this, it will call every 2 seconds...
+            // console.log("post-search")
+            // ctrl.queryHasUpdated = false;
+            // console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
+        }
         if(ctrl.service.searchQuery === ""){  // not working when value of input is set to ""
             ctrl.service.queryMode = false;
-            console.log("query mode deactivated - queryMode:"+ctrl.service.queryMode);
+            // console.log("query mode deactivated - queryMode:"+ctrl.service.queryMode);
         }
         if(ctrl.service.searchQuery !== ""){
             ctrl.service.queryMode = true;
-            console.error("query mode activated - queryMode:"+ctrl.service.queryMode);
+            // console.error("query mode activated - queryMode:"+ctrl.service.queryMode);
         }
-    }, 200);
+    }, 2000);  // upped interval so that I don't burn my key until I get searchMovies figured out
 
     // ctrl.searchInit = function(){
     //     if(service.searchQuery !== ""){
@@ -116,7 +121,7 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
 
     $scope.timevalue=0;
     $scope.timevaluemin =0;
-    $scope.timevaluemax=999;
+    $scope.timevaluemax=420;
     $scope.ratingvalue=0;
     $scope.max=10;
     $scope.min=0;
@@ -130,7 +135,7 @@ angular
     template: `
 
     <h1 id="search-filter">Search Your Favorite Movie</h1>
-    <input id="search-input" placeholder="Movie Name" type="text" ng-model="$ctrl.service.searchQuery" ng-model-options='{ debounce: 1000 }' ng-change='$ctrl.service.searchMovies()' class="movieLength ranges"/>
+    <input id="search-input" placeholder="Movie Name" type="text" ng-value="$ctrl.service.searchQuery" ng-model="$ctrl.service.searchQuery" ng-model-options='{ debounce: 1000 }' ng-change='$ctrl.service.searchMovies()' class="movieLength ranges"/>
 
     <h1 id="result-filter" ng-click="shown=!shown">Discover The Perfect Movie<h1>
     <div name="search-spec-form" id="search-spec-form" ng-hide="!shown">
