@@ -16,10 +16,10 @@ function SearchController(MovieAppService, $scope, $interval) {
         // ctrl.service.queryMode = false;  // toggles off query mode
     },true);
 
-    // $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
-    //     console.error('why does the watcher fire?  service.queryPageNumber never changes?')
-    //     ctrl.queryHasUpdated = true;
-    // },true);
+    $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
+        console.error('why does the watcher fire?  service.queryPageNumber never changes?')
+        ctrl.queryHasUpdated = true;
+    },true);
 
     $interval(function(){
         if (ctrl.hasUpdated === true){ 

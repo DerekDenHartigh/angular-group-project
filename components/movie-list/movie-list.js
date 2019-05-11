@@ -27,6 +27,7 @@ function MovieListController(MovieAppService, $interval) {
             console.log("pageBack() queryMode true")
             if (ctrl.service.queryPageNumber>1){
                 ctrl.service.queryPageNumber -= 1;
+                console.log(ctrl.service.queryPageNumber)
                 }
                 if (ctrl.service.queryPageNumber<=1){
                     console.error("1 is the lowest possible page number")
@@ -51,7 +52,7 @@ function MovieListController(MovieAppService, $interval) {
         if (ctrl.service.queryMode === true){
             console.log("pageForward() queryMode true");
             if(ctrl.service.queryPageNumber<ctrl.service.queryPageLimit){
-                ctrl.service.querypageNumber += 1;
+                ctrl.service.queryPageNumber += 1;
             }
             else if(ctrl.service.queryPageNumber>=ctrl.service.queryPageLimit){
                 console.error("There aren't that many available pages!")
@@ -129,7 +130,7 @@ angular
         </div>
         <div id="page-box-2">
             <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
-            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.queryPageLimit}}" step="1" ng-model="$ctrl.service.queryPageNumber" ng-value="$ctrl.service.queryPageNumber" ng-model-options='{ debounce: 200 }' ng-change='$ctrl.service.searchMovies()'>
+            <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-model="$ctrl.service.queryPageNumber" ng-value="$ctrl.service.queryPageNumber" ng-model-options='{ debounce: 200 }' ng-change='$ctrl.service.searchMovies()'>
             <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
         </div>
     </div>
