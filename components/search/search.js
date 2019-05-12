@@ -131,7 +131,8 @@ angular
                 <input class="movieRatings ranges" type="range" name="range" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
                 <input class="ratingInput inputs" type="number" ng-model="$ctrl.service.vote_averageGreaterThanOrEqual" min="{{min}}"  max="{{max}}">
             </div>
-
+        </div>
+        <button id="close-button" ng-click="shown=!shown">Collapse Filters</button>
     </div>
         `,
     controller: SearchController
