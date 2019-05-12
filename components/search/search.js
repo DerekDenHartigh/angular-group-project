@@ -11,34 +11,44 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
 
     $scope.service = MovieAppService;
 
-    // $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
-    //     console.warn("discovery watcher")
-    //     ctrl.hasUpdated = true;
-    //     $('#search-input').val("");  // supposed to empty input field of search
-    //     ctrl.service.queryMode = false;  // toggles off query mode
-    // },true);
-// me trying to use a promise to delay the setting of queryMode to false
-    $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
-        return $q(function(resolve, reject){
-            console.warn("discovery watcher"); // why does this run 2x on init?
-            ctrl.hasUpdated = true;
-            ctrl.service.searchQuery = "";
-        })
-        .then( ()=>{
-            ctrl.service.queryMode = false;
-            resolve();
-        })
+    $scope.$watch('service.queryMode', function( newValue, oldValue ) { // triggers gets in respons to queryMode
+        if (newValue === true){
+            console.warn("serrvice.queryMode=true, getting from searchMovies()")
+            ctrl.service.searchMovies();
+        }
+        else if (newValue === false){
+            console.warn("serrvice.queryMode=false, getting from getMovies()")
+            $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
+                console.warn("discovery watcher"); // why does this run 2x on init?
+                ctrl.hasUpdated = true;
+                ctrl.service.searchQuery = "";
+                // ctrl.service.queryMode = false;
+                // ctrl.service.getMovies();
+            },true);
+        }
     },true);
 
-    $scope.$watch('service.queryPageNumber', function( newValue, oldValue ) {
-        return $q(function(resolve, reject){
-            console.error('search/query watcher')
-            ctrl.queryHasUpdated = true;
-        })
-        .then(()=>{
-            service.searchMovies(); // should re-get on change in pageNumber
-        })
-    },true);
+    // $scope.$watch('service.queryMode', function( newValue, oldValue ) { // triggers gets in respons to queryMode
+    //     if (newValue === true){
+    //         console.warn("serrvice.queryMode=true, getting from searchMovies()")
+    //         ctrl.service.searchMovies();
+    //     }
+    //     else if (newValue === false){
+    //         console.warn("serrvice.queryMode=false, getting from getMovies()")
+    //         ctrl.service.getMovies();
+    //     }
+    // },true);
+
+    // $scope.$watchGroup(['service.pageNumber', 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
+    //     console.warn("discovery watcher"); // why does this run 2x on init?
+    //     ctrl.hasUpdated = true;
+    //     ctrl.service.searchQuery = "";
+    //     ctrl.service.queryMode = false;
+    // },true);
+
+
+    // going to try to trigger gets based on query mode
+    
 
     $interval(function(){
         if (ctrl.hasUpdated === true){ 
@@ -48,7 +58,7 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
         if (ctrl.queryHasUpdated = true){
             // console.log("pre-search")
             // console.log('queryHasUpdated: '+ctrl.queryHasUpdated)
-            // service.searchMovies();  // If I uncomment this, it will call every 2 seconds...
+            // ctrl.service.searchMovies();  // If I uncomment this, it will call every 2 seconds...
             // console.log("post-search")
             // ctrl.queryHasUpdated = false;
             // console.log('queryHasUpdated: '+ctrl.queryHasUpdated)

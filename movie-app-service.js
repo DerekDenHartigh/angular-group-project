@@ -182,8 +182,9 @@ return $q(function(resolve, reject) {
             // releaseDate: child.release_date,
             // genres: child.genre_ids, // array of genre id #s
             id: child.id,
-            starred: isWatchlisted // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is "true", if it returns false, false!==false is "false".
-          }
+            starred: isWatchlisted, // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is "true", if it returns false, false!==false is "false".
+            genres: child.genre_ids
+        }
           movies.push(movieObj);
           if ( index === (children.length - 1) ){
               service.movieList = movies;

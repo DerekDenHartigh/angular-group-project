@@ -42,7 +42,13 @@ Build Specifications
 
 Wishlist:
     scrollbars, more params (search box?)
-        can't really do the search box, query uses search branch, our app uses discover for the params
+    
+    search by movie name - in progress
+    
+    Videos:
+        https://www.themoviedb.org/talk/5451ec02c3a3680245005e3c?language=en-US
+        https://api.themoviedb.org/3/movie/157336/videos?api_key=1524464cc72ee93f90022d132d1d2e44
+        https://www.youtube.com/watch?v={{video key}} - if its youtube
 
 BugHunt:
     after searching, on routing - query mode remains activated, but the ng-repeat repopulates with discovery    titles and not query titles
