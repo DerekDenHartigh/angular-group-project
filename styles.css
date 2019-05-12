@@ -339,6 +339,13 @@ h2 {
             align-content: center;
             justify-items: center;
             align-items: center;
+
+            position: fixed;
+            bottom: 0px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: black;
+            width: 100vw;
         }
         
             #page-box-1{
