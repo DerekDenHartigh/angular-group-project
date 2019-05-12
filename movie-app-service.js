@@ -21,11 +21,14 @@ function MovieAppService($http, $q) {
     service.runTimeLessThanOrEqual = 420;
     service.vote_averageGreaterThanOrEqual = 0;
     service.vote_averageLessThanOrEqual = 10;
+    service.pageLimit = 1000;
+
 
 /* Query/search Params */
     service.queryMode = false;  // not sure if I want to implement this...
     service.searchQuery = "";
     service.queryPageNumber = 1;
+    service.queryPageLimit = 1000;
     
     service.movieList = [];
 
@@ -322,28 +325,15 @@ return $q(function(resolve, reject) {
         }
 /* pageLimit logic */
 
-    service.pageLimit = 1000;
-    // service.queryPageLimit = service.pageLimit; // so I can use queryPageLimit w/o triggering the watcher
-
     service.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
-        if (service.queryMode===false){
-            if(service.responseData.total_pages<1000){
-                service.pageLimit = service.responseData.total_pages;
-            }
-            else if(service.responseData.total_pages>=1000) {
-                service.pageLimit = 1000;
-            }
+        if(service.responseData.total_pages<1000){
+            service.pageLimit = service.responseData.total_pages;
+            service.queryPageLimit = service.responseData.total_pages;
         }
-
-        if (service.queryMode===true){
-            if(service.responseData.total_pages<1000){
-                service.queryPageLimit = service.responseData.total_pages;
-            }
-            else if(service.responseData.total_pages>=1000) {
-                service.queryPageLimit = 1000;
-            }
+        else if(service.responseData.total_pages>=1000) {
+            service.pageLimit = 1000;
+            service.queryPageLimit = 1000;
         }
-  
     };
 
 }
