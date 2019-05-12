@@ -45,7 +45,7 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
             ctrl.service.searchMovies();
             ctrl.queryHasUpdated = false;
         }
-        if(ctrl.service.searchQuery === ""){
+        if(ctrl.service.searchQuery === ""){  // this is triggering discover mode when navigating from a search more-info
             ctrl.service.queryMode = false;
         }
         if(ctrl.service.searchQuery !== ""){
