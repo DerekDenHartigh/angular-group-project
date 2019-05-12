@@ -13,8 +13,8 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
 
     $scope.$watch('service.queryMode', function( newValue, oldValue ) { // triggers gets in respons to queryMode
         if (newValue === true){
-            $scope.$watchgroup(['service.queryPageNumber', 'service.nonVariable'], function( newValue, oldValue ) {
-                console.warn("discovery watcher"); // why does this run 2x on init?
+            $scope.$watchGroup(['service.queryPageNumber'], function( newValue, oldValue ) {
+                console.warn("search watcher"); // why does this run 2x on init?
                 console.warn("service.queryMode=true, getting from searchMovies()");
                 ctrl.queryHasUpdated = true; // triggers searchMovies on interval
             },true);
@@ -32,7 +32,7 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
     // watcher just for the discover params
     $scope.$watchGroup([, 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         ctrl.hasUpdated = true;  // triggers getMovies on interval
-        ctrl.service.searchQuery = "";  // clears the searchquery for discovery mode
+        // ctrl.service.searchQuery = "";  // clears the searchquery for discovery mode
     },true);
 
 
@@ -40,6 +40,7 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
         if (ctrl.hasUpdated === true){ 
             ctrl.service.getMovies();
             ctrl.hasUpdated = false;
+            ctrl.service.queryMode = false; // toggles off queryMode, which empties string.
         }
         if (ctrl.queryHasUpdated === true){
             ctrl.service.searchMovies();
