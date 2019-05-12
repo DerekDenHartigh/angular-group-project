@@ -42,8 +42,20 @@ Build Specifications
 
 Wishlist:
     scrollbars, more params (search box?)
-        can't really do the search box, query uses search branch, our app uses discover for the params
+    
+    search by movie name - in progress
+    
+    Videos:
+        https://www.themoviedb.org/talk/5451ec02c3a3680245005e3c?language=en-US
+        https://api.themoviedb.org/3/movie/157336/videos?api_key=1524464cc72ee93f90022d132d1d2e44
+        https://www.youtube.com/watch?v={{video key}} - if its youtube
 
 BugHunt:
+    after searching, on routing - query mode remains activated, but the ng-repeat repopulates with discovery    titles and not query titles
+
+    query mode deactivates when search field is emptied, but doesn't repopulate the ng-repeat
     
-    
+
+Notes on searchBranch:
+    the watch function is overriding the search function ... will need to find a way to page through the search results w/o resetting the search results, perhaps modified pageforward/backward functions?
+    more thoughts:  use an alt pageNumber tracker for pageforward/backward functions, maybe a discover/search toggle for showing movie results?  if service.searchQuery = "", discovery: true, else discovery: false?

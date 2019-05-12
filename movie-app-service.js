@@ -11,20 +11,28 @@ function MovieAppService($http, $q) {
     service.api_key = "1524464cc72ee93f90022d132d1d2e44";
 
     service.responseData = {};
-
+/* Discover Params */
     service.pageNumber = 1;
     service.earliestReleaseDate = "";
     service.latestReleaseDate = "";
-    service.genreSelection = [];
+    service.genreSelection = [28,12,16,35,80,99,18,10751,14,36,27,10402,9648,10749,878,10770,53,10752,37];
     service.genresNotWanted = [];
     service.runTimeGreaterThanOrEqual = 0
-    service.runTimeLessThanOrEqual = 999;
+    service.runTimeLessThanOrEqual = 420;
     service.vote_averageGreaterThanOrEqual = 0;
     service.vote_averageLessThanOrEqual = 10;
+    service.pageLimit = 1000;
 
+
+/* Query/search Params */
+    service.queryMode = false;  // not sure if I want to implement this...
+    service.searchQuery = "";
+    service.queryPageNumber = 1;
+    service.queryPageLimit = 1000;
+    
     service.movieList = [];
 
-/* API interactions */
+/* Discover API interactions */
 
     service.callTheMovieDbApi = () => {
         return $q(function(resolve, reject){
@@ -73,7 +81,7 @@ service.getMovies = () => {
           let children = response.results; //Adjust for proper API return
             children.forEach( function(child, index) {
                 let isWatchlisted = ( service.isWatchlisted(child.id) !== false );
-              let movieObj = {
+                let movieObj = {
                 title: child.title,
                 poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
                 description: child.overview,  // Change permalink to appropraite return from API 
@@ -93,6 +101,68 @@ service.getMovies = () => {
         });
     });
   }
+
+
+/* Search API interactions */
+
+service.searchTheMovieDbApi = () => {
+    return $q(function(resolve, reject){
+        console.log("searchQuery:");
+        console.log(service.searchQuery);
+        $http.get('https://api.themoviedb.org/3/search/movie', {
+        params: {
+            api_key: service.api_key,
+            language: "en-US",
+            include_adult: false,
+            page: service.queryPageNumber,
+            query: service.searchQuery
+        }
+    })
+        .then( (response)=>{
+            response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
+                movie.starred = false;
+            });
+            service.responseData = response.data; // saves data to service
+            resolve(response.data);  // the return of a promise
+        })
+    }
+)
+};
+
+service.searchMovies = () => {
+return $q(function(resolve, reject) {
+    service.searchTheMovieDbApi()
+    .then ( (response) => {
+    console.log("response of searchTheMovieDbApi:");
+    console.log(response);
+    let movies=[];
+
+    service.pageLimitFunction(); // uses service.responseData to write page limit        
+      let children = response.results; //Adjust for proper API return
+        children.forEach( function(child, index) {
+            let isWatchlisted = ( service.isWatchlisted(child.id) !== false );
+            let movieObj = {
+            title: child.title,
+            poster: `https://image.tmdb.org/t/p/w185/` + child.poster_path, //Change thumbnail to appropraite return from API
+            description: child.overview,  // Change permalink to appropraite return from API 
+            backdrop: `https://image.tmdb.org/t/p/original/` + child.backdrop_path,
+            // avgVote: child.vote_average,
+            // releaseDate: child.release_date,
+            // genres: child.genre_ids, // array of genre id #s
+            id: child.id,
+            starred: isWatchlisted, // if movie ID is in the watchlistArray, it returns a number, a number !== false, so this is "true", if it returns false, false!==false is "false".
+            genres: child.genre_ids
+        }
+          movies.push(movieObj);
+          if ( index === (children.length - 1) ){
+              service.movieList = movies;
+            resolve();
+          }
+        })
+        console.warn(service.movieList);
+    });
+});
+}
 
 /* Genre Land */
     service.genreOptionArray = [];  // to populate our genre selections (check & X boxes for include/exclued)
@@ -223,13 +293,14 @@ service.getMovies = () => {
         }
 /* pageLimit logic */
 
-    service.pageLimit = 1000;
     service.pageLimitFunction = function(){  // makes pageLimit var equal to 1000 or max pages, whichever is less
         if(service.responseData.total_pages<1000){
             service.pageLimit = service.responseData.total_pages;
+            service.queryPageLimit = service.responseData.total_pages;
         }
         else if(service.responseData.total_pages>=1000) {
             service.pageLimit = 1000;
+            service.queryPageLimit = 1000;
         }
     };
 
