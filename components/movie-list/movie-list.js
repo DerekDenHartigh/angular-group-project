@@ -9,9 +9,62 @@ function MovieListController(MovieAppService, $interval) {
 
 /* page forward/back functions */
 
+    // ctrl.pageBack = function(){
+    //     console.log("pageBack() pressed")
+    //     if(ctrl.service.queryMode === false){
+    //         if (ctrl.service.pageNumber>1){
+    //         ctrl.service.pageNumber -= 1;
+    //         }
+    //         if (ctrl.service.pageNumber<=1){
+    //             console.error("1 is the lowest possible page number")
+    //         }
+    //         if(ctrl.service.pageNumber>=ctrl.service.pageLimit){
+    //             console.log(ctrl.service.pageNumber);
+    //             console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+    //         }
+    //     }
+    //     if(ctrl.service.queryMode === true){
+    //         console.log("pageBack() queryMode true")
+    //         if (ctrl.service.queryPageNumber>1){
+    //             ctrl.service.queryPageNumber -= 1;
+    //             console.log(ctrl.service.queryPageNumber)
+    //             }
+    //             if (ctrl.service.queryPageNumber<=1){
+    //                 console.error("1 is the lowest possible page number")
+    //             }
+    //             if(ctrl.service.queryPageNumber>=ctrl.service.queryPageLimit){
+    //                 console.log(ctrl.service.queryPageNumber);
+    //                 console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+    //             }
+    //     }
+    // };
+
+    // ctrl.pageForward = function(){
+    //     console.log("pageForward() pressed");
+    //     if(ctrl.service.queryMode === false){
+    //         console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.pageNumber: ${ctrl.service.pageNumber}\nctrl.service.pageLimit${ctrl.service.pageLimit}`);
+    //         if(ctrl.service.pageNumber<ctrl.service.pageLimit){
+    //             ctrl.service.pageNumber += 1;
+    //         }
+    //         else if(ctrl.service.pageNumber>=ctrl.service.pageLimit){
+    //             console.error("There aren't that many available pages!")
+    //         }
+    //     }
+    //     if (ctrl.service.queryMode === true){
+    //         console.log("pageForward() queryMode true");
+    //         console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.queryPageNumber: ${ctrl.service.queryPageNumber}\nctrl.service.pageLimit${ctrl.service.queryPageLimit}`);
+    //         if(ctrl.service.queryPageNumber<ctrl.service.queryPageLimit){
+    //             ctrl.service.queryPageNumber += 1;
+    //         }
+    //         else if(ctrl.service.queryPageNumber>=ctrl.service.queryPageLimit){
+    //             console.error("There aren't that many available pages!")
+    //         }
+    //     }
+    // }
+
+/* discovery page functions */
     ctrl.pageBack = function(){
         console.log("pageBack() pressed")
-        if(ctrl.service.queryMode === false){
             if (ctrl.service.pageNumber>1){
             ctrl.service.pageNumber -= 1;
             }
@@ -22,26 +75,10 @@ function MovieListController(MovieAppService, $interval) {
                 console.log(ctrl.service.pageNumber);
                 console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
             }
-        }
-        if(ctrl.service.queryMode === true){
-            console.log("pageBack() queryMode true")
-            if (ctrl.service.queryPageNumber>1){
-                ctrl.service.queryPageNumber -= 1;
-                console.log(ctrl.service.queryPageNumber)
-                }
-                if (ctrl.service.queryPageNumber<=1){
-                    console.error("1 is the lowest possible page number")
-                }
-                if(ctrl.service.queryPageNumber>=ctrl.service.queryPageLimit){
-                    console.log(ctrl.service.queryPageNumber);
-                    console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
-                }
-        }
     };
 
     ctrl.pageForward = function(){
         console.log("pageForward() pressed");
-        if(ctrl.service.queryMode === false){
             console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.pageNumber: ${ctrl.service.pageNumber}\nctrl.service.pageLimit${ctrl.service.pageLimit}`);
             if(ctrl.service.pageNumber<ctrl.service.pageLimit){
                 ctrl.service.pageNumber += 1;
@@ -49,18 +86,38 @@ function MovieListController(MovieAppService, $interval) {
             else if(ctrl.service.pageNumber>=ctrl.service.pageLimit){
                 console.error("There aren't that many available pages!")
             }
-        }
-        if (ctrl.service.queryMode === true){
-            console.log("pageForward() queryMode true");
-            console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.queryPageNumber: ${ctrl.service.queryPageNumber}\nctrl.service.pageLimit${ctrl.service.queryPageLimit}`);
-            if(ctrl.service.queryPageNumber<ctrl.service.queryPageLimit){
-                ctrl.service.queryPageNumber += 1;
-            }
-            else if(ctrl.service.queryPageNumber>=ctrl.service.queryPageLimit){
-                console.error("There aren't that many available pages!")
-            }
-        }
     }
+
+/* search page functions */
+
+ctrl.searchPageBack = function(){
+    console.log("searchPageBack() pressed")
+        if (ctrl.service.queryPageNumber>1){
+        ctrl.service.queryPageNumber -= 1;
+        console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.queryPageNumber: ${ctrl.service.queryPageNumber}\nctrl.service.pageLimit${ctrl.service.pageLimit}`);
+        ctrl.service.searchMovies(); // because I can't get the watcher to trigger on queryPageNumber change    
+    }
+        if (ctrl.service.queryPageNumber<=1){
+            console.error("1 is the lowest possible page number")
+        }
+        if(ctrl.service.queryPageNumber>=ctrl.service.pageLimit){
+            console.log(ctrl.service.queryPageNumber);
+            console.error("There aren't that many pages! You might want to enter a lower value in the page search.")
+        }
+};
+
+ctrl.searchPageForward = function(){
+    console.log("searchPageForward() pressed");
+        // console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.queryPageNumber: ${ctrl.service.queryPageNumber}\nctrl.service.pageLimit${ctrl.service.pageLimit}`);
+        if(ctrl.service.queryPageNumber<ctrl.service.pageLimit){
+            ctrl.service.queryPageNumber += 1;
+            console.log(`ctrl.service.queryMode: ${ctrl.service.queryMode}\nctrl.service.queryPageNumber: ${ctrl.service.queryPageNumber}\nctrl.service.pageLimit${ctrl.service.pageLimit}`);
+            ctrl.service.searchMovies(); // because I can't get the watcher to trigger on queryPageNumber change    
+        }
+        else if(ctrl.service.queryPageNumber>=ctrl.service.pageLimit){
+            console.error("There aren't that many available pages!")
+        }
+}
 
 /* watchlist button - moved logic to service for use by watch-list component*/
 
@@ -132,9 +189,9 @@ angular
 
         </div>
         <div id="page-box-2">
-            <i class="material-icons arrows" ng-click="$ctrl.pageBack()">arrow_back</i>
+            <i class="material-icons arrows" ng-click="$ctrl.searchPageBack()">arrow_back</i>
             <input id="page-selection-input" type="number" min="1" max="{{$ctrl.service.responseData.total_pages}}" step="1" ng-value="$ctrl.service.queryPageNumber" ng-model="$ctrl.service.queryPageNumber" ng-model-options='{ debounce: 200 }' ng-change='$ctrl.service.searchMovies()'>
-            <i class="material-icons arrows" ng-click="$ctrl.pageForward()">arrow_forward</i>
+            <i class="material-icons arrows" ng-click="$ctrl.searchPageForward()">arrow_forward</i>
         </div>
     </div>
         `,

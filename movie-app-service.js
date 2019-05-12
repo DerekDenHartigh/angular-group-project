@@ -26,9 +26,6 @@ function MovieAppService($http, $q) {
     service.queryMode = false;  // not sure if I want to implement this...
     service.searchQuery = "";
     service.queryPageNumber = 1;
-
-
-
     
     service.movieList = [];
 
