@@ -7,7 +7,6 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
 /* a watcher for all the params to refresh the page on change */
 
     ctrl.hasUpdated = false;
-    // ctrl.queryHasUpdated = false;
 
     $scope.service = MovieAppService;
 
@@ -32,7 +31,6 @@ function SearchController(MovieAppService, $scope, $interval, $q) {
     // watcher just for the discover params
     $scope.$watchGroup([, 'service.vote_averageGreaterThanOrEqual', 'service.earliestReleaseDate', 'service.latestReleaseDate','service.genreSelectionArray', 'service.genresNotWanted', 'service.runTimeGreaterThanOrEqual', 'service.runTimeLessThanOrEqual', 'service.ote_averageGreaterThanOrEqual', 'service.vote_averageLessThanOrEqual'], function( newValue, oldValue ) {
         ctrl.hasUpdated = true;  // triggers getMovies on interval
-        // ctrl.service.searchQuery = "";  // clears the searchquery for discovery mode
     },true);
 
 

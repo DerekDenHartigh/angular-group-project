@@ -73,8 +73,8 @@ service.getMovies = () => {
 
     service.callTheMovieDbApi()
       .then ( (response) => {
-        // console.log("response of callTheMovieDbApi:");
-        // console.log(response);
+        console.log("response of callTheMovieDbApi:");
+        console.log(response);
         let movies=[];
 
         service.pageLimitFunction() // uses service.responseData to write page limit        
@@ -105,22 +105,6 @@ service.getMovies = () => {
 
 /* Search API interactions */
 
-// service.searchTheMovieDbApi = () => {
-//     return $q(function(resolve, reject){
-        // console.log("searchQuery:");
-        // console.log(service.searchQuery);
-//         $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.queryPageNumber}`)
-//         .then( (response)=>{
-//             response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
-//                 movie.starred = false;
-//             });
-//             service.responseData = response.data; // saves data to service
-//             resolve(response.data);  // the return of a promise
-//         })
-//     }
-// )
-// };
-
 service.searchTheMovieDbApi = () => {
     return $q(function(resolve, reject){
         console.log("searchQuery:");
@@ -144,22 +128,6 @@ service.searchTheMovieDbApi = () => {
     }
 )
 };
-
-// service.searchTheMovieDbApi = () => {
-//     return $q(function(resolve, reject){
-//         console.log("searchQuery:");
-//         console.log(service.searchQuery);
-//         $http.get(`https://api.themoviedb.org/3/search/movie?api_key=${service.api_key}&query=${service.searchQuery}&page=${service.queryPageNumber}`)
-//         .then( (response)=>{
-//             response.data.results.forEach((movie)=>{ // this is to add starred boolean for watchlist usage
-//                 movie.starred = false;
-//             });
-//             service.responseData = response.data; // saves data to service
-//             resolve(response.data);  // the return of a promise
-//         })
-//     }
-// )
-// };
 
 service.searchMovies = () => {
 return $q(function(resolve, reject) {
