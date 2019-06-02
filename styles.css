@@ -295,6 +295,7 @@ h2 {
         align-items: flex-start;
         justify-content: center;
         justify-items: center;
+        margin-bottom: 40px;
     }
 
         .movie-post{
